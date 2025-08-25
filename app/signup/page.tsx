@@ -90,7 +90,7 @@ export default function SignupPage() {
             <div className="space-y-3">
               <Button
                 variant="outline"
-                className="w-full glass-card bg-transparent hover:glow-primary"
+                className="w-full bg-slate-700/50 border-slate-600 hover:bg-slate-600/50 text-white transition-all"
                 onClick={() => handleSocialSignup("github")}
                 disabled={isLoading}
               >
@@ -99,7 +99,7 @@ export default function SignupPage() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full glass-card bg-transparent hover:glow-primary"
+                className="w-full bg-slate-700/50 border-slate-600 hover:bg-slate-600/50 text-white transition-all"
                 onClick={() => handleSocialSignup("google")}
                 disabled={isLoading}
               >
@@ -125,7 +125,7 @@ export default function SignupPage() {
                   placeholder="John Developer"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="glass-card bg-input/50 border-border/50 focus:glow-secondary"
+                  className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 transition-all"
                   required
                 />
               </div>
@@ -137,7 +137,7 @@ export default function SignupPage() {
                   placeholder="developer@example.com"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  className="glass-card bg-input/50 border-border/50 focus:glow-secondary"
+                  className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 transition-all"
                   required
                 />
               </div>
@@ -150,7 +150,7 @@ export default function SignupPage() {
                     placeholder="Create a strong password"
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
-                    className="glass-card bg-input/50 border-border/50 focus:glow-secondary pr-10"
+                    className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 pr-10 transition-all"
                     required
                   />
                   <Button
@@ -173,7 +173,7 @@ export default function SignupPage() {
                     placeholder="Confirm your password"
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                    className="glass-card bg-input/50 border-border/50 focus:glow-secondary pr-10"
+                    className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 pr-10 transition-all"
                     required
                   />
                   <Button

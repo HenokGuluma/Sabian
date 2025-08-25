@@ -31,13 +31,13 @@ export default function LandingPage() {
             <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Sabian</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium">
+            <a href="#features" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium scroll-smooth">
               Features
             </a>
-            <a href="#pricing" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium">
+            <a href="#pricing" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium scroll-smooth">
               Pricing
             </a>
-            <a href="#docs" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium">
+            <a href="#docs" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium scroll-smooth">
               Docs
             </a>
             <Button variant="ghost" className="text-slate-200 hover:text-white btn-gaming font-medium" asChild>
@@ -387,6 +387,275 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 px-4 bg-slate-800/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white drop-shadow-lg">
+              Simple{" "}
+              <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Pricing</span>
+            </h2>
+            <p className="text-xl text-slate-200 max-w-3xl mx-auto font-body">
+              Choose the plan that fits your game's needs. Start free and scale as you grow.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Starter Plan */}
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-slate-600 transition-all duration-300 relative">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl font-heading text-white mb-2">Starter</CardTitle>
+                <div className="text-4xl font-bold font-heading text-white mb-4">
+                  Free
+                </div>
+                <CardDescription className="text-slate-300 font-body">
+                  Perfect for prototyping and small indie games
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Up to 1,000 monthly active users
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Basic analytics dashboard
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    1 game server region
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Community support
+                  </li>
+                </ul>
+                <Button className="w-full bg-slate-700 hover:bg-slate-600 text-white" asChild>
+                  <Link href="/signup">Get Started Free</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Pro Plan */}
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-pink-500/50 hover:border-pink-500 transition-all duration-300 relative animate-glow-pulse">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <Badge className="bg-gradient-to-r from-pink-500 to-cyan-400 text-white px-4 py-1">
+                  Most Popular
+                </Badge>
+              </div>
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl font-heading text-white mb-2">Pro</CardTitle>
+                <div className="text-4xl font-bold font-heading text-white mb-4">
+                  $49<span className="text-lg text-slate-400">/month</span>
+                </div>
+                <CardDescription className="text-slate-300 font-body">
+                  For growing games with serious players
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                    Up to 50,000 monthly active users
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                    Advanced analytics & insights
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                    Global server regions
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                    Priority support
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                    Advanced anti-cheat
+                  </li>
+                </ul>
+                <Button className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white" asChild>
+                  <Link href="/signup">Start Pro Trial</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Enterprise Plan */}
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-slate-600 transition-all duration-300 relative">
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl font-heading text-white mb-2">Enterprise</CardTitle>
+                <div className="text-4xl font-bold font-heading text-white mb-4">
+                  Custom
+                </div>
+                <CardDescription className="text-slate-300 font-body">
+                  For large studios and AAA mobile games
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-3 text-sm">
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Unlimited monthly active users
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Custom analytics & reporting
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Dedicated infrastructure
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    24/7 dedicated support
+                  </li>
+                  <li className="flex items-center text-slate-300">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mr-3"></div>
+                    Custom integrations
+                  </li>
+                </ul>
+                <Button variant="outline" className="w-full border-slate-600 text-white hover:bg-slate-700/50 bg-transparent" asChild>
+                  <Link href="/contact">Contact Sales</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Docs Section */}
+      <section id="docs" className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white drop-shadow-lg">
+              Developer{" "}
+              <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Docs</span>
+            </h2>
+            <p className="text-xl text-slate-200 max-w-3xl mx-auto font-body">
+              Everything you need to integrate Sabian into your mobile game
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-pink-500/50 transition-all duration-300 group">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-all">
+                  <Rocket className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="font-heading text-white">Quick Start</CardTitle>
+                <CardDescription className="text-slate-300 font-body">
+                  Get up and running with Sabian in under 5 minutes
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li>• Installation & setup</li>
+                  <li>• Authentication flow</li>
+                  <li>• First API calls</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-cyan-400/50 transition-all duration-300 group">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-pink-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-all">
+                  <Server className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="font-heading text-white">API Reference</CardTitle>
+                <CardDescription className="text-slate-300 font-body">
+                  Complete API documentation with examples
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li>• REST API endpoints</li>
+                  <li>• WebSocket events</li>
+                  <li>• Error handling</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-pink-500/50 transition-all duration-300 group">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-all">
+                  <Gamepad2 className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="font-heading text-white">Unity SDK</CardTitle>
+                <CardDescription className="text-slate-300 font-body">
+                  Native Unity integration for seamless development
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li>• Unity package manager</li>
+                  <li>• C# code examples</li>
+                  <li>• Scene integration</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-cyan-400/50 transition-all duration-300 group">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-pink-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-all">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="font-heading text-white">Player Management</CardTitle>
+                <CardDescription className="text-slate-300 font-body">
+                  Handle authentication, profiles, and progression
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li>• User authentication</li>
+                  <li>• Profile management</li>
+                  <li>• Progress tracking</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-pink-500/50 transition-all duration-300 group">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-all">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="font-heading text-white">Security Guide</CardTitle>
+                <CardDescription className="text-slate-300 font-body">
+                  Best practices for securing your game
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li>• API key management</li>
+                  <li>• Anti-cheat setup</li>
+                  <li>• Data protection</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700 hover:border-cyan-400/50 transition-all duration-300 group">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-pink-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-all">
+                  <BarChart3 className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="font-heading text-white">Analytics Setup</CardTitle>
+                <CardDescription className="text-slate-300 font-body">
+                  Track player behavior and game performance
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-slate-300">
+                  <li>• Event tracking</li>
+                  <li>• Custom metrics</li>
+                  <li>• Dashboard setup</li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

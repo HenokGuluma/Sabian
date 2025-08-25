@@ -78,7 +78,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 export default function ConsolePage() {
   const router = useRouter()
-  const [selectedProject, setSelectedProject] = useState("pixel-warriors")
+  const [selectedProject, setSelectedProject] = useState("bankeru-games")
   const [activeSection, setActiveSection] = useState("overview")
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date(2024, 0, 20),
@@ -91,28 +91,12 @@ export default function ConsolePage() {
 
   const projects = [
     {
-      id: "pixel-warriors",
-      name: "Pixel Warriors",
+      id: "bankeru-games",
+      name: "Bankeru Games",
       status: "live",
       players: "12.5K",
       revenue: "$8,420",
       uptime: "99.9%",
-    },
-    {
-      id: "space-raiders",
-      name: "Space Raiders",
-      status: "development",
-      players: "0",
-      revenue: "$0",
-      uptime: "100%",
-    },
-    {
-      id: "magic-quest",
-      name: "Magic Quest",
-      status: "beta",
-      players: "2.1K",
-      revenue: "$1,250",
-      uptime: "98.5%",
     },
   ]
 
@@ -200,6 +184,56 @@ export default function ConsolePage() {
     { item: "Gems", total: 125000, distributed: 89000, purchased: 78000 },
     { item: "Energy Potions", total: 45000, distributed: 32000, purchased: 12000 },
     { item: "Legendary Sword", total: 1200, distributed: 890, purchased: 890 },
+  ]
+
+  const databaseCollections = [
+    {
+      name: "users",
+      documents: 45231,
+      size: "128.5 MB",
+      reads: "2.1M",
+      writes: "456K",
+      lastActivity: "2 min ago"
+    },
+    {
+      name: "player_stats", 
+      documents: 45231,
+      size: "89.2 MB",
+      reads: "1.8M",
+      writes: "324K", 
+      lastActivity: "1 min ago"
+    },
+    {
+      name: "game_sessions",
+      documents: 128450,
+      size: "256.8 MB", 
+      reads: "5.2M",
+      writes: "1.2M",
+      lastActivity: "30 sec ago"
+    },
+    {
+      name: "leaderboards",
+      documents: 1250,
+      size: "12.4 MB",
+      reads: "890K", 
+      writes: "45K",
+      lastActivity: "3 min ago"
+    },
+    {
+      name: "items_inventory",
+      documents: 234560,
+      size: "445.2 MB",
+      reads: "3.4M",
+      writes: "789K", 
+      lastActivity: "1 min ago"
+    }
+  ]
+
+  const realtimeConnections = [
+    { region: "US East", connections: 4250, latency: "12ms" },
+    { region: "EU West", connections: 3890, latency: "8ms" }, 
+    { region: "Asia Pacific", connections: 2100, latency: "45ms" },
+    { region: "US West", connections: 1960, latency: "15ms" }
   ]
 
   return (
@@ -393,6 +427,18 @@ export default function ConsolePage() {
               <Button
                 variant="ghost"
                 className={`w-full justify-start ${
+                  activeSection === "database"
+                    ? "text-white bg-slate-700/50 border-l-2 border-pink-500"
+                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
+                }`}
+                onClick={() => setActiveSection("database")}
+              >
+                <Server className="w-4 h-4 mr-3" />
+                Realtime Database
+              </Button>
+              <Button
+                variant="ghost"
+                className={`w-full justify-start ${
                   activeSection === "settings"
                     ? "text-white bg-slate-700/50 border-l-2 border-pink-500"
                     : "text-slate-300 hover:text-white hover:bg-slate-700/50"
@@ -412,7 +458,7 @@ export default function ConsolePage() {
             <>
               <div className="mb-8">
                 <h1 className="text-3xl font-bold font-heading mb-2 text-white">
-                  {projects.find((p) => p.id === selectedProject)?.name} Dashboard
+                  Bankeru Games Dashboard
                 </h1>
                 <p className="text-slate-400">Monitor your game's performance and manage backend services</p>
               </div>
@@ -1481,6 +1527,194 @@ export default function ConsolePage() {
             </>
           )}
 
+          {activeSection === "database" && (
+            <>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
+                <div>
+                  <h1 className="text-3xl font-bold font-heading text-white">Realtime Database</h1>
+                  <p className="text-slate-400">Monitor and manage your game's data collections</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" className="bg-slate-800/50 border-slate-600 text-white">
+                    <Download className="w-4 h-4 mr-2" />
+                    Export Data
+                  </Button>
+                  <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                    <Plus className="w-4 h-4 mr-2" />
+                    New Collection
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-white">Total Documents</CardTitle>
+                    <Server className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">454,722</div>
+                    <p className="text-xs text-green-400">+12% this month</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-white">Database Size</CardTitle>
+                    <Activity className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">932.1 MB</div>
+                    <p className="text-xs text-slate-400">75% of quota</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-white">Read Operations</CardTitle>
+                    <Eye className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">13.4M</div>
+                    <p className="text-xs text-green-400">Last 30 days</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-white">Write Operations</CardTitle>
+                    <Settings className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">2.8M</div>
+                    <p className="text-xs text-slate-400">Last 30 days</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader>
+                    <CardTitle className="text-white">Collections Overview</CardTitle>
+                    <CardDescription className="text-slate-400">Data collections in your database</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {databaseCollections.map((collection, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center">
+                              <Server className="w-6 h-6 text-white" />
+                            </div>
+                            <div>
+                              <h3 className="font-medium text-white">{collection.name}</h3>
+                              <p className="text-sm text-slate-400">{collection.documents.toLocaleString()} documents • {collection.size}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-6 text-sm">
+                            <div className="text-center">
+                              <p className="text-white font-medium">{collection.reads}</p>
+                              <p className="text-slate-400">Reads</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="text-white font-medium">{collection.writes}</p>
+                              <p className="text-slate-400">Writes</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="text-white font-medium">{collection.lastActivity}</p>
+                              <p className="text-slate-400">Last Activity</p>
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-slate-600 text-slate-300 bg-transparent"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader>
+                    <CardTitle className="text-white">Realtime Connections</CardTitle>
+                    <CardDescription className="text-slate-400">Active websocket connections by region</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {realtimeConnections.map((connection, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <div>
+                              <h3 className="font-medium text-white">{connection.region}</h3>
+                              <p className="text-sm text-slate-400">Latency: {connection.latency}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-white font-medium">{connection.connections.toLocaleString()}</p>
+                            <p className="text-slate-400 text-sm">connections</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-6 p-4 bg-slate-700/20 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-white font-medium">Total Active Connections</span>
+                        <span className="text-white font-bold">12,200</span>
+                      </div>
+                      <div className="text-sm text-slate-400">
+                        Peak today: 18,420 connections
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="bg-slate-800/50 border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-white">Database Activity</CardTitle>
+                  <CardDescription className="text-slate-400">Real-time database operations</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={playerActivityData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <XAxis dataKey="time" stroke="#9ca3af" />
+                      <YAxis yAxisId="left" stroke="#9ca3af" />
+                      <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "#1e293b",
+                          border: "1px solid #475569",
+                          borderRadius: "8px",
+                          color: "#ffffff",
+                        }}
+                      />
+                      <Legend />
+                      <Line
+                        yAxisId="left"
+                        type="monotone"
+                        dataKey="players"
+                        stroke="#00bcd4"
+                        strokeWidth={3}
+                        name="Read Operations (K)"
+                      />
+                      <Line
+                        yAxisId="right"
+                        type="monotone"
+                        dataKey="sessions"
+                        stroke="#ff007f"
+                        strokeWidth={3}
+                        name="Write Operations"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </>
+          )}
+
           {activeSection === "settings" && (
             <>
               <div className="mb-8">
@@ -1501,7 +1735,7 @@ export default function ConsolePage() {
                       </Label>
                       <Input
                         id="project-name"
-                        defaultValue="Pixel Warriors"
+                        defaultValue="Bankeru Games"
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
                     </div>
@@ -1511,7 +1745,7 @@ export default function ConsolePage() {
                       </Label>
                       <Textarea
                         id="project-description"
-                        defaultValue="An epic pixel art adventure game"
+                        defaultValue="Mobile gaming platform with real-time multiplayer features"
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
                     </div>

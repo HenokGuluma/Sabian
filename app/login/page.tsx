@@ -74,7 +74,7 @@ export default function LoginPage() {
             <div className="space-y-3">
               <Button
                 variant="outline"
-                className="w-full glass-card bg-transparent hover:glow-secondary btn-gaming"
+                className="w-full bg-slate-700/50 border-slate-600 hover:bg-slate-600/50 text-white transition-all"
                 onClick={() => handleSocialLogin("github")}
                 disabled={isLoading}
               >
@@ -83,7 +83,7 @@ export default function LoginPage() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full glass-card bg-transparent hover:glow-secondary btn-gaming"
+                className="w-full bg-slate-700/50 border-slate-600 hover:bg-slate-600/50 text-white transition-all"
                 onClick={() => handleSocialLogin("google")}
                 disabled={isLoading}
               >
