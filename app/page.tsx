@@ -98,7 +98,7 @@ export default function LandingPage() {
             <div className="relative order-1 lg:order-2">
               <div className="relative z-10">
                 <Image
-                  src="/attached_assets/36713-Photoroom_1756127615045.png"
+                  src="/36713-Photoroom_1756127615045.png"
                   alt="Happy gamers enjoying competitive mobile gaming together"
                   width={500}
                   height={350}
@@ -344,7 +344,7 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="relative">
               <Image
-                src="/attached_assets/38246_1756127615046.jpg"
+                src="/38246_1756127615046.jpg"
                 alt="Focused gamer experiencing immersive gameplay on mobile device"
                 width={500}
                 height={350}
