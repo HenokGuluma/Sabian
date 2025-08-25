@@ -8,6 +8,8 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    remotePatterns: [],
+    formats: ['image/webp', 'image/avif'],
   },
 }
 

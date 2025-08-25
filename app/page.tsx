@@ -69,7 +69,7 @@ export default function LandingPage() {
                 <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Gaming</span>{" "}
                 Backend
               </h1>
-              <p className="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl leading-relaxed animate-slide-up">
+              <p className="text-xl md:text-2xl text-slate-200 mb-8 max-w-3xl leading-relaxed animate-slide-up font-body">
                 The most powerful backend-as-a-service platform designed specifically for mobile game developers. Build,
                 scale, and monetize your games with dedicated gaming infrastructure that outperforms generic solutions.
               </p>
@@ -126,7 +126,7 @@ export default function LandingPage() {
               Why Choose{" "}
               <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Sabian</span>?
             </h2>
-            <p className="text-xl text-slate-200 max-w-3xl mx-auto">
+            <p className="text-xl text-slate-200 max-w-3xl mx-auto font-body">
               Generic backend solutions weren't built for games. We created Sabian specifically to solve the unique
               challenges that keep game developers up at night.
             </p>
@@ -139,7 +139,7 @@ export default function LandingPage() {
                   <Trophy className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="font-heading text-white">Game-First Design</CardTitle>
-                <CardDescription className="text-slate-300">
+                <CardDescription className="text-slate-300 font-body">
                   Every feature is built with gaming use cases in mind, not retrofitted from generic app solutions.
                 </CardDescription>
               </CardHeader>
@@ -151,7 +151,7 @@ export default function LandingPage() {
                   <Target className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="font-heading text-white">Ultra-Low Latency</CardTitle>
-                <CardDescription className="text-slate-300">
+                <CardDescription className="text-slate-300 font-body">
                   Dedicated game servers and edge computing ensure your players get the responsiveness they demand.
                 </CardDescription>
               </CardHeader>
@@ -163,7 +163,7 @@ export default function LandingPage() {
                   <Rocket className="w-8 h-8 text-white" />
                 </div>
                 <CardTitle className="font-heading text-white">Faster Development</CardTitle>
-                <CardDescription className="text-slate-300">
+                <CardDescription className="text-slate-300 font-body">
                   Pre-built gaming features mean you spend time on gameplay, not rebuilding the same backend systems.
                 </CardDescription>
               </CardHeader>
@@ -207,7 +207,7 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white drop-shadow-lg">
               Everything Games Need
             </h2>
-            <p className="text-xl text-slate-200 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-200 max-w-2xl mx-auto font-body">
               Purpose-built features that address the unique challenges of game development
             </p>
           </div>
