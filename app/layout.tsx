@@ -1,19 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Poppins, Inter } from "next/font/google"
+import { Space_Grotesk, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 
-const poppins = Poppins({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-poppins",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-space-grotesk",
+  weight: ["300", "400", "500", "600", "700"],
 })
 
-const inter = Inter({
+const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-jetbrains-mono",
 })
 
 export const metadata: Metadata = {
@@ -28,13 +28,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
       <head>
         <style>{`
 html {
-  font-family: ${inter.style.fontFamily};
-  --font-sans: ${inter.variable};
-  --font-heading: ${poppins.variable};
+  font-family: ${jetBrainsMono.style.fontFamily};
+  --font-sans: ${jetBrainsMono.variable};
+  --font-heading: ${spaceGrotesk.variable};
 }
         `}</style>
       </head>

@@ -115,7 +115,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
   /* Added gaming-specific design tokens */
   --font-heading: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-body: "Space Grotesk", system-ui, sans-serif;
 }
 
 @layer base {

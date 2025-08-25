@@ -96,14 +96,14 @@ export default function LandingPage() {
             <div className="relative">
               <div className="relative z-10">
                 <img
-                  src="/excited-mobile-gamers-playing-competitive-games-on.png"
-                  alt="Excited mobile gamers enjoying competitive gaming with vibrant RGB setup"
+                  src="/excited-gamers-mobile.png"
+                  alt="Happy gamers enjoying competitive mobile gaming together"
                   className="rounded-2xl shadow-2xl animate-float-delayed"
                 />
                 <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-4">
-                  <p className="text-white font-semibold text-lg">Join millions of gamers worldwide</p>
+                  <p className="text-white font-semibold text-lg">Connect players globally</p>
                   <p className="text-slate-300 text-sm">
-                    Experience the future of mobile gaming with Sabian's powerful backend
+                    Build games that bring people together with Sabian's social gaming features
                   </p>
                 </div>
               </div>
@@ -338,15 +338,15 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <img
-                src="/professional-gaming-setup-with-multiple-monitors-s.png"
-                alt="Professional gaming development environment with advanced analytics dashboard"
+                src="/focused-gamer-couch.png"
+                alt="Focused gamer experiencing immersive gameplay on mobile device"
                 className="rounded-2xl shadow-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent rounded-2xl"></div>
               <div className="absolute bottom-6 left-6 right-6">
-                <h4 className="text-white font-bold text-xl mb-2">Real-time Game Analytics</h4>
+                <h4 className="text-white font-bold text-xl mb-2">Seamless Player Experience</h4>
                 <p className="text-slate-300 text-sm">
-                  Monitor player behavior, server performance, and revenue metrics in real-time
+                  Create engaging mobile games with ultra-low latency and smooth gameplay
                 </p>
               </div>
             </div>
