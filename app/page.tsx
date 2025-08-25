@@ -59,8 +59,8 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left animate-slide-up">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="text-center lg:text-left animate-slide-up order-2 lg:order-1">
               <Badge className="mb-6 bg-gradient-to-r from-pink-500/20 to-cyan-400/20 text-white border-pink-500/30 animate-bounce-subtle">
                 <Sparkles className="w-4 h-4 mr-2" />
                 Built for Game Developers
@@ -95,20 +95,20 @@ export default function LandingPage() {
                 </Button>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative order-1 lg:order-2">
               <div className="relative z-10">
                 <Image
-                  src="/excited-gamers-mobile.png"
+                  src="/attached_assets/36713-Photoroom_1756127615045.png"
                   alt="Happy gamers enjoying competitive mobile gaming together"
-                  width={600}
-                  height={400}
-                  className="rounded-2xl shadow-2xl animate-float-delayed"
+                  width={500}
+                  height={350}
+                  className="rounded-2xl shadow-2xl animate-float-delayed w-full max-w-lg mx-auto"
                   priority
                   unoptimized
                 />
-                <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-4">
-                  <p className="text-white font-semibold text-lg">Connect players globally</p>
-                  <p className="text-slate-300 text-sm">
+                <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-3">
+                  <p className="text-white font-semibold text-base">Connect players globally</p>
+                  <p className="text-slate-300 text-xs">
                     Build games that bring people together with Sabian's social gaming features
                   </p>
                 </div>
@@ -341,20 +341,20 @@ export default function LandingPage() {
       {/* Gaming Showcase */}
       <section className="py-20 px-4 bg-slate-800/50">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="relative">
               <Image
-                src="/focused-gamer-couch.png"
+                src="/attached_assets/38246_1756127615046.jpg"
                 alt="Focused gamer experiencing immersive gameplay on mobile device"
-                width={600}
-                height={400}
-                className="rounded-2xl shadow-2xl"
+                width={500}
+                height={350}
+                className="rounded-2xl shadow-2xl w-full max-w-lg mx-auto"
                 unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent rounded-2xl"></div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <h4 className="text-white font-bold text-xl mb-2">Seamless Player Experience</h4>
-                <p className="text-slate-300 text-sm">
+              <div className="absolute bottom-4 left-4 right-4">
+                <h4 className="text-white font-bold text-lg mb-1">Seamless Player Experience</h4>
+                <p className="text-slate-300 text-xs">
                   Create engaging mobile games with ultra-low latency and smooth gameplay
                 </p>
               </div>
