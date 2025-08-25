@@ -1,3 +1,4 @@
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -103,6 +104,7 @@ export default function LandingPage() {
                   height={400}
                   className="rounded-2xl shadow-2xl animate-float-delayed"
                   priority
+                  unoptimized
                 />
                 <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-4">
                   <p className="text-white font-semibold text-lg">Connect players globally</p>
@@ -347,6 +349,7 @@ export default function LandingPage() {
                 width={600}
                 height={400}
                 className="rounded-2xl shadow-2xl"
+                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent rounded-2xl"></div>
               <div className="absolute bottom-6 left-6 right-6">
@@ -360,7 +363,7 @@ export default function LandingPage() {
               <h3 className="text-3xl md:text-4xl font-bold font-heading mb-6 text-white drop-shadow-lg">
                 Built by Gamers, for Gamers
               </h3>
-              <p className="text-lg text-slate-200 mb-6 leading-relaxed">
+              <p className="text-lg text-slate-200 mb-6 leading-relaxed font-body">
                 Our team consists of veteran game developers who understand the unique challenges of building successful
                 mobile games. We've experienced the pain points of using generic backend solutions and built Sabian to
                 solve them.
@@ -368,19 +371,19 @@ export default function LandingPage() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                  <span className="text-slate-200">Real-time multiplayer that actually works</span>
+                  <span className="text-slate-200 font-body">Real-time multiplayer that actually works</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                  <span className="text-slate-200">Analytics that matter for game design</span>
+                  <span className="text-slate-200 font-body">Analytics that matter for game design</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                  <span className="text-slate-200">Security that prevents cheating</span>
+                  <span className="text-slate-200 font-body">Security that prevents cheating</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                  <span className="text-slate-200">Economy systems that scale</span>
+                  <span className="text-slate-200 font-body">Economy systems that scale</span>
                 </div>
               </div>
             </div>
@@ -396,7 +399,7 @@ export default function LandingPage() {
               <CardTitle className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white drop-shadow-lg">
                 Ready to Level Up?
               </CardTitle>
-              <CardDescription className="text-xl max-w-2xl mx-auto text-slate-200">
+              <CardDescription className="text-xl max-w-2xl mx-auto text-slate-200 font-body">
                 Join thousands of game developers who trust Sabian to power their mobile games. Start building your next
                 hit game today with our free tier.
               </CardDescription>
@@ -438,16 +441,16 @@ export default function LandingPage() {
               <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Sabian</span>
             </Link>
             <div className="flex items-center space-x-6 text-sm text-slate-300">
-              <a href="#" className="hover:text-white transition-all hover:text-glow">
+              <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
                 Privacy
               </a>
-              <a href="#" className="hover:text-white transition-all hover:text-glow">
+              <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
                 Terms
               </a>
-              <a href="#" className="hover:text-white transition-all hover:text-glow">
+              <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
                 Support
               </a>
-              <span>© 2024 Sabian. All rights reserved.</span>
+              <span className="font-body">© 2024 Sabian. All rights reserved.</span>
             </div>
           </div>
         </div>
