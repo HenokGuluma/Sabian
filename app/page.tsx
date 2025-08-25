@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -58,7 +59,7 @@ export default function LandingPage() {
       <section className="pt-32 pb-20 px-4">
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left animate-slide-up">
               <Badge className="mb-6 bg-gradient-to-r from-pink-500/20 to-cyan-400/20 text-white border-pink-500/30 animate-bounce-subtle">
                 <Sparkles className="w-4 h-4 mr-2" />
                 Built for Game Developers
@@ -95,10 +96,13 @@ export default function LandingPage() {
             </div>
             <div className="relative">
               <div className="relative z-10">
-                <img
+                <Image
                   src="/excited-gamers-mobile.png"
                   alt="Happy gamers enjoying competitive mobile gaming together"
+                  width={600}
+                  height={400}
                   className="rounded-2xl shadow-2xl animate-float-delayed"
+                  priority
                 />
                 <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-4">
                   <p className="text-white font-semibold text-lg">Connect players globally</p>
@@ -337,9 +341,11 @@ export default function LandingPage() {
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              <img
+              <Image
                 src="/focused-gamer-couch.png"
                 alt="Focused gamer experiencing immersive gameplay on mobile device"
+                width={600}
+                height={400}
                 className="rounded-2xl shadow-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent rounded-2xl"></div>
@@ -349,7 +355,7 @@ export default function LandingPage() {
                   Create engaging mobile games with ultra-low latency and smooth gameplay
                 </p>
               </div>
-            </div>
+            </div></div>
             <div>
               <h3 className="text-3xl md:text-4xl font-bold font-heading mb-6 text-white drop-shadow-lg">
                 Built by Gamers, for Gamers

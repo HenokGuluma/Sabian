@@ -1,19 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google"
+import { Orbitron, Inter } from "next/font/google"
 import "./globals.css"
 
-const spaceGrotesk = Space_Grotesk({
+const orbitron = Orbitron({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-space-grotesk",
-  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-orbitron",
+  weight: ["400", "500", "600", "700", "800", "900"],
 })
 
-const jetBrainsMono = JetBrains_Mono({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-jetbrains-mono",
+  variable: "--font-inter",
 })
 
 export const metadata: Metadata = {
@@ -28,13 +28,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+    <html lang="en" className={`${orbitron.variable} ${inter.variable}`}>
       <head>
         <style>{`
 html {
-  font-family: ${jetBrainsMono.style.fontFamily};
-  --font-sans: ${jetBrainsMono.variable};
-  --font-heading: ${spaceGrotesk.variable};
+  font-family: ${inter.style.fontFamily};
+  --font-sans: ${inter.variable};
+  --font-heading: ${orbitron.variable};
 }
         `}</style>
       </head>
