@@ -355,7 +355,7 @@ export default function LandingPage() {
                   Create engaging mobile games with ultra-low latency and smooth gameplay
                 </p>
               </div>
-            </div></div>
+            </div>
             <div>
               <h3 className="text-3xl md:text-4xl font-bold font-heading mb-6 text-white drop-shadow-lg">
                 Built by Gamers, for Gamers
