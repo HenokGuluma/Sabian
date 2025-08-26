@@ -1,9 +1,0 @@
-﻿These are the modifications I want you to do for me: 
-
-
-* Switch the name of the console from “Bankeru Games Console” to “Sabian Console”.
-* Add about 16,000 records of user data that contains fields username, email address, phone number that starts with +251-9 (for e.g +251945710635), bio, total gems, last active, trending score, purchase history, total games played, total games won and stuff. And make this database accessible and editable as well. 
-* Remove the revenue figure on the left side project display of the console. 
-* Add the past 7 months long record of activity that can be seen in the analytics section. I want the data to show slow beginnings around February 2025 upto April 2025 and in May 2025  a huge bump up that keeps on increasing until August. And I want this to be seen very clearly on the graph. 
-* Make the player retention graph increasing over time instead of decreasing.
-* Enable the rest of the database tables (player_stats, game sessions etc) and give them realistic datapoints that are also accessible and editable.
