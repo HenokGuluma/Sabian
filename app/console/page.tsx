@@ -1,22 +1,35 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Progress } from "@/components/ui/progress"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Switch } from "@/components/ui/switch"
-import { Textarea } from "@/components/ui/textarea"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Progress } from "@/components/ui/progress";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,7 +37,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   Users,
   TrendingUp,
@@ -51,14 +64,28 @@ import {
   BarChart3,
   Database,
   FileText,
-  RefreshCw,
-} from "lucide-react"
-import { userDatabase, playerStatsDatabase, gameSessionsDatabase, analyticsData } from "@/lib/database"
-import { format } from "date-fns"
-import type { DateRange } from "react-day-picker"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+} from "lucide-react";
+import {
+  userDatabase,
+  playerStatsDatabase,
+  gameSessionsDatabase,
+  analyticsData,
+} from "@/lib/database";
+import { format } from "date-fns";
+import type { DateRange } from "react-day-picker";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   LineChart,
   Line,
@@ -75,44 +102,62 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-} from "recharts"
-import { AlertTriangle, CheckCircle, Ban, Gift, Shield, Target, Flame, Coins, Server, RefreshCw, TrendingDown, Loader2, Globe, UserCheck, Eye, Pause, Play } from "lucide-react"
+} from "recharts";
+import {
+  AlertTriangle,
+  CheckCircle,
+  Ban,
+  Gift,
+  Shield,
+  Target,
+  Flame,
+  Coins,
+  Server,
+  RefreshCw,
+  TrendingDown,
+  Loader2,
+  Globe,
+  UserCheck,
+  Eye,
+  Pause,
+  Play,
+} from "lucide-react";
 
 export default function ConsolePage() {
-  const [selectedProject, setSelectedProject] = useState("bankeru-games")
-  const [activeSection, setActiveSection] = useState("overview")
+  const [selectedProject, setSelectedProject] = useState("bankeru-games");
+  const [activeSection, setActiveSection] = useState("overview");
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date(2024, 0, 20),
     to: new Date(2024, 1, 9),
-  })
-  const [isLoading, setIsLoading] = useState(true)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const router = useRouter()
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const router = useRouter();
 
   const handleLogout = () => {
-    router.push("/")
-  }
+    router.push("/");
+  };
 
   useEffect(() => {
     const checkAuth = () => {
-      const auth = localStorage.getItem("isAuthenticated")
+      const auth = localStorage.getItem("isAuthenticated");
       if (auth === "true") {
-        setIsAuthenticated(true)
+        setIsAuthenticated(true);
         // Simulate data loading
-        setTimeout(() => setIsLoading(false), 3000)
+        setTimeout(() => setIsLoading(false), 3000);
       } else {
-        router.push("/login")
+        router.push("/login");
       }
-    }
-    checkAuth()
-  }, [])
+    };
+    checkAuth();
+  }, []);
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-slate-900">
         <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
       </div>
-    )
+    );
   }
 
   const projects = [
@@ -124,7 +169,7 @@ export default function ConsolePage() {
       revenue: "$14.5K",
       uptime: "99.9%",
     },
-  ]
+  ];
 
   const metrics = [
     {
@@ -155,7 +200,7 @@ export default function ConsolePage() {
       trend: "up",
       icon: Activity,
     },
-  ]
+  ];
 
   const playerActivityData = [
     { time: "00:00", players: 1200, revenue: 450, sessions: 800 },
@@ -165,7 +210,7 @@ export default function ConsolePage() {
     { time: "16:00", players: 4200, revenue: 1580, sessions: 2800 },
     { time: "20:00", players: 5100, revenue: 2100, sessions: 3400 },
     { time: "24:00", players: 2800, revenue: 980, sessions: 1900 },
-  ]
+  ];
 
   const retentionData = [
     { day: "Day 1", retention: 85, players: 8500 },
@@ -173,13 +218,13 @@ export default function ConsolePage() {
     { day: "Day 7", retention: 42, players: 4200 },
     { day: "Day 14", retention: 28, players: 2800 },
     { day: "Day 30", retention: 18, players: 1800 },
-  ]
+  ];
 
   const revenueBreakdownData = [
     { name: "In-App Purchases", value: 6420, color: "#ff007f" },
     { name: "Ads Revenue", value: 1850, color: "#00bcd4" },
     { name: "Premium Upgrades", value: 150, color: "#8b5cf6" },
-  ]
+  ];
 
   const levelProgressionData = [
     { level: "1-5", players: 2500, completion: 95 },
@@ -188,29 +233,106 @@ export default function ConsolePage() {
     { level: "16-20", players: 1200, completion: 62 },
     { level: "21-25", players: 800, completion: 45 },
     { level: "26-30", players: 400, completion: 28 },
-  ]
+  ];
 
   const gameServers = [
-    { id: "us-east-1", region: "US East", status: "running", players: 4200, cpu: 45, memory: 62, latency: 12 },
-    { id: "eu-west-1", region: "EU West", status: "running", players: 3800, cpu: 38, memory: 55, latency: 8 },
-    { id: "asia-1", region: "Asia Pacific", status: "degraded", players: 2100, cpu: 78, memory: 85, latency: 45 },
-    { id: "us-west-1", region: "US West", status: "stopped", players: 0, cpu: 0, memory: 0, latency: 0 },
-  ]
+    {
+      id: "us-east-1",
+      region: "US East",
+      status: "running",
+      players: 4200,
+      cpu: 45,
+      memory: 62,
+      latency: 12,
+    },
+    {
+      id: "eu-west-1",
+      region: "EU West",
+      status: "running",
+      players: 3800,
+      cpu: 38,
+      memory: 55,
+      latency: 8,
+    },
+    {
+      id: "asia-1",
+      region: "Asia Pacific",
+      status: "degraded",
+      players: 2100,
+      cpu: 78,
+      memory: 85,
+      latency: 45,
+    },
+    {
+      id: "us-west-1",
+      region: "US West",
+      status: "stopped",
+      players: 0,
+      cpu: 0,
+      memory: 0,
+      latency: 0,
+    },
+  ];
 
   const recentPlayers = [
-    { id: "1", username: "DragonSlayer99", level: 45, lastSeen: "2 min ago", status: "online", country: "US" },
-    { id: "2", username: "MagicWizard", level: 32, lastSeen: "1 hour ago", status: "offline", country: "UK" },
-    { id: "3", username: "ShadowNinja", level: 67, lastSeen: "5 min ago", status: "online", country: "JP" },
-    { id: "4", username: "FireMage", level: 28, lastSeen: "3 hours ago", status: "offline", country: "DE" },
-    { id: "5", username: "IceQueen", level: 89, lastSeen: "1 min ago", status: "online", country: "CA" },
-  ]
+    {
+      id: "1",
+      username: "DragonSlayer99",
+      level: 45,
+      lastSeen: "2 min ago",
+      status: "online",
+      country: "US",
+    },
+    {
+      id: "2",
+      username: "MagicWizard",
+      level: 32,
+      lastSeen: "1 hour ago",
+      status: "offline",
+      country: "UK",
+    },
+    {
+      id: "3",
+      username: "ShadowNinja",
+      level: 67,
+      lastSeen: "5 min ago",
+      status: "online",
+      country: "JP",
+    },
+    {
+      id: "4",
+      username: "FireMage",
+      level: 28,
+      lastSeen: "3 hours ago",
+      status: "offline",
+      country: "DE",
+    },
+    {
+      id: "5",
+      username: "IceQueen",
+      level: 89,
+      lastSeen: "1 min ago",
+      status: "online",
+      country: "CA",
+    },
+  ];
 
   const economyData = [
-    { item: "Gold Coins", total: 2500000, distributed: 1800000, purchased: 450000 },
+    {
+      item: "Gold Coins",
+      total: 2500000,
+      distributed: 1800000,
+      purchased: 450000,
+    },
     { item: "Gems", total: 125000, distributed: 89000, purchased: 78000 },
-    { item: "Energy Potions", total: 45000, distributed: 32000, purchased: 12000 },
+    {
+      item: "Energy Potions",
+      total: 45000,
+      distributed: 32000,
+      purchased: 12000,
+    },
     { item: "Legendary Sword", total: 1200, distributed: 890, purchased: 890 },
-  ]
+  ];
 
   const databaseCollections = [
     {
@@ -219,7 +341,7 @@ export default function ConsolePage() {
       size: "128.5 MB",
       reads: "2.1M",
       writes: "456K",
-      lastActivity: "2 min ago"
+      lastActivity: "2 min ago",
     },
     {
       name: "player_stats",
@@ -227,7 +349,7 @@ export default function ConsolePage() {
       size: "89.2 MB",
       reads: "1.8M",
       writes: "324K",
-      lastActivity: "1 min ago"
+      lastActivity: "1 min ago",
     },
     {
       name: "game_sessions",
@@ -235,7 +357,7 @@ export default function ConsolePage() {
       size: "256.8 MB",
       reads: "5.2M",
       writes: "1.2M",
-      lastActivity: "30 sec ago"
+      lastActivity: "30 sec ago",
     },
     {
       name: "leaderboards",
@@ -243,7 +365,7 @@ export default function ConsolePage() {
       size: "12.4 MB",
       reads: "890K",
       writes: "45K",
-      lastActivity: "3 min ago"
+      lastActivity: "3 min ago",
     },
     {
       name: "items_inventory",
@@ -251,16 +373,16 @@ export default function ConsolePage() {
       size: "445.2 MB",
       reads: "3.4M",
       writes: "789K",
-      lastActivity: "1 min ago"
-    }
-  ]
+      lastActivity: "1 min ago",
+    },
+  ];
 
   const realtimeConnections = [
     { region: "US East", connections: 4250, latency: "12ms" },
     { region: "EU West", connections: 3890, latency: "8ms" },
     { region: "Asia Pacific", connections: 2100, latency: "45ms" },
-    { region: "US West", connections: 1960, latency: "15ms" }
-  ]
+    { region: "US West", connections: 1960, latency: "15ms" },
+  ];
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -289,24 +411,44 @@ export default function ConsolePage() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="relative text-slate-300 hover:text-white">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="relative text-slate-300 hover:text-white"
+            >
               <Bell className="w-4 h-4" />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-pink-500 rounded-full" />
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-8 w-8 rounded-full"
+                >
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Developer" />
-                    <AvatarFallback className="bg-slate-700 text-white">JD</AvatarFallback>
+                    <AvatarImage
+                      src="/placeholder.svg?height=32&width=32"
+                      alt="Developer"
+                    />
+                    <AvatarFallback className="bg-slate-700 text-white">
+                      JD
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-slate-800 border-slate-700" align="end" forceMount>
+              <DropdownMenuContent
+                className="w-56 bg-slate-800 border-slate-700"
+                align="end"
+                forceMount
+              >
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none text-white">John Developer</p>
-                    <p className="text-xs leading-none text-slate-400">john@gamedev.com</p>
+                    <p className="text-sm font-medium leading-none text-white">
+                      John Developer
+                    </p>
+                    <p className="text-xs leading-none text-slate-400">
+                      john@gamedev.com
+                    </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-slate-700" />
@@ -331,7 +473,9 @@ export default function ConsolePage() {
         <aside className="w-64 bg-slate-800/50 border-0 border-r border-slate-700 min-h-[calc(100vh-4rem)]">
           <div className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold font-heading text-white">Projects</h2>
+              <h2 className="text-lg font-semibold font-heading text-white">
+                Projects
+              </h2>
               <Button
                 size="sm"
                 className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
@@ -353,10 +497,16 @@ export default function ConsolePage() {
                   onClick={() => setSelectedProject(project.id)}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-medium text-sm text-white">{project.name}</h3>
+                    <h3 className="font-medium text-sm text-white">
+                      {project.name}
+                    </h3>
                     <Badge
                       variant={
-                        project.status === "live" ? "default" : project.status === "beta" ? "secondary" : "outline"
+                        project.status === "live"
+                          ? "default"
+                          : project.status === "beta"
+                            ? "secondary"
+                            : "outline"
                       }
                       className="text-xs"
                     >
@@ -486,7 +636,9 @@ export default function ConsolePage() {
                 <h1 className="text-3xl font-bold font-heading mb-2 text-white">
                   Bankeru Games Dashboard
                 </h1>
-                <p className="text-slate-400">Monitor your game's performance and manage backend services</p>
+                <p className="text-slate-400">
+                  Monitor your game's performance and manage backend services
+                </p>
               </div>
 
               {/* Metrics Cards */}
@@ -497,18 +649,28 @@ export default function ConsolePage() {
                     className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all"
                   >
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-white">{metric.title}</CardTitle>
+                      <CardTitle className="text-sm font-medium text-white">
+                        {metric.title}
+                      </CardTitle>
                       <metric.icon className="h-4 w-4 text-slate-400" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white">{metric.value}</div>
+                      <div className="text-2xl font-bold text-white">
+                        {metric.value}
+                      </div>
                       <div className="flex items-center text-xs text-slate-400">
                         {metric.trend === "up" ? (
                           <TrendingUp className="w-3 h-3 mr-1 text-green-400" />
                         ) : (
                           <TrendingDown className="w-3 h-3 mr-1 text-red-400" />
                         )}
-                        <span className={metric.trend === "up" ? "text-green-400" : "text-red-400"}>
+                        <span
+                          className={
+                            metric.trend === "up"
+                              ? "text-green-400"
+                              : "text-red-400"
+                          }
+                        >
                           {metric.change}
                         </span>
                         <span className="ml-1">from last month</span>
@@ -531,21 +693,27 @@ export default function ConsolePage() {
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-green-500 rounded-full" />
                       <div className="flex-1">
-                        <p className="text-sm text-white">Server deployment completed</p>
+                        <p className="text-sm text-white">
+                          Server deployment completed
+                        </p>
                         <p className="text-xs text-slate-400">2 minutes ago</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-500 rounded-full" />
                       <div className="flex-1">
-                        <p className="text-sm text-white">New player milestone reached</p>
+                        <p className="text-sm text-white">
+                          New player milestone reached
+                        </p>
                         <p className="text-xs text-slate-400">1 hour ago</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-yellow-500 rounded-full" />
                       <div className="flex-1">
-                        <p className="text-sm text-white">Anti-cheat alert resolved</p>
+                        <p className="text-sm text-white">
+                          Anti-cheat alert resolved
+                        </p>
                         <p className="text-xs text-slate-400">3 hours ago</p>
                       </div>
                     </div>
@@ -566,21 +734,27 @@ export default function ConsolePage() {
                         <span className="text-sm text-white">US East</span>
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          <span className="text-xs text-slate-400">Operational</span>
+                          <span className="text-xs text-slate-400">
+                            Operational
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-white">EU West</span>
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          <span className="text-xs text-slate-400">Operational</span>
+                          <span className="text-xs text-slate-400">
+                            Operational
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-white">Asia Pacific</span>
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-yellow-500 rounded-full" />
-                          <span className="text-xs text-slate-400">Degraded</span>
+                          <span className="text-xs text-slate-400">
+                            Degraded
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -591,8 +765,12 @@ export default function ConsolePage() {
               {/* Performance Chart */}
               <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50 mt-6">
                 <CardHeader>
-                  <CardTitle className="text-white">Player Activity (Last 7 Days)</CardTitle>
-                  <CardDescription className="text-slate-400">Concurrent players over time</CardDescription>
+                  <CardTitle className="text-white">
+                    Player Activity (Last 7 Days)
+                  </CardTitle>
+                  <CardDescription className="text-slate-400">
+                    Concurrent players over time
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -608,7 +786,13 @@ export default function ConsolePage() {
                           color: "#ffffff",
                         }}
                       />
-                      <Line type="monotone" dataKey="players" stroke="#00bcd4" strokeWidth={3} name="Active Players" />
+                      <Line
+                        type="monotone"
+                        dataKey="players"
+                        stroke="#00bcd4"
+                        strokeWidth={3}
+                        name="Active Players"
+                      />
                     </LineChart>
                   </ResponsiveContainer>
                 </CardContent>
@@ -620,8 +804,12 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">Analytics Dashboard</h1>
-                  <p className="text-slate-400">Deep insights into your game's performance</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    Analytics Dashboard
+                  </h1>
+                  <p className="text-slate-400">
+                    Deep insights into your game's performance
+                  </p>
                 </div>
                 <div className="flex gap-2">
                   <Popover>
@@ -634,7 +822,8 @@ export default function ConsolePage() {
                         {dateRange?.from ? (
                           dateRange.to ? (
                             <>
-                              {format(dateRange.from, "LLL dd, y")} - {format(dateRange.to, "LLL dd, y")}
+                              {format(dateRange.from, "LLL dd, y")} -{" "}
+                              {format(dateRange.to, "LLL dd, y")}
                             </>
                           ) : (
                             format(dateRange.from, "LLL dd, y")
@@ -644,7 +833,10 @@ export default function ConsolePage() {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-slate-800 border-slate-600" align="start">
+                    <PopoverContent
+                      className="w-auto p-0 bg-slate-800 border-slate-600"
+                      align="start"
+                    >
                       <Calendar
                         initialFocus
                         mode="range"
@@ -692,18 +884,28 @@ export default function ConsolePage() {
                     className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all"
                   >
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-white">{metric.title}</CardTitle>
+                      <CardTitle className="text-sm font-medium text-white">
+                        {metric.title}
+                      </CardTitle>
                       <metric.icon className="h-4 w-4 text-slate-400" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white">{metric.value}</div>
+                      <div className="text-2xl font-bold text-white">
+                        {metric.value}
+                      </div>
                       <div className="flex items-center text-xs text-slate-400">
                         {metric.trend === "up" ? (
                           <TrendingUp className="w-3 h-3 mr-1 text-green-400" />
                         ) : (
                           <TrendingDown className="w-3 h-3 mr-1 text-red-400" />
                         )}
-                        <span className={metric.trend === "up" ? "text-green-400" : "text-red-400"}>
+                        <span
+                          className={
+                            metric.trend === "up"
+                              ? "text-green-400"
+                              : "text-red-400"
+                          }
+                        >
                           {metric.change}
                         </span>
                         <span className="ml-1">from last period</span>
@@ -717,7 +919,9 @@ export default function ConsolePage() {
                 {/* Player Activity Chart */}
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
-                    <CardTitle className="text-white">Player Activity & Revenue</CardTitle>
+                    <CardTitle className="text-white">
+                      Player Activity & Revenue
+                    </CardTitle>
                     <CardDescription className="text-slate-400">
                       Concurrent players and revenue over time
                     </CardDescription>
@@ -728,7 +932,11 @@ export default function ConsolePage() {
                         <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis dataKey="time" stroke="#9ca3af" />
                         <YAxis yAxisId="left" stroke="#9ca3af" />
-                        <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                        <YAxis
+                          yAxisId="right"
+                          orientation="right"
+                          stroke="#9ca3af"
+                        />
                         <Tooltip
                           contentStyle={{
                             backgroundColor: "#1e293b",
@@ -762,8 +970,12 @@ export default function ConsolePage() {
                 {/* Revenue Breakdown Pie Chart */}
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
-                    <CardTitle className="text-white">Revenue Breakdown</CardTitle>
-                    <CardDescription className="text-slate-400">Revenue sources distribution</CardDescription>
+                    <CardTitle className="text-white">
+                      Revenue Breakdown
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Revenue sources distribution
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={300}>
@@ -775,7 +987,9 @@ export default function ConsolePage() {
                           outerRadius={100}
                           fill="#8884d8"
                           dataKey="value"
-                          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                          label={({ name, percent }) =>
+                            `${name} ${(percent * 100).toFixed(0)}%`
+                          }
                         >
                           {revenueBreakdownData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.color} />
@@ -799,8 +1013,12 @@ export default function ConsolePage() {
                 {/* Player Retention Chart */}
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
-                    <CardTitle className="text-white">Player Retention</CardTitle>
-                    <CardDescription className="text-slate-400">Retention rates over time</CardDescription>
+                    <CardTitle className="text-white">
+                      Player Retention
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Retention rates over time
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={300}>
@@ -824,9 +1042,23 @@ export default function ConsolePage() {
                           strokeWidth={3}
                         />
                         <defs>
-                          <linearGradient id="colorRetention" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#00bcd4" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="#00bcd4" stopOpacity={0.1} />
+                          <linearGradient
+                            id="colorRetention"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                          >
+                            <stop
+                              offset="5%"
+                              stopColor="#00bcd4"
+                              stopOpacity={0.8}
+                            />
+                            <stop
+                              offset="95%"
+                              stopColor="#00bcd4"
+                              stopOpacity={0.1}
+                            />
                           </linearGradient>
                         </defs>
                       </AreaChart>
@@ -837,8 +1069,12 @@ export default function ConsolePage() {
                 {/* Level Progression Chart */}
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
-                    <CardTitle className="text-white">Level Progression</CardTitle>
-                    <CardDescription className="text-slate-400">Player distribution across levels</CardDescription>
+                    <CardTitle className="text-white">
+                      Level Progression
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Player distribution across levels
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={300}>
@@ -867,8 +1103,12 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">Game Servers</h1>
-                  <p className="text-slate-400">Manage your dedicated game servers worldwide</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    Game Servers
+                  </h1>
+                  <p className="text-slate-400">
+                    Manage your dedicated game servers worldwide
+                  </p>
                 </div>
                 <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
                   <Plus className="w-4 h-4 mr-2" />
@@ -879,17 +1119,23 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Total Servers</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Total Servers
+                    </CardTitle>
                     <Server className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-white">4</div>
-                    <p className="text-xs text-slate-400">3 running, 1 stopped</p>
+                    <p className="text-xs text-slate-400">
+                      3 running, 1 stopped
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Active Players</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Active Players
+                    </CardTitle>
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -899,22 +1145,30 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Avg Latency</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Avg Latency
+                    </CardTitle>
                     <Activity className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-white">22ms</div>
-                    <p className="text-xs text-green-400">Excellent performance</p>
+                    <p className="text-xs text-green-400">
+                      Excellent performance
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Monthly Cost</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Monthly Cost
+                    </CardTitle>
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-white">$1,240</div>
-                    <p className="text-xs text-slate-400">Auto-scaling enabled</p>
+                    <p className="text-xs text-slate-400">
+                      Auto-scaling enabled
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -922,12 +1176,17 @@ export default function ConsolePage() {
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
                   <CardTitle className="text-white">Server Status</CardTitle>
-                  <CardDescription className="text-slate-400">Monitor all your game servers</CardDescription>
+                  <CardDescription className="text-slate-400">
+                    Monitor all your game servers
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {gameServers.map((server) => (
-                      <div key={server.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                      <div
+                        key={server.id}
+                        className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg"
+                      >
                         <div className="flex items-center space-x-4">
                           <div
                             className={`w-3 h-3 rounded-full ${
@@ -939,25 +1198,37 @@ export default function ConsolePage() {
                             }`}
                           />
                           <div>
-                            <h3 className="font-medium text-white">{server.region}</h3>
-                            <p className="text-sm text-slate-400">{server.id}</p>
+                            <h3 className="font-medium text-white">
+                              {server.region}
+                            </h3>
+                            <p className="text-sm text-slate-400">
+                              {server.id}
+                            </p>
                           </div>
                         </div>
                         <div className="flex items-center space-x-6 text-sm">
                           <div className="text-center">
-                            <p className="text-white font-medium">{server.players}</p>
+                            <p className="text-white font-medium">
+                              {server.players}
+                            </p>
                             <p className="text-slate-400">Players</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-white font-medium">{server.cpu}%</p>
+                            <p className="text-white font-medium">
+                              {server.cpu}%
+                            </p>
                             <p className="text-slate-400">CPU</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-white font-medium">{server.memory}%</p>
+                            <p className="text-white font-medium">
+                              {server.memory}%
+                            </p>
                             <p className="text-slate-400">Memory</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-white font-medium">{server.latency}ms</p>
+                            <p className="text-white font-medium">
+                              {server.latency}ms
+                            </p>
                             <p className="text-slate-400">Latency</p>
                           </div>
                           <div className="flex space-x-2">
@@ -999,11 +1270,18 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">Player Management</h1>
-                  <p className="text-slate-400">Monitor and manage your player base</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    Player Management
+                  </h1>
+                  <p className="text-slate-400">
+                    Monitor and manage your player base
+                  </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="bg-slate-800/50 border-slate-600 text-white">
+                  <Button
+                    variant="outline"
+                    className="bg-slate-800/50 border-slate-600 text-white"
+                  >
                     <Download className="w-4 h-4 mr-2" />
                     Export Players
                   </Button>
@@ -1017,7 +1295,9 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Total Players</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Total Players
+                    </CardTitle>
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1027,7 +1307,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Online Now</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Online Now
+                    </CardTitle>
                     <UserCheck className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1037,7 +1319,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">New Today</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      New Today
+                    </CardTitle>
                     <Trophy className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1047,7 +1331,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Banned</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Banned
+                    </CardTitle>
                     <Ban className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1060,12 +1346,17 @@ export default function ConsolePage() {
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
                   <CardTitle className="text-white">Recent Players</CardTitle>
-                  <CardDescription className="text-slate-400">Latest player activity</CardDescription>
+                  <CardDescription className="text-slate-400">
+                    Latest player activity
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {recentPlayers.map((player) => (
-                      <div key={player.id} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                      <div
+                        key={player.id}
+                        className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg"
+                      >
                         <div className="flex items-center space-x-4">
                           <Avatar className="h-10 w-10">
                             <AvatarFallback className="bg-slate-600 text-white">
@@ -1073,7 +1364,9 @@ export default function ConsolePage() {
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <h3 className="font-medium text-white">{player.username}</h3>
+                            <h3 className="font-medium text-white">
+                              {player.username}
+                            </h3>
                             <p className="text-sm text-slate-400">
                               Level {player.level} • {player.country}
                             </p>
@@ -1081,19 +1374,29 @@ export default function ConsolePage() {
                         </div>
                         <div className="flex items-center space-x-4">
                           <div className="text-right">
-                            <p className="text-sm text-white">{player.lastSeen}</p>
+                            <p className="text-sm text-white">
+                              {player.lastSeen}
+                            </p>
                             <div className="flex items-center space-x-1">
                               <div
                                 className={`w-2 h-2 rounded-full ${
-                                  player.status === "online" ? "bg-green-500" : "bg-slate-500"
+                                  player.status === "online"
+                                    ? "bg-green-500"
+                                    : "bg-slate-500"
                                 }`}
                               />
-                              <span className="text-xs text-slate-400">{player.status}</span>
+                              <span className="text-xs text-slate-400">
+                                {player.status}
+                              </span>
                             </div>
                           </div>
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm" className="text-slate-400">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-slate-400"
+                              >
                                 <Settings className="w-4 h-4" />
                               </Button>
                             </DropdownMenuTrigger>
@@ -1125,8 +1428,12 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">Virtual Economy</h1>
-                  <p className="text-slate-400">Manage in-game currencies and items</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    Virtual Economy
+                  </h1>
+                  <p className="text-slate-400">
+                    Manage in-game currencies and items
+                  </p>
                 </div>
                 <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
                   <Plus className="w-4 h-4 mr-2" />
@@ -1137,7 +1444,9 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Total Revenue</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Total Revenue
+                    </CardTitle>
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1147,7 +1456,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Items Sold</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Items Sold
+                    </CardTitle>
                     <Coins className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1157,7 +1468,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">ARPU</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      ARPU
+                    </CardTitle>
                     <Target className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1167,12 +1480,16 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Conversion</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Conversion
+                    </CardTitle>
                     <TrendingUp className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-white">4.2%</div>
-                    <p className="text-xs text-slate-400">Players who purchase</p>
+                    <p className="text-xs text-slate-400">
+                      Players who purchase
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -1180,33 +1497,50 @@ export default function ConsolePage() {
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
                   <CardTitle className="text-white">Virtual Items</CardTitle>
-                  <CardDescription className="text-slate-400">Manage your in-game economy</CardDescription>
+                  <CardDescription className="text-slate-400">
+                    Manage your in-game economy
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {economyData.map((item, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg"
+                      >
                         <div className="flex items-center space-x-4">
                           <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center">
                             <Coins className="w-6 h-6 text-white" />
                           </div>
                           <div>
-                            <h3 className="font-medium text-white">{item.item}</h3>
-                            <p className="text-sm text-slate-400">Total: {item.total.toLocaleString()}</p>
+                            <h3 className="font-medium text-white">
+                              {item.item}
+                            </h3>
+                            <p className="text-sm text-slate-400">
+                              Total: {item.total.toLocaleString()}
+                            </p>
                           </div>
                         </div>
                         <div className="flex items-center space-x-6 text-sm">
                           <div className="text-center">
-                            <p className="text-white font-medium">{item.distributed.toLocaleString()}</p>
+                            <p className="text-white font-medium">
+                              {item.distributed.toLocaleString()}
+                            </p>
                             <p className="text-slate-400">Distributed</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-white font-medium">{item.purchased.toLocaleString()}</p>
+                            <p className="text-white font-medium">
+                              {item.purchased.toLocaleString()}
+                            </p>
                             <p className="text-slate-400">Purchased</p>
                           </div>
                           <div className="text-center">
                             <p className="text-white font-medium">
-                              {((item.purchased / item.distributed) * 100).toFixed(1)}%
+                              {(
+                                (item.purchased / item.distributed) *
+                                100
+                              ).toFixed(1)}
+                              %
                             </p>
                             <p className="text-slate-400">Conversion</p>
                           </div>
@@ -1230,11 +1564,18 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">Anti-Cheat System</h1>
-                  <p className="text-slate-400">Monitor and prevent cheating in your game</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    Anti-Cheat System
+                  </h1>
+                  <p className="text-slate-400">
+                    Monitor and prevent cheating in your game
+                  </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="bg-slate-800/50 border-slate-600 text-white">
+                  <Button
+                    variant="outline"
+                    className="bg-slate-800/50 border-slate-600 text-white"
+                  >
                     <Download className="w-4 h-4 mr-2" />
                     Export Report
                   </Button>
@@ -1248,7 +1589,9 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Threats Blocked</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Threats Blocked
+                    </CardTitle>
                     <Shield className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1258,7 +1601,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Players Banned</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Players Banned
+                    </CardTitle>
                     <Ban className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1268,7 +1613,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Detection Rate</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Detection Rate
+                    </CardTitle>
                     <Target className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1278,7 +1625,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">False Positives</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      False Positives
+                    </CardTitle>
                     <AlertTriangle className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1291,8 +1640,12 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Recent Detections</CardTitle>
-                    <CardDescription className="text-slate-400">Latest anti-cheat actions</CardDescription>
+                    <CardTitle className="text-white">
+                      Recent Detections
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Latest anti-cheat actions
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -1300,8 +1653,12 @@ export default function ConsolePage() {
                         <div className="flex items-center space-x-3">
                           <AlertTriangle className="w-5 h-5 text-red-400" />
                           <div>
-                            <p className="text-sm font-medium text-white">Speed Hack Detected</p>
-                            <p className="text-xs text-slate-400">Player: CheatMaster99</p>
+                            <p className="text-sm font-medium text-white">
+                              Speed Hack Detected
+                            </p>
+                            <p className="text-xs text-slate-400">
+                              Player: CheatMaster99
+                            </p>
                           </div>
                         </div>
                         <Badge variant="destructive">Banned</Badge>
@@ -1310,8 +1667,12 @@ export default function ConsolePage() {
                         <div className="flex items-center space-x-3">
                           <Shield className="w-5 h-5 text-yellow-400" />
                           <div>
-                            <p className="text-sm font-medium text-white">Suspicious Activity</p>
-                            <p className="text-xs text-slate-400">Player: SuspiciousUser</p>
+                            <p className="text-sm font-medium text-white">
+                              Suspicious Activity
+                            </p>
+                            <p className="text-xs text-slate-400">
+                              Player: SuspiciousUser
+                            </p>
                           </div>
                         </div>
                         <Badge variant="secondary">Monitoring</Badge>
@@ -1320,8 +1681,12 @@ export default function ConsolePage() {
                         <div className="flex items-center space-x-3">
                           <CheckCircle className="w-5 h-5 text-green-400" />
                           <div>
-                            <p className="text-sm font-medium text-white">False Positive Resolved</p>
-                            <p className="text-xs text-slate-400">Player: LegitPlayer123</p>
+                            <p className="text-sm font-medium text-white">
+                              False Positive Resolved
+                            </p>
+                            <p className="text-xs text-slate-400">
+                              Player: LegitPlayer123
+                            </p>
                           </div>
                         </div>
                         <Badge variant="outline">Cleared</Badge>
@@ -1332,8 +1697,12 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Protection Settings</CardTitle>
-                    <CardDescription className="text-slate-400">Configure anti-cheat rules</CardDescription>
+                    <CardTitle className="text-white">
+                      Protection Settings
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Configure anti-cheat rules
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
@@ -1341,25 +1710,37 @@ export default function ConsolePage() {
                         <Label htmlFor="speed-detection" className="text-white">
                           Speed Hack Detection
                         </Label>
-                        <p className="text-xs text-slate-400">Detect abnormal movement speeds</p>
+                        <p className="text-xs text-slate-400">
+                          Detect abnormal movement speeds
+                        </p>
                       </div>
                       <Switch id="speed-detection" defaultChecked />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label htmlFor="memory-protection" className="text-white">
+                        <Label
+                          htmlFor="memory-protection"
+                          className="text-white"
+                        >
                           Memory Protection
                         </Label>
-                        <p className="text-xs text-slate-400">Prevent memory manipulation</p>
+                        <p className="text-xs text-slate-400">
+                          Prevent memory manipulation
+                        </p>
                       </div>
                       <Switch id="memory-protection" defaultChecked />
                     </div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label htmlFor="statistical-analysis" className="text-white">
+                        <Label
+                          htmlFor="statistical-analysis"
+                          className="text-white"
+                        >
                           Statistical Analysis
                         </Label>
-                        <p className="text-xs text-slate-400">Analyze player behavior patterns</p>
+                        <p className="text-xs text-slate-400">
+                          Analyze player behavior patterns
+                        </p>
                       </div>
                       <Switch id="statistical-analysis" defaultChecked />
                     </div>
@@ -1368,7 +1749,9 @@ export default function ConsolePage() {
                         <Label htmlFor="auto-ban" className="text-white">
                           Automatic Banning
                         </Label>
-                        <p className="text-xs text-slate-400">Auto-ban confirmed cheaters</p>
+                        <p className="text-xs text-slate-400">
+                          Auto-ban confirmed cheaters
+                        </p>
                       </div>
                       <Switch id="auto-ban" />
                     </div>
@@ -1382,8 +1765,12 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">LiveOps Dashboard</h1>
-                  <p className="text-slate-400">Manage live events and campaigns</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    LiveOps Dashboard
+                  </h1>
+                  <p className="text-slate-400">
+                    Manage live events and campaigns
+                  </p>
                 </div>
                 <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
                   <Plus className="w-4 h-4 mr-2" />
@@ -1394,7 +1781,9 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Active Events</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Active Events
+                    </CardTitle>
                     <Flame className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1404,7 +1793,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Participation</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Participation
+                    </CardTitle>
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1414,7 +1805,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Event Revenue</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Event Revenue
+                    </CardTitle>
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1424,7 +1817,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Notifications Sent</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Notifications Sent
+                    </CardTitle>
                     <Bell className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1438,38 +1833,64 @@ export default function ConsolePage() {
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
                     <CardTitle className="text-white">Active Events</CardTitle>
-                    <CardDescription className="text-slate-400">Currently running campaigns</CardDescription>
+                    <CardDescription className="text-slate-400">
+                      Currently running campaigns
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="p-4 bg-slate-700/30 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-medium text-white">Double XP Weekend</h3>
-                          <Badge className="bg-green-500/20 text-green-400">Active</Badge>
+                          <h3 className="font-medium text-white">
+                            Double XP Weekend
+                          </h3>
+                          <Badge className="bg-green-500/20 text-green-400">
+                            Active
+                          </Badge>
                         </div>
-                        <p className="text-sm text-slate-400 mb-3">Players earn 2x experience points</p>
+                        <p className="text-sm text-slate-400 mb-3">
+                          Players earn 2x experience points
+                        </p>
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Ends in: 2 days</span>
-                          <span className="text-white">12,543 participants</span>
+                          <span className="text-slate-400">
+                            Ends in: 2 days
+                          </span>
+                          <span className="text-white">
+                            12,543 participants
+                          </span>
                         </div>
                       </div>
                       <div className="p-4 bg-slate-700/30 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-medium text-white">Summer Sale</h3>
-                          <Badge className="bg-blue-500/20 text-blue-400">Active</Badge>
+                          <h3 className="font-medium text-white">
+                            Summer Sale
+                          </h3>
+                          <Badge className="bg-blue-500/20 text-blue-400">
+                            Active
+                          </Badge>
                         </div>
-                        <p className="text-sm text-slate-400 mb-3">50% off premium items</p>
+                        <p className="text-sm text-slate-400 mb-3">
+                          50% off premium items
+                        </p>
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-slate-400">Ends in: 5 days</span>
+                          <span className="text-slate-400">
+                            Ends in: 5 days
+                          </span>
                           <span className="text-white">$1,890 revenue</span>
                         </div>
                       </div>
                       <div className="p-4 bg-slate-700/30 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-medium text-white">Boss Battle Event</h3>
-                          <Badge className="bg-purple-500/20 text-purple-400">Active</Badge>
+                          <h3 className="font-medium text-white">
+                            Boss Battle Event
+                          </h3>
+                          <Badge className="bg-purple-500/20 text-purple-400">
+                            Active
+                          </Badge>
                         </div>
-                        <p className="text-sm text-slate-400 mb-3">Special raid boss with exclusive rewards</p>
+                        <p className="text-sm text-slate-400 mb-3">
+                          Special raid boss with exclusive rewards
+                        </p>
                         <div className="flex items-center justify-between text-xs">
                           <span className="text-slate-400">Ends in: 1 day</span>
                           <span className="text-white">8,921 participants</span>
@@ -1481,33 +1902,45 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Create New Event</CardTitle>
-                    <CardDescription className="text-slate-400">Launch a new campaign</CardDescription>
+                    <CardTitle className="text-white">
+                      Create New Event
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Launch a new campaign
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">Event Name</label>
+                      <label className="text-white font-medium text-sm block">
+                        Event Name
+                      </label>
                       <Input
                         placeholder="Enter event name"
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">Event Description</label>
+                      <label className="text-white font-medium text-sm block">
+                        Event Description
+                      </label>
                       <Input
                         placeholder="Enter event description"
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">Start Date</label>
+                      <label className="text-white font-medium text-sm block">
+                        Start Date
+                      </label>
                       <Input
                         type="datetime-local"
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">End Date</label>
+                      <label className="text-white font-medium text-sm block">
+                        End Date
+                      </label>
                       <Input
                         type="datetime-local"
                         className="bg-slate-700/50 border-slate-600 text-white"
@@ -1527,11 +1960,18 @@ export default function ConsolePage() {
             <>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
                 <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">Realtime Database</h1>
-                  <p className="text-slate-400">Monitor and manage your game's data collections</p>
+                  <h1 className="text-3xl font-bold font-heading text-white">
+                    Realtime Database
+                  </h1>
+                  <p className="text-slate-400">
+                    Monitor and manage your game's data collections
+                  </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="bg-slate-800/50 border-slate-600 text-white">
+                  <Button
+                    variant="outline"
+                    className="bg-slate-800/50 border-slate-600 text-white"
+                  >
                     <Download className="w-4 h-4 mr-2" />
                     Export Data
                   </Button>
@@ -1545,7 +1985,9 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Total Documents</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Total Documents
+                    </CardTitle>
                     <Server className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1555,17 +1997,23 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Database Size</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Database Size
+                    </CardTitle>
                     <Activity className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">932.1 MB</div>
+                    <div className="text-2xl font-bold text-white">
+                      932.1 MB
+                    </div>
                     <p className="text-xs text-slate-400">75% of quota</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Read Operations</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Read Operations
+                    </CardTitle>
                     <Eye className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1575,7 +2023,9 @@ export default function ConsolePage() {
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">Write Operations</CardTitle>
+                    <CardTitle className="text-sm font-medium text-white">
+                      Write Operations
+                    </CardTitle>
                     <Settings className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
@@ -1588,33 +2038,51 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Collections Overview</CardTitle>
-                    <CardDescription className="text-slate-400">Data collections in your database</CardDescription>
+                    <CardTitle className="text-white">
+                      Collections Overview
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Data collections in your database
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {databaseCollections.map((collection, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg"
+                        >
                           <div className="flex items-center space-x-4">
                             <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center">
                               <Server className="w-6 h-6 text-white" />
                             </div>
                             <div>
-                              <h3 className="font-medium text-white">{collection.name}</h3>
-                              <p className="text-sm text-slate-400">{collection.documents.toLocaleString()} documents • {collection.size}</p>
+                              <h3 className="font-medium text-white">
+                                {collection.name}
+                              </h3>
+                              <p className="text-sm text-slate-400">
+                                {collection.documents.toLocaleString()}{" "}
+                                documents • {collection.size}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-6 text-sm">
                             <div className="text-center">
-                              <p className="text-white font-medium">{collection.reads}</p>
+                              <p className="text-white font-medium">
+                                {collection.reads}
+                              </p>
                               <p className="text-slate-400">Reads</p>
                             </div>
                             <div className="text-center">
-                              <p className="text-white font-medium">{collection.writes}</p>
+                              <p className="text-white font-medium">
+                                {collection.writes}
+                              </p>
                               <p className="text-slate-400">Writes</p>
                             </div>
                             <div className="text-center">
-                              <p className="text-white font-medium">{collection.lastActivity}</p>
+                              <p className="text-white font-medium">
+                                {collection.lastActivity}
+                              </p>
                               <p className="text-slate-400">Last Activity</p>
                             </div>
                             <Button
@@ -1633,30 +2101,47 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Realtime Connections</CardTitle>
-                    <CardDescription className="text-slate-400">Active websocket connections by region</CardDescription>
+                    <CardTitle className="text-white">
+                      Realtime Connections
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Active websocket connections by region
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {realtimeConnections.map((connection, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg">
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg"
+                        >
                           <div className="flex items-center space-x-4">
                             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                             <div>
-                              <h3 className="font-medium text-white">{connection.region}</h3>
-                              <p className="text-sm text-slate-400">Latency: {connection.latency}</p>
+                              <h3 className="font-medium text-white">
+                                {connection.region}
+                              </h3>
+                              <p className="text-sm text-slate-400">
+                                Latency: {connection.latency}
+                              </p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="text-white font-medium">{connection.connections.toLocaleString()}</p>
-                            <p className="text-slate-400 text-sm">connections</p>
+                            <p className="text-white font-medium">
+                              {connection.connections.toLocaleString()}
+                            </p>
+                            <p className="text-slate-400 text-sm">
+                              connections
+                            </p>
                           </div>
                         </div>
                       ))}
                     </div>
                     <div className="mt-6 p-4 bg-slate-700/20 rounded-lg">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-white font-medium">Total Active Connections</span>
+                        <span className="text-white font-medium">
+                          Total Active Connections
+                        </span>
                         <span className="text-white font-bold">12,200</span>
                       </div>
                       <div className="text-sm text-slate-400">
@@ -1669,8 +2154,12 @@ export default function ConsolePage() {
 
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
-                  <CardTitle className="text-white">Database Activity</CardTitle>
-                  <CardDescription className="text-slate-400">Real-time database operations</CardDescription>
+                  <CardTitle className="text-white">
+                    Database Activity
+                  </CardTitle>
+                  <CardDescription className="text-slate-400">
+                    Real-time database operations
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
@@ -1678,7 +2167,11 @@ export default function ConsolePage() {
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                       <XAxis dataKey="time" stroke="#9ca3af" />
                       <YAxis yAxisId="left" stroke="#9ca3af" />
-                      <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                      <YAxis
+                        yAxisId="right"
+                        orientation="right"
+                        stroke="#9ca3af"
+                      />
                       <Tooltip
                         contentStyle={{
                           backgroundColor: "#1e293b",
@@ -1714,26 +2207,38 @@ export default function ConsolePage() {
           {activeSection === "settings" && (
             <>
               <div className="mb-8">
-                <h1 className="text-3xl font-bold font-heading text-white">Settings</h1>
-                <p className="text-slate-400">Configure your project settings and preferences</p>
+                <h1 className="text-3xl font-bold font-heading text-white">
+                  Settings
+                </h1>
+                <p className="text-slate-400">
+                  Configure your project settings and preferences
+                </p>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">General Settings</CardTitle>
-                    <CardDescription className="text-slate-400">Configure your game settings and preferences</CardDescription>
+                    <CardTitle className="text-white">
+                      General Settings
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Configure your game settings and preferences
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">Game Name</label>
+                      <label className="text-white font-medium text-sm block">
+                        Game Name
+                      </label>
                       <Input
                         placeholder="Bankeru Games"
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">API Key</label>
+                      <label className="text-white font-medium text-sm block">
+                        API Key
+                      </label>
                       <Input
                         placeholder="Enter API key"
                         type="password"
@@ -1741,14 +2246,18 @@ export default function ConsolePage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">Server Region</label>
+                      <label className="text-white font-medium text-sm block">
+                        Server Region
+                      </label>
                       <Input
                         placeholder="US East"
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">Max Players per Game</label>
+                      <label className="text-white font-medium text-sm block">
+                        Max Players per Game
+                      </label>
                       <Input
                         placeholder="100"
                         type="number"
@@ -1760,8 +2269,12 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Security Settings</CardTitle>
-                    <CardDescription className="text-slate-400">Configure security and access controls</CardDescription>
+                    <CardTitle className="text-white">
+                      Security Settings
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Configure security and access controls
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
@@ -1769,7 +2282,9 @@ export default function ConsolePage() {
                         <Label htmlFor="two-factor" className="text-white">
                           Two-Factor Authentication
                         </Label>
-                        <p className="text-xs text-slate-400">Add extra security to your account</p>
+                        <p className="text-xs text-slate-400">
+                          Add extra security to your account
+                        </p>
                       </div>
                       <Switch id="two-factor" />
                     </div>
@@ -1778,7 +2293,9 @@ export default function ConsolePage() {
                         <Label htmlFor="api-access" className="text-white">
                           API Access Logging
                         </Label>
-                        <p className="text-xs text-slate-400">Log all API requests</p>
+                        <p className="text-xs text-slate-400">
+                          Log all API requests
+                        </p>
                       </div>
                       <Switch id="api-access" defaultChecked />
                     </div>
@@ -1787,7 +2304,9 @@ export default function ConsolePage() {
                         <Label htmlFor="ip-whitelist" className="text-white">
                           IP Whitelisting
                         </Label>
-                        <p className="text-xs text-slate-400">Restrict access by IP address</p>
+                        <p className="text-xs text-slate-400">
+                          Restrict access by IP address
+                        </p>
                       </div>
                       <Switch id="ip-whitelist" />
                     </div>
@@ -1796,8 +2315,12 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Notification Settings</CardTitle>
-                    <CardDescription className="text-slate-400">Manage your notification preferences</CardDescription>
+                    <CardTitle className="text-white">
+                      Notification Settings
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Manage your notification preferences
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex items-center justify-between">
@@ -1805,7 +2328,9 @@ export default function ConsolePage() {
                         <Label htmlFor="email-alerts" className="text-white">
                           Email Alerts
                         </Label>
-                        <p className="text-xs text-slate-400">Receive important updates via email</p>
+                        <p className="text-xs text-slate-400">
+                          Receive important updates via email
+                        </p>
                       </div>
                       <Switch id="email-alerts" defaultChecked />
                     </div>
@@ -1814,7 +2339,9 @@ export default function ConsolePage() {
                         <Label htmlFor="server-alerts" className="text-white">
                           Server Alerts
                         </Label>
-                        <p className="text-xs text-slate-400">Get notified of server issues</p>
+                        <p className="text-xs text-slate-400">
+                          Get notified of server issues
+                        </p>
                       </div>
                       <Switch id="server-alerts" defaultChecked />
                     </div>
@@ -1823,7 +2350,9 @@ export default function ConsolePage() {
                         <Label htmlFor="security-alerts" className="text-white">
                           Security Alerts
                         </Label>
-                        <p className="text-xs text-slate-400">Anti-cheat and security notifications</p>
+                        <p className="text-xs text-slate-400">
+                          Anti-cheat and security notifications
+                        </p>
                       </div>
                       <Switch id="security-alerts" defaultChecked />
                     </div>
@@ -1832,13 +2361,19 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Billing & Usage</CardTitle>
-                    <CardDescription className="text-slate-400">Monitor your usage and billing</CardDescription>
+                    <CardTitle className="text-white">
+                      Billing & Usage
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      Monitor your usage and billing
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <span className="text-white">Current Plan</span>
-                      <Badge className="bg-gradient-to-r from-pink-500 to-cyan-400 text-white">Pro</Badge>
+                      <Badge className="bg-gradient-to-r from-pink-500 to-cyan-400 text-white">
+                        Pro
+                      </Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-white">Monthly Usage</span>
@@ -1862,5 +2397,5 @@ export default function ConsolePage() {
         </main>
       </div>
     </div>
-  )
+  );
 }
