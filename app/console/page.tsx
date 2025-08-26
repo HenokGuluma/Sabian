@@ -563,30 +563,7 @@ export default function ConsolePage() {
                 <Users className="w-4 h-4 mr-3" />
                 Player Management
               </Button>
-              <Button
-                variant="ghost"
-                className={`w-full justify-start ${
-                  activeSection === "economy"
-                    ? "text-white bg-slate-700/50 border-l-2 border-pink-500"
-                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
-                }`}
-                onClick={() => setActiveSection("economy")}
-              >
-                <Coins className="w-4 h-4 mr-3" />
-                Economy
-              </Button>
-              <Button
-                variant="ghost"
-                className={`w-full justify-start ${
-                  activeSection === "anticheat"
-                    ? "text-white bg-slate-700/50 border-l-2 border-pink-500"
-                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
-                }`}
-                onClick={() => setActiveSection("anticheat")}
-              >
-                <Shield className="w-4 h-4 mr-3" />
-                Anti-Cheat
-              </Button>
+              
               <Button
                 variant="ghost"
                 className={`w-full justify-start ${
@@ -611,6 +588,15 @@ export default function ConsolePage() {
                 <Database className="w-4 h-4 mr-3" />
                 Realtime Database
               </Button>
+              <Link href="/console/database">
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-700/50 ml-4"
+                >
+                  <FileText className="w-4 h-4 mr-3" />
+                  Browse Database
+                </Button>
+              </Link>
               <Button
                 variant="ghost"
                 className={`w-full justify-start ${
@@ -1301,7 +1287,7 @@ export default function ConsolePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-white">
@@ -1310,7 +1296,7 @@ export default function ConsolePage() {
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">45,231</div>
+                    <div className="text-2xl font-bold text-white">17,278</div>
                     <p className="text-xs text-green-400">+12% this month</p>
                   </CardContent>
                 </Card>
@@ -1322,8 +1308,8 @@ export default function ConsolePage() {
                     <UserCheck className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">12,543</div>
-                    <p className="text-xs text-slate-400">Peak: 18,420</p>
+                    <div className="text-2xl font-bold text-white">3,298</div>
+                    <p className="text-xs text-slate-400">Peak: 5,420</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1334,20 +1320,8 @@ export default function ConsolePage() {
                     <Trophy className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">1,234</div>
+                    <div className="text-2xl font-bold text-white">236</div>
                     <p className="text-xs text-green-400">+8% vs yesterday</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Banned
-                    </CardTitle>
-                    <Ban className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">89</div>
-                    <p className="text-xs text-red-400">Anti-cheat actions</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1433,342 +1407,7 @@ export default function ConsolePage() {
             </>
           )}
 
-          {activeSection === "economy" && (
-            <>
-              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
-                <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">
-                    Virtual Economy
-                  </h1>
-                  <p className="text-slate-400">
-                    Manage in-game currencies and items
-                  </p>
-                </div>
-                <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Item
-                </Button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Total Revenue
-                    </CardTitle>
-                    <DollarSign className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">$8,420</div>
-                    <p className="text-xs text-green-400">+15% this month</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Items Sold
-                    </CardTitle>
-                    <Coins className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">23,456</div>
-                    <p className="text-xs text-slate-400">Last 30 days</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      ARPU
-                    </CardTitle>
-                    <Target className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">$6.72</div>
-                    <p className="text-xs text-green-400">+3% vs last month</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Conversion
-                    </CardTitle>
-                    <TrendingUp className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">4.2%</div>
-                    <p className="text-xs text-slate-400">
-                      Players who purchase
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <Card className="bg-slate-800/50 border-slate-700">
-                <CardHeader>
-                  <CardTitle className="text-white">Virtual Items</CardTitle>
-                  <CardDescription className="text-slate-400">
-                    Manage your in-game economy
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {economyData.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center justify-between p-4 bg-slate-700/30 rounded-lg"
-                      >
-                        <div className="flex items-center space-x-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center">
-                            <Coins className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-medium text-white">
-                              {item.item}
-                            </h3>
-                            <p className="text-sm text-slate-400">
-                              Total: {item.total.toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-6 text-sm">
-                          <div className="text-center">
-                            <p className="text-white font-medium">
-                              {item.distributed.toLocaleString()}
-                            </p>
-                            <p className="text-slate-400">Distributed</p>
-                          </div>
-                          <div className="text-center">
-                            <p className="text-white font-medium">
-                              {item.purchased.toLocaleString()}
-                            </p>
-                            <p className="text-slate-400">Purchased</p>
-                          </div>
-                          <div className="text-center">
-                            <p className="text-white font-medium">
-                              {(
-                                (item.purchased / item.distributed) *
-                                100
-                              ).toFixed(1)}
-                              %
-                            </p>
-                            <p className="text-slate-400">Conversion</p>
-                          </div>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-slate-600 text-slate-300 bg-transparent"
-                          >
-                            <Settings className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
-
-          {activeSection === "anticheat" && (
-            <>
-              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
-                <div>
-                  <h1 className="text-3xl font-bold font-heading text-white">
-                    Anti-Cheat System
-                  </h1>
-                  <p className="text-slate-400">
-                    Monitor and prevent cheating in your game
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    className="bg-slate-800/50 border-slate-600 text-white"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Export Report
-                  </Button>
-                  <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
-                    <Shield className="w-4 h-4 mr-2" />
-                    Update Rules
-                  </Button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Threats Blocked
-                    </CardTitle>
-                    <Shield className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">1,234</div>
-                    <p className="text-xs text-green-400">Last 30 days</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Players Banned
-                    </CardTitle>
-                    <Ban className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">89</div>
-                    <p className="text-xs text-red-400">Permanent bans</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      Detection Rate
-                    </CardTitle>
-                    <Target className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">99.7%</div>
-                    <p className="text-xs text-green-400">Excellent coverage</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-white">
-                      False Positives
-                    </CardTitle>
-                    <AlertTriangle className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">0.3%</div>
-                    <p className="text-xs text-slate-400">Very low rate</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle className="text-white">
-                      Recent Detections
-                    </CardTitle>
-                    <CardDescription className="text-slate-400">
-                      Latest anti-cheat actions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <AlertTriangle className="w-5 h-5 text-red-400" />
-                          <div>
-                            <p className="text-sm font-medium text-white">
-                              Speed Hack Detected
-                            </p>
-                            <p className="text-xs text-slate-400">
-                              Player: CheatMaster99
-                            </p>
-                          </div>
-                        </div>
-                        <Badge variant="destructive">Banned</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <Shield className="w-5 h-5 text-yellow-400" />
-                          <div>
-                            <p className="text-sm font-medium text-white">
-                              Suspicious Activity
-                            </p>
-                            <p className="text-xs text-slate-400">
-                              Player: SuspiciousUser
-                            </p>
-                          </div>
-                        </div>
-                        <Badge variant="secondary">Monitoring</Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <CheckCircle className="w-5 h-5 text-green-400" />
-                          <div>
-                            <p className="text-sm font-medium text-white">
-                              False Positive Resolved
-                            </p>
-                            <p className="text-xs text-slate-400">
-                              Player: LegitPlayer123
-                            </p>
-                          </div>
-                        </div>
-                        <Badge variant="outline">Cleared</Badge>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle className="text-white">
-                      Protection Settings
-                    </CardTitle>
-                    <CardDescription className="text-slate-400">
-                      Configure anti-cheat rules
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="speed-detection" className="text-white">
-                          Speed Hack Detection
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Detect abnormal movement speeds
-                        </p>
-                      </div>
-                      <Switch id="speed-detection" defaultChecked />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label
-                          htmlFor="memory-protection"
-                          className="text-white"
-                        >
-                          Memory Protection
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Prevent memory manipulation
-                        </p>
-                      </div>
-                      <Switch id="memory-protection" defaultChecked />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label
-                          htmlFor="statistical-analysis"
-                          className="text-white"
-                        >
-                          Statistical Analysis
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Analyze player behavior patterns
-                        </p>
-                      </div>
-                      <Switch id="statistical-analysis" defaultChecked />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="auto-ban" className="text-white">
-                          Automatic Banning
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Auto-ban confirmed cheaters
-                        </p>
-                      </div>
-                      <Switch id="auto-ban" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </>
-          )}
+          
 
           {activeSection === "liveops" && (
             <>
@@ -1977,6 +1616,12 @@ export default function ConsolePage() {
                   </p>
                 </div>
                 <div className="flex gap-2">
+                  <Link href="/console/database">
+                    <Button className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white">
+                      <Database className="w-4 h-4 mr-2" />
+                      Browse Database Console
+                    </Button>
+                  </Link>
                   <Button
                     variant="outline"
                     className="bg-slate-800/50 border-slate-600 text-white"
