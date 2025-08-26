@@ -13,8 +13,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
-import { Search, Edit, Save, Users, BarChart3, GameController2 } from "lucide-react"
-import { users, playerStats, gameSessions, type User, type PlayerStats, type GameSession } from "@/lib/database"
+import { Search, Edit, Save, Users, BarChart3, Gamepad2 } from "lucide-react"
+import { userDatabase as users, playerStatsDatabase as playerStats, gameSessionsDatabase as gameSessions, type User, type PlayerStats, type GameSession } from "@/lib/database"
 
 export default function DatabasePage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -35,7 +35,7 @@ export default function DatabasePage() {
   )
 
   const filteredGameSessions = gameSessions.filter(session =>
-    searchTerm === "" || session.userId.includes(searchTerm) || session.gameMode.toLowerCase().includes(searchTerm.toLowerCase())
+    searchTerm === "" || session.userId.includes(searchTerm) || session.gameType.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const handleEdit = (item: any, type: string) => {
@@ -83,7 +83,7 @@ export default function DatabasePage() {
               Player Stats ({playerStats.length})
             </TabsTrigger>
             <TabsTrigger value="sessions" className="data-[state=active]:bg-slate-700">
-              <GameController2 className="h-4 w-4 mr-2" />
+              <Gamepad2 className="h-4 w-4 mr-2" />
               Game Sessions ({gameSessions.length})
             </TabsTrigger>
           </TabsList>
@@ -282,7 +282,7 @@ export default function DatabasePage() {
                         <TableHead className="text-slate-300">User ID</TableHead>
                         <TableHead className="text-slate-300">Level</TableHead>
                         <TableHead className="text-slate-300">Rank</TableHead>
-                        <TableHead className="text-slate-300">K/D Ratio</TableHead>
+                        <TableHead className="text-slate-300">Best Score</TableHead>
                         <TableHead className="text-slate-300">Win Rate</TableHead>
                         <TableHead className="text-slate-300">Actions</TableHead>
                       </TableRow>
@@ -295,7 +295,7 @@ export default function DatabasePage() {
                           <TableCell>
                             <Badge className="bg-cyan-600">{stat.rank}</Badge>
                           </TableCell>
-                          <TableCell className="text-slate-300">{stat.killDeathRatio}</TableCell>
+                          <TableCell className="text-slate-300">{stat.bestScore.toLocaleString()}</TableCell>
                           <TableCell className="text-slate-300">{stat.winRate}%</TableCell>
                           <TableCell>
                             <Button 
@@ -332,7 +332,7 @@ export default function DatabasePage() {
                       <TableRow className="border-slate-700">
                         <TableHead className="text-slate-300">Session ID</TableHead>
                         <TableHead className="text-slate-300">User ID</TableHead>
-                        <TableHead className="text-slate-300">Game Mode</TableHead>
+                        <TableHead className="text-slate-300">Game Type</TableHead>
                         <TableHead className="text-slate-300">Duration</TableHead>
                         <TableHead className="text-slate-300">Result</TableHead>
                         <TableHead className="text-slate-300">Score</TableHead>
@@ -344,8 +344,8 @@ export default function DatabasePage() {
                         <TableRow key={session.id} className="border-slate-700">
                           <TableCell className="text-white font-medium">{session.id}</TableCell>
                           <TableCell className="text-slate-300">{session.userId}</TableCell>
-                          <TableCell className="text-slate-300">{session.gameMode}</TableCell>
-                          <TableCell className="text-slate-300">{Math.floor(session.duration / 60)}m</TableCell>
+                          <TableCell className="text-slate-300">{session.gameType}</TableCell>
+                          <TableCell className="text-slate-300">{session.duration}m</TableCell>
                           <TableCell>
                             <Badge className={
                               session.result === 'win' ? 'bg-green-600' : 
