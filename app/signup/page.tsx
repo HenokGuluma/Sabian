@@ -82,8 +82,8 @@ export default function SignupPage() {
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
             </div>
-            <CardTitle className="text-2xl font-heading">Join Sabian</CardTitle>
-            <CardDescription>Create your developer account and start building amazing games</CardDescription>
+            <CardTitle className="text-2xl font-heading text-slate-900">Join Sabian</CardTitle>
+            <CardDescription className="text-slate-700">Create your developer account and start building amazing games</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Social Signup */}
@@ -125,7 +125,7 @@ export default function SignupPage() {
                   placeholder="John Developer"
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 transition-all"
+                  className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 transition-all"
                   required
                 />
               </div>
@@ -137,7 +137,7 @@ export default function SignupPage() {
                   placeholder="developer@example.com"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 transition-all"
+                  className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 transition-all"
                   required
                 />
               </div>
@@ -150,7 +150,7 @@ export default function SignupPage() {
                     placeholder="Create a strong password"
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
-                    className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 pr-10 transition-all"
+                    className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 pr-10 transition-all"
                     required
                   />
                   <Button
@@ -165,7 +165,7 @@ export default function SignupPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword" className="text-slate-900 font-medium">Confirm Password</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
@@ -173,7 +173,7 @@ export default function SignupPage() {
                     placeholder="Confirm your password"
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                    className="bg-slate-700/70 border-slate-600 focus:border-cyan-400 text-white placeholder:text-slate-400 pr-10 transition-all"
+                    className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 pr-10 transition-all"
                     required
                   />
                   <Button
