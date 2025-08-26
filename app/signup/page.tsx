@@ -118,7 +118,7 @@ export default function SignupPage() {
             {/* Signup Form */}
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-slate-900 font-medium">Full Name</Label>
                 <Input
                   id="name"
                   type="text"
@@ -130,7 +130,7 @@ export default function SignupPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-slate-900 font-medium">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -142,7 +142,7 @@ export default function SignupPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-slate-900 font-medium">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,6 +21,17 @@ import {
 import { CalendarIcon, Download } from "lucide-react"
 import { format } from "date-fns"
 import type { DateRange } from "react-day-picker"
+import { Progress } from '@/components/ui/progress'
+import { Badge } from '@/components/ui/badge'
+import { 
+  BarChart3, 
+  TrendingUp, 
+  Users, 
+  Gamepad2,
+  Calendar,
+  Activity
+} from 'lucide-react'
+import { analyticsData } from '@/lib/database'
 
 export default function AnalyticsPage() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
@@ -166,6 +177,71 @@ export default function AnalyticsPage() {
             </ResponsiveContainer>
           </CardContent>
         </Card>
+
+        {/* Player Growth Chart */}
+          <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white">Player Growth</CardTitle>
+              <CardDescription className="text-slate-300">Monthly active players over 7 months - showing major growth from May</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="grid grid-cols-7 gap-3">
+                  {analyticsData.map((data) => {
+                    const maxPlayers = Math.max(...analyticsData.map(d => d.players))
+                    const height = (data.players / maxPlayers) * 100
+                    return (
+                      <div key={data.month} className="text-center">
+                        <div className="bg-slate-700 rounded-t" style={{ height: '150px', position: 'relative' }}>
+                          <div 
+                            className="bg-gradient-to-t from-pink-500 to-cyan-400 rounded-t absolute bottom-0 w-full transition-all duration-500"
+                            style={{ height: `${height}%` }}
+                          />
+                        </div>
+                        <p className="text-xs text-slate-400 mt-2">{data.month.slice(0, 3)}</p>
+                        <p className="text-sm text-white font-medium">{data.players.toLocaleString()}</p>
+                        <p className="text-xs text-green-400">+{data.newUsers.toLocaleString()} new</p>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="text-center pt-4 border-t border-slate-700">
+                  <p className="text-sm text-slate-300">
+                    <span className="text-green-400 font-medium">Major Growth</span> starting in May - 
+                    <span className="text-white font-medium"> +722% increase</span> from February to August
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+        {/* Player Retention */}
+          <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white">Player Retention</CardTitle>
+              <CardDescription className="text-slate-300">30-day retention rate - showing steady improvement</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="text-3xl font-bold text-white">85.2%</div>
+                <Progress value={85.2} className="h-2" />
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Day 1</span>
+                  <span className="text-slate-400">Day 30</span>
+                </div>
+                <p className="text-sm text-green-400">+12.8% improvement since February</p>
+                <div className="space-y-2 pt-2 border-t border-slate-700">
+                  <div className="text-xs text-slate-300">Monthly Retention Progress:</div>
+                  {analyticsData.slice(-3).map((data) => (
+                    <div key={data.month} className="flex justify-between items-center text-sm">
+                      <span className="text-slate-400">{data.month}</span>
+                      <span className="text-green-400">{data.retention}%</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
       </div>
     </div>
   )

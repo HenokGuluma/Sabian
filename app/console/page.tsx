@@ -1,23 +1,39 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Progress } from "@/components/ui/progress"
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+  Search,
+  Bell,
+  Settings,
+  Users,
+  TrendingUp,
+  Gamepad2,
+  BarChart3,
+  Database,
+  Zap,
+  Play,
+  Pause,
+  MoreHorizontal,
+  Eye,
+  Edit,
+  Trash2,
+  Plus,
+  Loader2,
+} from "lucide-react"
+import { userDatabase, playerStatsDatabase, gameSessionsDatabase, analyticsData } from "@/lib/database"
+import { format } from "date-fns"
+import type { DateRange } from "react-day-picker"
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   LineChart,
   Line,
@@ -35,58 +51,46 @@ import {
   BarChart,
   Bar,
 } from "recharts"
-import {
-  Gamepad2,
-  Plus,
-  BarChart3,
-  Users,
-  Server,
-  Shield,
-  Settings,
-  Bell,
-  Search,
-  TrendingUp,
-  TrendingDown,
-  Activity,
-  Zap,
-  Globe,
-  DollarSign,
-  Clock,
-  CalendarIcon,
-  Download,
-  RefreshCw,
-  Play,
-  Pause,
-  AlertTriangle,
-  CheckCircle,
-  Coins,
-  Trophy,
-  Target,
-  Flame,
-  Eye,
-  UserCheck,
-  Ban,
-  Mail,
-  Gift,
-} from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { format } from "date-fns"
-import type { DateRange } from "react-day-picker"
-import { Switch } from "@/components/ui/switch"
+import { AlertTriangle, CheckCircle, Ban, Mail, Gift, Shield, Target, Flame, Coins, Server, Clock, CalendarIcon, Download, RefreshCw, DollarSign, Activity } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Switch } from "@/components/ui/switch"
 
 export default function ConsolePage() {
-  const router = useRouter()
   const [selectedProject, setSelectedProject] = useState("bankeru-games")
   const [activeSection, setActiveSection] = useState("overview")
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date(2024, 0, 20),
     to: new Date(2024, 1, 9),
   })
+  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const router = useRouter()
 
   const handleLogout = () => {
     router.push("/")
+  }
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const auth = localStorage.getItem("isAuthenticated")
+      if (auth === "true") {
+        setIsAuthenticated(true)
+        // Simulate data loading
+        setTimeout(() => setIsLoading(false), 3000)
+      } else {
+        router.push("/login")
+      }
+    }
+    checkAuth()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-slate-900">
+        <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+      </div>
+    )
   }
 
   const projects = [
@@ -94,8 +98,8 @@ export default function ConsolePage() {
       id: "bankeru-games",
       name: "Bankeru Games",
       status: "live",
-      players: "12.5K",
-      revenue: "$8,420",
+      players: "17.2K",
+      revenue: "$14.5K",
       uptime: "99.9%",
     },
   ]
@@ -103,17 +107,10 @@ export default function ConsolePage() {
   const metrics = [
     {
       title: "Active Players",
-      value: "12,543",
-      change: "+12.5%",
+      value: "17,278",
+      change: "+24.8%",
       trend: "up",
       icon: Users,
-    },
-    {
-      title: "Revenue",
-      value: "$8,420",
-      change: "+8.2%",
-      trend: "up",
-      icon: DollarSign,
     },
     {
       title: "Server Uptime",
@@ -128,6 +125,13 @@ export default function ConsolePage() {
       change: "-2.1%",
       trend: "down",
       icon: Clock,
+    },
+    {
+      title: "DAU",
+      value: "14,523",
+      change: "+10.5%",
+      trend: "up",
+      icon: Activity,
     },
   ]
 
@@ -196,17 +200,17 @@ export default function ConsolePage() {
       lastActivity: "2 min ago"
     },
     {
-      name: "player_stats", 
+      name: "player_stats",
       documents: 45231,
       size: "89.2 MB",
       reads: "1.8M",
-      writes: "324K", 
+      writes: "324K",
       lastActivity: "1 min ago"
     },
     {
       name: "game_sessions",
       documents: 128450,
-      size: "256.8 MB", 
+      size: "256.8 MB",
       reads: "5.2M",
       writes: "1.2M",
       lastActivity: "30 sec ago"
@@ -215,7 +219,7 @@ export default function ConsolePage() {
       name: "leaderboards",
       documents: 1250,
       size: "12.4 MB",
-      reads: "890K", 
+      reads: "890K",
       writes: "45K",
       lastActivity: "3 min ago"
     },
@@ -224,14 +228,14 @@ export default function ConsolePage() {
       documents: 234560,
       size: "445.2 MB",
       reads: "3.4M",
-      writes: "789K", 
+      writes: "789K",
       lastActivity: "1 min ago"
     }
   ]
 
   const realtimeConnections = [
     { region: "US East", connections: 4250, latency: "12ms" },
-    { region: "EU West", connections: 3890, latency: "8ms" }, 
+    { region: "EU West", connections: 3890, latency: "8ms" },
     { region: "Asia Pacific", connections: 2100, latency: "45ms" },
     { region: "US West", connections: 1960, latency: "15ms" }
   ]
@@ -247,7 +251,7 @@ export default function ConsolePage() {
                 <Gamepad2 className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold font-heading bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
-                Sabian Console
+                Bankeru Games Console
               </span>
             </Link>
           </div>
@@ -433,7 +437,7 @@ export default function ConsolePage() {
                 }`}
                 onClick={() => setActiveSection("database")}
               >
-                <Server className="w-4 h-4 mr-3" />
+                <Database className="w-4 h-4 mr-3" />
                 Realtime Database
               </Button>
               <Button
@@ -1458,64 +1462,34 @@ export default function ConsolePage() {
                     <CardTitle className="text-white">Create New Event</CardTitle>
                     <CardDescription className="text-slate-400">Launch a new campaign</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label htmlFor="event-name" className="text-white">
-                        Event Name
-                      </Label>
+                  <CardContent className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">Event Name</label>
                       <Input
-                        id="event-name"
                         placeholder="Enter event name"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">Event Description</label>
+                      <Input
+                        placeholder="Enter event description"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">Start Date</label>
+                      <Input
+                        type="datetime-local"
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="event-type" className="text-white">
-                        Event Type
-                      </Label>
-                      <Select>
-                        <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
-                          <SelectValue placeholder="Select event type" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-slate-800 border-slate-600">
-                          <SelectItem value="xp-boost">XP Boost</SelectItem>
-                          <SelectItem value="sale">Sale Event</SelectItem>
-                          <SelectItem value="tournament">Tournament</SelectItem>
-                          <SelectItem value="special-boss">Special Boss</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="event-description" className="text-white">
-                        Description
-                      </Label>
-                      <Textarea
-                        id="event-description"
-                        placeholder="Describe your event"
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">End Date</label>
+                      <Input
+                        type="datetime-local"
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="start-date" className="text-white">
-                          Start Date
-                        </Label>
-                        <Input
-                          id="start-date"
-                          type="datetime-local"
-                          className="bg-slate-700/50 border-slate-600 text-white"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="end-date" className="text-white">
-                          End Date
-                        </Label>
-                        <Input
-                          id="end-date"
-                          type="datetime-local"
-                          className="bg-slate-700/50 border-slate-600 text-white"
-                        />
-                      </div>
                     </div>
                     <Button className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
                       <Gift className="w-4 h-4 mr-2" />
@@ -1725,45 +1699,39 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Project Settings</CardTitle>
-                    <CardDescription className="text-slate-400">Basic project configuration</CardDescription>
+                    <CardTitle className="text-white">General Settings</CardTitle>
+                    <CardDescription className="text-slate-400">Configure your game settings and preferences</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <Label htmlFor="project-name" className="text-white">
-                        Project Name
-                      </Label>
+                  <CardContent className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">Game Name</label>
                       <Input
-                        id="project-name"
-                        defaultValue="Bankeru Games"
-                        className="bg-slate-700/50 border-slate-600 text-white"
+                        placeholder="Bankeru Games"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="project-description" className="text-white">
-                        Description
-                      </Label>
-                      <Textarea
-                        id="project-description"
-                        defaultValue="Mobile gaming platform with real-time multiplayer features"
-                        className="bg-slate-700/50 border-slate-600 text-white"
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">API Key</label>
+                      <Input
+                        placeholder="Enter API key"
+                        type="password"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="project-region" className="text-white">
-                        Primary Region
-                      </Label>
-                      <Select defaultValue="us-east">
-                        <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-slate-800 border-slate-600">
-                          <SelectItem value="us-east">US East</SelectItem>
-                          <SelectItem value="us-west">US West</SelectItem>
-                          <SelectItem value="eu-west">EU West</SelectItem>
-                          <SelectItem value="asia-pacific">Asia Pacific</SelectItem>
-                        </SelectContent>
-                      </Select>
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">Server Region</label>
+                      <Input
+                        placeholder="US East"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-white font-medium text-sm block">Max Players per Game</label>
+                      <Input
+                        placeholder="100"
+                        type="number"
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                      />
                     </div>
                   </CardContent>
                 </Card>
