@@ -76,7 +76,7 @@ import {
   BarChart,
   Bar,
 } from "recharts"
-import { AlertTriangle, CheckCircle, Ban, Gift, Shield, Target, Flame, Coins, Server, Clock, RefreshCw, TrendingDown, Loader2, Globe, UserCheck, Eye, Pause, Play } from "lucide-react"
+import { AlertTriangle, CheckCircle, Ban, Gift, Shield, Target, Flame, Coins, Server, RefreshCw, TrendingDown, Loader2, Globe, UserCheck, Eye, Pause, Play } from "lucide-react"
 
 export default function ConsolePage() {
   const [selectedProject, setSelectedProject] = useState("bankeru-games")
