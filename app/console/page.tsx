@@ -203,21 +203,23 @@ export default function ConsolePage() {
   ];
 
   const playerActivityData = [
-    { time: "00:00", players: 1200, revenue: 450, sessions: 800 },
-    { time: "04:00", players: 800, revenue: 320, sessions: 600 },
-    { time: "08:00", players: 2100, revenue: 890, sessions: 1400 },
-    { time: "12:00", players: 3500, revenue: 1200, sessions: 2200 },
-    { time: "16:00", players: 4200, revenue: 1580, sessions: 2800 },
-    { time: "20:00", players: 5100, revenue: 2100, sessions: 3400 },
-    { time: "24:00", players: 2800, revenue: 980, sessions: 1900 },
+    { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400 },
+    { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700 },
+    { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800 },
+    { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000 },
+    { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800 },
+    { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600 },
+    { time: "Aug 2025", players: 21200, revenue: 19800, sessions: 42400 },
   ];
 
   const retentionData = [
-    { day: "Day 1", retention: 85, players: 8500 },
-    { day: "Day 3", retention: 65, players: 6500 },
-    { day: "Day 7", retention: 42, players: 4200 },
-    { day: "Day 14", retention: 28, players: 2800 },
-    { day: "Day 30", retention: 18, players: 1800 },
+    { day: "Feb 2025", retention: 45, players: 1200 },
+    { day: "Mar 2025", retention: 52, players: 1850 },
+    { day: "Apr 2025", retention: 58, players: 2900 },
+    { day: "May 2025", retention: 67, players: 8500 },
+    { day: "Jun 2025", retention: 73, players: 12400 },
+    { day: "Jul 2025", retention: 78, players: 16800 },
+    { day: "Aug 2025", retention: 82, players: 21200 },
   ];
 
   const revenueBreakdownData = [
@@ -337,24 +339,24 @@ export default function ConsolePage() {
   const databaseCollections = [
     {
       name: "users",
-      documents: 45231,
-      size: "128.5 MB",
+      documents: 16000,
+      size: "45.8 MB",
       reads: "2.1M",
       writes: "456K",
       lastActivity: "2 min ago",
     },
     {
       name: "player_stats",
-      documents: 45231,
-      size: "89.2 MB",
+      documents: 16000,
+      size: "32.4 MB",
       reads: "1.8M",
       writes: "324K",
       lastActivity: "1 min ago",
     },
     {
       name: "game_sessions",
-      documents: 128450,
-      size: "256.8 MB",
+      documents: 25000,
+      size: "156.2 MB",
       reads: "5.2M",
       writes: "1.2M",
       lastActivity: "30 sec ago",
@@ -369,8 +371,8 @@ export default function ConsolePage() {
     },
     {
       name: "items_inventory",
-      documents: 234560,
-      size: "445.2 MB",
+      documents: 48000,
+      size: "89.5 MB",
       reads: "3.4M",
       writes: "789K",
       lastActivity: "1 min ago",
@@ -395,7 +397,7 @@ export default function ConsolePage() {
                 <Gamepad2 className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold font-heading bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
-                Bankeru Games Console
+                Sabian Console
               </span>
             </Link>
           </div>
@@ -518,10 +520,7 @@ export default function ConsolePage() {
                       <span>Players:</span>
                       <span className="text-white">{project.players}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Revenue:</span>
-                      <span className="text-white">{project.revenue}</span>
-                    </div>
+                    
                   </div>
                 </div>
               ))}
@@ -634,7 +633,7 @@ export default function ConsolePage() {
             <>
               <div className="mb-8">
                 <h1 className="text-3xl font-bold font-heading mb-2 text-white">
-                  Bankeru Games Dashboard
+                  Sabian Console Dashboard
                 </h1>
                 <p className="text-slate-400">
                   Monitor your game's performance and manage backend services
@@ -766,10 +765,10 @@ export default function ConsolePage() {
               <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50 mt-6">
                 <CardHeader>
                   <CardTitle className="text-white">
-                    Player Activity (Last 7 Days)
+                    Player Growth (Last 7 Months)
                   </CardTitle>
                   <CardDescription className="text-slate-400">
-                    Concurrent players over time
+                    Player growth from February to August 2025
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -920,10 +919,10 @@ export default function ConsolePage() {
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
                     <CardTitle className="text-white">
-                      Player Activity & Revenue
+                      Player Growth & Revenue (7 Months)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Concurrent players and revenue over time
+                      Growth from February to August 2025 showing May breakthrough
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -1014,10 +1013,10 @@ export default function ConsolePage() {
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
                     <CardTitle className="text-white">
-                      Player Retention
+                      Player Retention Growth
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Retention rates over time
+                      Improving retention rates February - August 2025
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

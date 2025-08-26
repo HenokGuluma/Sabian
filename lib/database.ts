@@ -1,180 +1,173 @@
 
-export interface UserRecord {
-  id: string
-  username: string
-  email: string
-  phone: string
-  bio: string
-  totalGems: number
-  lastActive: string
-  trendingScore: number
-  purchaseHistory: Array<{
-    item: string
-    amount: number
-    date: string
-  }>
-  totalGamesPlayed: number
-  totalGamesWon: number
-  joinDate: string
-  level: number
-  avatar: string
+// Mock database with realistic game data
+export interface User {
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
+  bio: string;
+  totalGems: number;
+  lastActive: string;
+  trendingScore: number;
+  purchaseHistory: { item: string; amount: number; date: string }[];
+  totalGamesPlayed: number;
+  totalGamesWon: number;
+  level: number;
+  country: string;
+  joinDate: string;
+  status: 'online' | 'offline';
+}
+
+export interface PlayerStats {
+  id: string;
+  userId: string;
+  username: string;
+  level: number;
+  experience: number;
+  gamesPlayed: number;
+  gamesWon: number;
+  winRate: number;
+  averageScore: number;
+  bestScore: number;
+  totalPlayTime: number; // in minutes
+  achievements: string[];
+  rank: string;
+}
+
+export interface GameSession {
+  id: string;
+  userId: string;
+  username: string;
+  gameType: string;
+  duration: number; // in minutes
+  score: number;
+  result: 'win' | 'loss' | 'draw';
+  startTime: string;
+  endTime: string;
+  server: string;
+  region: string;
 }
 
 // Generate realistic user data
-const generateUserData = (count: number): UserRecord[] => {
-  const users: UserRecord[] = []
-  const usernames = ['GameMaster', 'ProGamer', 'PixelWarrior', 'NeonNinja', 'CyberPunk', 'StellarVoid', 'QuantumLeap', 'EpicRaider', 'MysticSage', 'TechnoViking']
-  const bios = [
-    'Passionate mobile gamer since 2020',
-    'Competitive player looking for challenges',
-    'Casual gamer enjoying new adventures',
-    'Strategy game enthusiast',
-    'RPG lover and guild leader',
-    'Speed run specialist',
-    'Puzzle game master',
-    'Battle royale champion',
-    'Indie game supporter',
-    'Retro gaming collector'
-  ]
-
-  for (let i = 1; i <= count; i++) {
-    const baseUsername = usernames[Math.floor(Math.random() * usernames.length)]
-    const randomNum = Math.floor(Math.random() * 9999)
-    const username = `${baseUsername}${randomNum}`
+const generateUsers = (): User[] => {
+  const users: User[] = [];
+  const gameThemes = ['Dragon', 'Shadow', 'Fire', 'Ice', 'Lightning', 'Steel', 'Mystic', 'Void', 'Star', 'Moon'];
+  const roles = ['Slayer', 'Hunter', 'Mage', 'Warrior', 'Ninja', 'Knight', 'Wizard', 'Ranger', 'Assassin', 'Guardian'];
+  const countries = ['ET', 'US', 'UK', 'DE', 'FR', 'JP', 'KR', 'CA', 'AU', 'BR'];
+  
+  for (let i = 1; i <= 16000; i++) {
+    const theme = gameThemes[Math.floor(Math.random() * gameThemes.length)];
+    const role = roles[Math.floor(Math.random() * roles.length)];
+    const username = `${theme}${role}${Math.floor(Math.random() * 1000)}`;
     
-    const email = `${username.toLowerCase()}@${['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com'][Math.floor(Math.random() * 4)]}`
-    
-    const phoneNum = Math.floor(Math.random() * 100000000).toString().padStart(8, '0')
-    const phone = `+251-9${phoneNum.slice(0, 8)}`
-    
-    const totalGamesPlayed = Math.floor(Math.random() * 1000) + 10
-    const totalGamesWon = Math.floor(totalGamesPlayed * (0.3 + Math.random() * 0.4))
-    
-    const purchases = []
-    const numPurchases = Math.floor(Math.random() * 5)
-    for (let j = 0; j < numPurchases; j++) {
-      purchases.push({
-        item: ['Gem Pack', 'Premium Battle Pass', 'Character Skin', 'Weapon Upgrade', 'XP Booster'][Math.floor(Math.random() * 5)],
-        amount: Math.floor(Math.random() * 50) + 5,
-        date: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-      })
-    }
+    const purchaseHistory = Array.from({ length: Math.floor(Math.random() * 5) }, (_, j) => ({
+      item: ['Gold Pack', 'Gem Bundle', 'Premium Sword', 'Energy Potion', 'Legendary Shield'][j % 5],
+      amount: Math.floor(Math.random() * 50) + 5,
+      date: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    }));
 
     users.push({
-      id: `user_${i.toString().padStart(6, '0')}`,
+      id: i.toString(),
       username,
-      email,
-      phone,
-      bio: bios[Math.floor(Math.random() * bios.length)],
+      email: `${username.toLowerCase()}@email.com`,
+      phone: `+251-9${Math.floor(Math.random() * 90000000 + 10000000)}`,
+      bio: `Gaming enthusiast, ${Math.floor(Math.random() * 5) + 1} years experience`,
       totalGems: Math.floor(Math.random() * 10000) + 100,
-      lastActive: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-      trendingScore: Math.floor(Math.random() * 1000),
-      purchaseHistory: purchases,
-      totalGamesPlayed,
-      totalGamesWon,
-      joinDate: new Date(Date.now() - Math.random() * 730 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      lastActive: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
+      trendingScore: Math.floor(Math.random() * 1000) + 50,
+      purchaseHistory,
+      totalGamesPlayed: Math.floor(Math.random() * 500) + 10,
+      totalGamesWon: Math.floor((Math.floor(Math.random() * 500) + 10) * (0.3 + Math.random() * 0.4)),
       level: Math.floor(Math.random() * 100) + 1,
-      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`
-    })
+      country: countries[Math.floor(Math.random() * countries.length)],
+      joinDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      status: Math.random() > 0.7 ? 'online' : 'offline'
+    });
   }
-
-  return users
-}
-
-export const userDatabase = generateUserData(16000)
-
-// Player stats interface
-export interface PlayerStats {
-  id: string
-  userId: string
-  username: string
-  averageSessionTime: number
-  favoriteGameMode: string
-  winRate: number
-  killDeathRatio: number
-  rank: string
-  seasonStats: {
-    season: string
-    wins: number
-    losses: number
-    points: number
-  }[]
-}
+  
+  return users;
+};
 
 // Generate player stats
-const generatePlayerStats = (): PlayerStats[] => {
-  return userDatabase.slice(0, 5000).map((user, index) => ({
-    id: `stats_${(index + 1).toString().padStart(6, '0')}`,
+const generatePlayerStats = (users: User[]): PlayerStats[] => {
+  return users.map(user => ({
+    id: user.id,
     userId: user.id,
     username: user.username,
-    averageSessionTime: Math.floor(Math.random() * 120) + 15,
-    favoriteGameMode: ['Battle Royale', 'Team Deathmatch', 'Capture the Flag', 'Survival', 'Racing'][Math.floor(Math.random() * 5)],
-    winRate: Math.floor((user.totalGamesWon / user.totalGamesPlayed) * 100),
-    killDeathRatio: (Math.random() * 2 + 0.5).toFixed(2),
-    rank: ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond'][Math.floor(Math.random() * 5)],
-    seasonStats: [
-      {
-        season: 'Season 3',
-        wins: Math.floor(Math.random() * 50) + 10,
-        losses: Math.floor(Math.random() * 30) + 5,
-        points: Math.floor(Math.random() * 2000) + 500
-      }
-    ]
-  }))
-}
-
-export const playerStatsDatabase = generatePlayerStats()
-
-// Game sessions interface
-export interface GameSession {
-  id: string
-  userId: string
-  username: string
-  gameMode: string
-  duration: number
-  score: number
-  result: 'win' | 'loss' | 'draw'
-  timestamp: string
-  map: string
-  kills?: number
-  deaths?: number
-}
+    level: user.level,
+    experience: user.level * 1000 + Math.floor(Math.random() * 1000),
+    gamesPlayed: user.totalGamesPlayed,
+    gamesWon: user.totalGamesWon,
+    winRate: Math.round((user.totalGamesWon / user.totalGamesPlayed) * 100),
+    averageScore: Math.floor(Math.random() * 5000) + 1000,
+    bestScore: Math.floor(Math.random() * 15000) + 5000,
+    totalPlayTime: Math.floor(Math.random() * 10000) + 100,
+    achievements: Array.from({ length: Math.floor(Math.random() * 10) }, (_, i) => 
+      ['First Win', 'Speed Demon', 'Perfectionist', 'Survivor', 'Champion', 'Legend', 'Master', 'Elite', 'Hero', 'Conqueror'][i]
+    ).filter(Boolean),
+    rank: ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond'][Math.floor(Math.random() * 5)]
+  }));
+};
 
 // Generate game sessions
-const generateGameSessions = (): GameSession[] => {
-  const sessions: GameSession[] = []
-  const gameModes = ['Battle Royale', 'Team Deathmatch', 'Capture the Flag', 'Survival', 'Racing']
-  const maps = ['Desert Storm', 'Urban Warfare', 'Forest Hunt', 'Space Station', 'Ancient Ruins']
+const generateGameSessions = (users: User[]): GameSession[] => {
+  const sessions: GameSession[] = [];
+  const gameTypes = ['Battle Royale', 'Team Deathmatch', 'Capture Flag', 'King of Hill', 'Arena'];
+  const servers = ['us-east-1', 'eu-west-1', 'asia-1', 'us-west-1'];
+  const regions = ['US East', 'EU West', 'Asia Pacific', 'US West'];
   
-  for (let i = 0; i < 50000; i++) {
-    const user = userDatabase[Math.floor(Math.random() * userDatabase.length)]
+  for (let i = 0; i < 25000; i++) {
+    const user = users[Math.floor(Math.random() * users.length)];
+    const duration = Math.floor(Math.random() * 30) + 5;
+    const startTime = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
+    const endTime = new Date(startTime.getTime() + duration * 60 * 1000);
+    
     sessions.push({
-      id: `session_${(i + 1).toString().padStart(6, '0')}`,
+      id: i.toString(),
       userId: user.id,
       username: user.username,
-      gameMode: gameModes[Math.floor(Math.random() * gameModes.length)],
-      duration: Math.floor(Math.random() * 1800) + 300, // 5-35 minutes
-      score: Math.floor(Math.random() * 5000),
-      result: Math.random() > 0.5 ? 'win' : 'loss',
-      timestamp: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-      map: maps[Math.floor(Math.random() * maps.length)],
-      kills: Math.floor(Math.random() * 20),
-      deaths: Math.floor(Math.random() * 15)
-    })
+      gameType: gameTypes[Math.floor(Math.random() * gameTypes.length)],
+      duration,
+      score: Math.floor(Math.random() * 10000) + 500,
+      result: Math.random() > 0.6 ? 'win' : Math.random() > 0.5 ? 'loss' : 'draw',
+      startTime: startTime.toISOString(),
+      endTime: endTime.toISOString(),
+      server: servers[Math.floor(Math.random() * servers.length)],
+      region: regions[Math.floor(Math.random() * regions.length)]
+    });
   }
   
-  return sessions
-}
+  return sessions;
+};
 
-export const gameSessionsDatabase = generateGameSessions()
-
-// Analytics data for 7 months with growth pattern
+// Generate analytics data for past 7 months (Feb 2025 - Aug 2025)
 export const analyticsData = [
-  { month: 'February', players: 2100, retention: 45, newUsers: 850 },
-  { month: 'March', players: 2800, retention: 52, newUsers: 1200 },
-  { month: 'April', players: 3500, retention: 58, newUsers: 1450 },
-  { month: 'May', players: 8200, retention: 72, newUsers: 4800 }, // Huge bump
-  { month: 'June', players: 12400, retention: 78, newUsers: 5200 },
-  { month: 'July', players: 15600, retention: 82, newUsers: 4800 },
-  { month: 'August', players: 17278, retention: 85, newUsers: 3200 }
-]
+  // February 2025 - slow start
+  { month: 'Feb 2025', players: 1200, revenue: 890, sessions: 2400, retention: 45 },
+  // March 2025 - slight growth
+  { month: 'Mar 2025', players: 1850, revenue: 1340, sessions: 3700, retention: 52 },
+  // April 2025 - steady growth
+  { month: 'Apr 2025', players: 2900, revenue: 2100, sessions: 5800, retention: 58 },
+  // May 2025 - huge bump starts here
+  { month: 'May 2025', players: 8500, revenue: 6200, sessions: 17000, retention: 67 },
+  // June 2025 - continued growth
+  { month: 'Jun 2025', players: 12400, revenue: 9800, sessions: 24800, retention: 73 },
+  // July 2025 - strong growth
+  { month: 'Jul 2025', players: 16800, revenue: 14500, sessions: 33600, retention: 78 },
+  // August 2025 - peak
+  { month: 'Aug 2025', players: 21200, revenue: 19800, sessions: 42400, retention: 82 }
+];
+
+export const userDatabase = generateUsers();
+export const playerStatsDatabase = generatePlayerStats(userDatabase);
+export const gameSessionsDatabase = generateGameSessions(userDatabase);
+
+// Export a subset for display
+export const recentPlayers = userDatabase.slice(0, 50).map(user => ({
+  id: user.id,
+  username: user.username,
+  level: user.level,
+  lastSeen: new Date(user.lastActive).toLocaleString(),
+  status: user.status,
+  country: user.country
+}));
