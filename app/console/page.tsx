@@ -78,10 +78,7 @@ import {
   BarChart,
   Bar,
 } from "recharts"
-import { AlertTriangle, CheckCircle, Ban, Mail, Gift, Shield, Target, Flame, Coins, Server, Clock, CalendarIcon, Download, RefreshCw, DollarSign, Activity } from "lucide-react"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
+import { AlertTriangle, CheckCircle, Ban, Gift, Shield, Target, Flame, Coins, Server, Clock, RefreshCw, TrendingDown, Loader2, Globe, UserCheck, Eye, Pause, Play } from "lucide-react"
 
 export default function ConsolePage() {
   const [selectedProject, setSelectedProject] = useState("bankeru-games")
