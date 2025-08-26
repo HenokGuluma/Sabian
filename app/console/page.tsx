@@ -50,7 +50,6 @@ import {
   Activity,
   BarChart3,
   PieChart,
-  LineChart,
   Database,
   FileText,
   RefreshCw,
