@@ -40,7 +40,7 @@ import {
   Edit,
   Trash,
   Plus,
-  Calendar,
+  Calendar as CalendarIcon,
   Mail,
   Phone,
   Clock,
