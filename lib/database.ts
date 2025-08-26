@@ -1,19 +1,22 @@
-
 // Mock database with realistic game data
 export interface User {
   id: string;
   username: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   bio: string;
   totalGems: number;
   lastActive: string;
+  country: string;
   trendingScore: number;
-  purchaseHistory: { item: string; amount: number; date: string }[];
+  purchaseHistory: Array<{
+    item: string;
+    amount: number;
+    date: string;
+  }>;
   totalGamesPlayed: number;
   totalGamesWon: number;
   level: number;
-  country: string;
   joinDate: string;
   status: 'online' | 'offline';
 }
@@ -54,12 +57,15 @@ const generateUsers = (): User[] => {
   const gameThemes = ['Dragon', 'Shadow', 'Fire', 'Ice', 'Lightning', 'Steel', 'Mystic', 'Void', 'Star', 'Moon'];
   const roles = ['Slayer', 'Hunter', 'Mage', 'Warrior', 'Ninja', 'Knight', 'Wizard', 'Ranger', 'Assassin', 'Guardian'];
   const countries = ['ET', 'US', 'UK', 'DE', 'FR', 'JP', 'KR', 'CA', 'AU', 'BR'];
-  
-  for (let i = 1; i <= 16000; i++) {
+
+  for (let i = 1; i <= 17278; i++) {
     const theme = gameThemes[Math.floor(Math.random() * gameThemes.length)];
     const role = roles[Math.floor(Math.random() * roles.length)];
     const username = `${theme}${role}${Math.floor(Math.random() * 1000)}`;
-    
+
+    // Generate Ethiopian phone number starting with +251-9
+    const phoneNumber = `+251-9${Math.floor(Math.random() * 90000000) + 10000000}`;
+
     const purchaseHistory = Array.from({ length: Math.floor(Math.random() * 5) }, (_, j) => ({
       item: ['Gold Pack', 'Gem Bundle', 'Premium Sword', 'Energy Potion', 'Legendary Shield'][j % 5],
       amount: Math.floor(Math.random() * 50) + 5,
@@ -69,9 +75,9 @@ const generateUsers = (): User[] => {
     users.push({
       id: i.toString(),
       username,
-      email: `${username.toLowerCase()}@email.com`,
-      phone: `+251-9${Math.floor(Math.random() * 90000000 + 10000000)}`,
-      bio: `Gaming enthusiast, ${Math.floor(Math.random() * 5) + 1} years experience`,
+      email: `${username.toLowerCase()}@example.com`,
+      phoneNumber,
+      bio: `Gaming enthusiast and ${role.toLowerCase()}. Love playing mobile games and collecting rare items!`,
       totalGems: Math.floor(Math.random() * 10000) + 100,
       lastActive: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
       trendingScore: Math.floor(Math.random() * 1000) + 50,
@@ -84,7 +90,7 @@ const generateUsers = (): User[] => {
       status: Math.random() > 0.7 ? 'online' : 'offline'
     });
   }
-  
+
   return users;
 };
 
@@ -115,13 +121,13 @@ const generateGameSessions = (users: User[]): GameSession[] => {
   const gameTypes = ['Battle Royale', 'Team Deathmatch', 'Capture Flag', 'King of Hill', 'Arena'];
   const servers = ['us-east-1', 'eu-west-1', 'asia-1', 'us-west-1'];
   const regions = ['US East', 'EU West', 'Asia Pacific', 'US West'];
-  
+
   for (let i = 0; i < 25000; i++) {
     const user = users[Math.floor(Math.random() * users.length)];
     const duration = Math.floor(Math.random() * 30) + 5;
     const startTime = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
     const endTime = new Date(startTime.getTime() + duration * 60 * 1000);
-    
+
     sessions.push({
       id: i.toString(),
       userId: user.id,
@@ -136,7 +142,7 @@ const generateGameSessions = (users: User[]): GameSession[] => {
       region: regions[Math.floor(Math.random() * regions.length)]
     });
   }
-  
+
   return sessions;
 };
 

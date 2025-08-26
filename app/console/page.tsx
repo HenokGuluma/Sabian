@@ -520,7 +520,7 @@ export default function ConsolePage() {
                       <span>Players:</span>
                       <span className="text-white">{project.players}</span>
                     </div>
-                    
+
                   </div>
                 </div>
               ))}
@@ -642,41 +642,46 @@ export default function ConsolePage() {
 
               {/* Metrics Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {metrics.map((metric, index) => (
-                  <Card
-                    key={index}
-                    className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all"
-                  >
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-white">
-                        {metric.title}
-                      </CardTitle>
-                      <metric.icon className="h-4 w-4 text-slate-400" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold text-white">
-                        {metric.value}
-                      </div>
-                      <div className="flex items-center text-xs text-slate-400">
-                        {metric.trend === "up" ? (
-                          <TrendingUp className="w-3 h-3 mr-1 text-green-400" />
-                        ) : (
-                          <TrendingDown className="w-3 h-3 mr-1 text-red-400" />
-                        )}
-                        <span
-                          className={
-                            metric.trend === "up"
-                              ? "text-green-400"
-                              : "text-red-400"
-                          }
-                        >
-                          {metric.change}
-                        </span>
-                        <span className="ml-1">from last month</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">Monthly Active Users</CardTitle>
+                    <Users className="h-4 w-4 text-pink-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">17,278</div>
+                    <p className="text-xs text-slate-400">+20.1% from last month</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">Server Uptime</CardTitle>
+                    <Server className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">99.9%</div>
+                    <p className="text-xs text-green-400">+0.1%</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">Avg Session</CardTitle>
+                    <Clock className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">24.5m</div>
+                    <p className="text-xs text-red-400">-2.1%</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">WAU</CardTitle>
+                    <Activity className="h-4 w-4 text-cyan-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">9,877</div>
+                    <p className="text-xs text-slate-400">+15.3% from last week</p>
+                  </CardContent>
+                </Card>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -877,41 +882,46 @@ export default function ConsolePage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                {metrics.map((metric, index) => (
-                  <Card
-                    key={index}
-                    className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all"
-                  >
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-white">
-                        {metric.title}
-                      </CardTitle>
-                      <metric.icon className="h-4 w-4 text-slate-400" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold text-white">
-                        {metric.value}
-                      </div>
-                      <div className="flex items-center text-xs text-slate-400">
-                        {metric.trend === "up" ? (
-                          <TrendingUp className="w-3 h-3 mr-1 text-green-400" />
-                        ) : (
-                          <TrendingDown className="w-3 h-3 mr-1 text-red-400" />
-                        )}
-                        <span
-                          className={
-                            metric.trend === "up"
-                              ? "text-green-400"
-                              : "text-red-400"
-                          }
-                        >
-                          {metric.change}
-                        </span>
-                        <span className="ml-1">from last period</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">Monthly Active Users</CardTitle>
+                    <Users className="h-4 w-4 text-pink-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">17,278</div>
+                    <p className="text-xs text-slate-400">+20.1% from last month</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">Server Uptime</CardTitle>
+                    <Server className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">99.9%</div>
+                    <p className="text-xs text-green-400">+0.1%</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">Avg Session</CardTitle>
+                    <Clock className="h-4 w-4 text-slate-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">24.5m</div>
+                    <p className="text-xs text-red-400">-2.1%</p>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-800/50 border-slate-700">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium text-slate-200">WAU</CardTitle>
+                    <Activity className="h-4 w-4 text-cyan-400" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-white">9,877</div>
+                    <p className="text-xs text-slate-400">+15.3% from last week</p>
+                  </CardContent>
+                </Card>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
