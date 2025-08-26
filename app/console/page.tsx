@@ -49,7 +49,6 @@ import {
   Zap,
   Activity,
   BarChart3,
-  PieChart,
   Database,
   FileText,
   RefreshCw,
