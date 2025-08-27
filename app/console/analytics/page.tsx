@@ -31,13 +31,25 @@ import {
   Calendar,
   Activity
 } from 'lucide-react'
-import { analyticsData } from '@/lib/database'
+import { analyticsData, weeklyPlayerGrowth } from '@/lib/database'
 
 export default function AnalyticsPage() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(2024, 0, 20),
-    to: new Date(2024, 1, 9),
+    from: new Date(2024, 10, 1), // November 1, 2024
+    to: new Date(2025, 8, 22),   // September 22, 2025
   })
+
+  // Filter weekly data based on selected date range
+  const getFilteredWeeklyData = () => {
+    if (!dateRange?.from || !dateRange?.to) return weeklyPlayerGrowth
+
+    return weeklyPlayerGrowth.filter(item => {
+      const itemDate = new Date(item.date)
+      return itemDate >= dateRange.from! && itemDate <= dateRange.to!
+    })
+  }
+
+  const filteredPlayerData = getFilteredWeeklyData()
 
   // Enhanced analytics data
   const playerActivityData = [
@@ -178,42 +190,83 @@ export default function AnalyticsPage() {
           </CardContent>
         </Card>
 
-        {/* Player Growth Chart */}
-          <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white">Player Growth</CardTitle>
-              <CardDescription className="text-slate-300">Monthly active players over 7 months - showing major growth from May</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="grid grid-cols-7 gap-3">
-                  {analyticsData.map((data) => {
-                    const maxPlayers = Math.max(...analyticsData.map(d => d.players))
-                    const height = (data.players / maxPlayers) * 100
-                    return (
-                      <div key={data.month} className="text-center">
-                        <div className="bg-slate-700 rounded-t" style={{ height: '150px', position: 'relative' }}>
-                          <div 
-                            className="bg-gradient-to-t from-pink-500 to-cyan-400 rounded-t absolute bottom-0 w-full transition-all duration-500"
-                            style={{ height: `${height}%` }}
-                          />
-                        </div>
-                        <p className="text-xs text-slate-400 mt-2">{data.month.slice(0, 3)}</p>
-                        <p className="text-sm text-white font-medium">{data.players.toLocaleString()}</p>
-                        <p className="text-xs text-green-400">+{data.newUsers.toLocaleString()} new</p>
-                      </div>
-                    )
-                  })}
+        {/* Weekly Player Growth Chart */}
+        <Card className="glass-card bg-slate-800/50 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Weekly Player Growth</CardTitle>
+            <CardDescription className="text-slate-400">
+              Weekly active players from November 2024 - showing steady growth with major breakthrough in May 2025
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={400}>
+              <ComposedChart data={filteredPlayerData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis 
+                  dataKey="week" 
+                  stroke="#9ca3af" 
+                  angle={-45}
+                  textAnchor="end"
+                  height={80}
+                  fontSize={10}
+                />
+                <YAxis yAxisId="left" stroke="#9ca3af" />
+                <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#1e293b",
+                    border: "1px solid #475569",
+                    borderRadius: "8px",
+                    color: "#ffffff",
+                  }}
+                  labelFormatter={(label, payload) => {
+                    const data = payload?.[0]?.payload
+                    return data ? `${data.week} (${data.month})` : label
+                  }}
+                />
+                <Legend />
+                <Area
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="sessions"
+                  fill="#8b5cf6"
+                  fillOpacity={0.3}
+                  stroke="#8b5cf6"
+                  name="Sessions"
+                />
+                <Line
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="players"
+                  stroke="#00bcd4"
+                  strokeWidth={3}
+                  name="Active Players"
+                />
+                <Bar yAxisId="right" dataKey="revenue" fill="#ff007f" name="Revenue ($)" />
+              </ComposedChart>
+            </ResponsiveContainer>
+            <div className="mt-4 p-4 bg-slate-700/30 rounded-lg">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div>
+                  <p className="text-xs text-slate-400">Nov 2024 Start</p>
+                  <p className="text-white font-bold">52 players</p>
                 </div>
-                <div className="text-center pt-4 border-t border-slate-700">
-                  <p className="text-sm text-slate-300">
-                    <span className="text-green-400 font-medium">Major Growth</span> starting in May - 
-                    <span className="text-white font-medium"> +722% increase</span> from February to August
-                  </p>
+                <div>
+                  <p className="text-xs text-slate-400">Jan 2025 Growth</p>
+                  <p className="text-green-400 font-bold">420 players</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-400">May 2025 Peak</p>
+                  <p className="text-cyan-400 font-bold">8,500 players</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-400">Growth Rate</p>
+                  <p className="text-pink-400 font-bold">+16,246%</p>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Player Retention */}
           <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700">
