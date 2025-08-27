@@ -36,7 +36,7 @@ import { analyticsData, weeklyPlayerGrowth } from '@/lib/database'
 export default function AnalyticsPage() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date(2024, 10, 1), // November 1, 2024
-    to: new Date(2025, 8, 22),   // September 22, 2025
+    to: new Date(2025, 7, 27),   // August 27, 2025
   })
 
   // Filter weekly data based on selected date range
@@ -260,8 +260,8 @@ export default function AnalyticsPage() {
                   <p className="text-cyan-400 font-bold">8,500 players</p>
                 </div>
                 <div>
-                  <p className="text-xs text-slate-400">Growth Rate</p>
-                  <p className="text-pink-400 font-bold">+16,246%</p>
+                  <p className="text-xs text-slate-400">Aug 2025 Current</p>
+                  <p className="text-pink-400 font-bold">19,200 players</p>
                 </div>
               </div>
             </div>
