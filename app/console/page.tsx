@@ -212,7 +212,8 @@ export default function ConsolePage() {
         { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000 },
         { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800 },
         { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600 },
-        { time: "Aug 2025", players: 21200, revenue: 19800, sessions: 42400 },
+        { time: "Aug 2025", players: 19200, revenue: 18400, sessions: 38400 },
+        { time: "Sep 2025", players: 17278, revenue: 15800, sessions: 34556 },
       ];
     }
 
@@ -228,7 +229,8 @@ export default function ConsolePage() {
       { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000, month: 4, year: 2025 },
       { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800, month: 5, year: 2025 },
       { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600, month: 6, year: 2025 },
-      { time: "Aug 2025", players: 21200, revenue: 19800, sessions: 42400, month: 7, year: 2025 },
+      { time: "Aug 2025", players: 19200, revenue: 18400, sessions: 38400, month: 7, year: 2025 },
+      { time: "Sep 2025", players: 17278, revenue: 15800, sessions: 34556, month: 8, year: 2025 },
     ];
 
     return allData.filter(data => {
@@ -247,7 +249,8 @@ export default function ConsolePage() {
     { day: "May 2025", retention: 67, players: 8500 },
     { day: "Jun 2025", retention: 73, players: 12400 },
     { day: "Jul 2025", retention: 78, players: 16800 },
-    { day: "Aug 2025", retention: 82, players: 21200 },
+    { day: "Aug 2025", retention: 80, players: 19200 },
+    { day: "Sep 2025", retention: 85, players: 17278 },
   ];
 
   const revenueBreakdownData = [
@@ -461,7 +464,7 @@ export default function ConsolePage() {
                       alt="Developer"
                     />
                     <AvatarFallback className="bg-slate-700 text-white">
-                      JD
+                      HT
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -474,10 +477,10 @@ export default function ConsolePage() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none text-white">
-                      John Developer
+                      Henok Taddesse
                     </p>
                     <p className="text-xs leading-none text-slate-400">
-                      john@gamedev.com
+                      henimagne@gmail.com
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -784,10 +787,10 @@ export default function ConsolePage() {
               <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50 mt-6">
                 <CardHeader>
                   <CardTitle className="text-white">
-                    Player Growth (Last 7 Months)
+                    Player Growth (Last 8 Months)
                   </CardTitle>
                   <CardDescription className="text-slate-400">
-                    Player growth from February to August 2025
+                    Player growth from February to September 2025
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -943,10 +946,10 @@ export default function ConsolePage() {
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
                     <CardTitle className="text-white">
-                      Player Growth & Revenue (7 Months)
+                      Player Growth & Revenue (8 Months)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Growth from February to August 2025 showing May breakthrough
+                      Growth from February to September 2025 showing May breakthrough
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -1001,7 +1004,7 @@ export default function ConsolePage() {
                       Player Retention Growth
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Improving retention rates February - August 2025
+                      Improving retention rates February - September 2025
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

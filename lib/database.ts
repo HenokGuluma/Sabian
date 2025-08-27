@@ -202,7 +202,7 @@ const generateGameSessions = (users: User[]): GameSession[] => {
   return sessions;
 };
 
-// Generate analytics data for past 7 months (Feb 2025 - Aug 2025)
+// Generate analytics data for past 8 months (Feb 2025 - Sep 2025)
 export const analyticsData = [
   // February 2025 - slow start
   { month: 'Feb 2025', players: 1200, revenue: 890, sessions: 2400, retention: 45 },
@@ -216,8 +216,10 @@ export const analyticsData = [
   { month: 'Jun 2025', players: 12400, revenue: 9800, sessions: 24800, retention: 73 },
   // July 2025 - strong growth
   { month: 'Jul 2025', players: 16800, revenue: 14500, sessions: 33600, retention: 78 },
-  // August 2025 - peak
-  { month: 'Aug 2025', players: 21200, revenue: 19800, sessions: 42400, retention: 82 }
+  // August 2025 - approaching peak
+  { month: 'Aug 2025', players: 19200, revenue: 18400, sessions: 38400, retention: 80 },
+  // September 2025 - peak
+  { month: 'Sep 2025', players: 17278, revenue: 15800, sessions: 34556, retention: 85 }
 ];
 
 export const userDatabase = generateUsers();

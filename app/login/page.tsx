@@ -165,7 +165,7 @@ export default function LoginPage() {
                   ) : (
                     <div className="flex items-center space-x-2">
                       <Gamepad2 size={20} />
-                      <span>Start Gaming</span>
+                      <span>Sign In</span>
                     </div>
                   )}
                 </Button>
@@ -176,7 +176,7 @@ export default function LoginPage() {
                     href="/signup"
                     className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
                   >
-                    Join the Game
+                    Sign Up
                   </Link>
                 </div>
               </form>
