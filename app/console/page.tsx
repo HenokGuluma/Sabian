@@ -39,6 +39,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Users,
   TrendingUp,
   Gamepad2,
@@ -134,6 +142,9 @@ export default function ConsolePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [showNewProjectDialog, setShowNewProjectDialog] = useState(false);
+  const [newProjectName, setNewProjectName] = useState("");
+  const [newProjectDescription, setNewProjectDescription] = useState("");
   const router = useRouter();
 
   const handleLogout = () => {
@@ -436,13 +447,13 @@ export default function ConsolePage() {
 
   // Search functionality
   const searchableItems = [
-    { name: "Analytics", section: "analytics", keywords: ["analytics", "charts", "data", "metrics", "stats"] },
-    { name: "Game Servers", section: "servers", keywords: ["servers", "regions", "uptime", "latency", "cpu", "memory"] },
-    { name: "Player Management", section: "players", keywords: ["players", "users", "profiles", "management", "online"] },
-    { name: "LiveOps", section: "liveops", keywords: ["liveops", "events", "campaigns", "notifications"] },
-    { name: "Database", section: "database", keywords: ["database", "collections", "documents", "realtime"] },
-    { name: "Settings", section: "settings", keywords: ["settings", "configuration", "api", "security", "billing"] },
-    { name: "Overview", section: "overview", keywords: ["overview", "dashboard", "summary", "metrics"] },
+    { name: "Overview", section: "overview", keywords: ["overview", "dashboard", "summary", "metrics", "home"] },
+    { name: "Analytics", section: "analytics", keywords: ["analytics", "charts", "data", "metrics", "stats", "performance"] },
+    { name: "Game Servers", section: "servers", keywords: ["servers", "regions", "uptime", "latency", "cpu", "memory", "infrastructure"] },
+    { name: "Player Management", section: "players", keywords: ["players", "users", "profiles", "management", "online", "community"] },
+    { name: "LiveOps", section: "liveops", keywords: ["liveops", "events", "campaigns", "notifications", "operations"] },
+    { name: "Database", section: "database", keywords: ["database", "collections", "documents", "realtime", "data", "storage"] },
+    { name: "Settings", section: "settings", keywords: ["settings", "configuration", "api", "security", "billing", "preferences"] },
   ];
 
   const filteredSearchResults = searchQuery.trim() 
@@ -461,6 +472,14 @@ export default function ConsolePage() {
     setActiveSection(section);
     setSearchQuery("");
     setShowSearchResults(false);
+  };
+
+  const handleCreateProject = () => {
+    // Here you would typically make an API call to create the project
+    console.log("Creating new project:", { name: newProjectName, description: newProjectDescription });
+    setShowNewProjectDialog(false);
+    setNewProjectName("");
+    setNewProjectDescription("");
   };
 
   return (
@@ -581,13 +600,63 @@ export default function ConsolePage() {
               <h2 className="text-lg font-semibold font-heading text-white">
                 Projects
               </h2>
-              <Button
-                size="sm"
-                className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                New
-              </Button>
+              <Dialog open={showNewProjectDialog} onOpenChange={setShowNewProjectDialog}>
+                <DialogTrigger asChild>
+                  <Button
+                    size="sm"
+                    className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    New
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                  <DialogHeader>
+                    <DialogTitle>Create New Project</DialogTitle>
+                    <DialogDescription className="text-slate-400">
+                      Create a new gaming project to start building your next great game.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4 pt-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="project-name" className="text-white">Project Name</Label>
+                      <Input
+                        id="project-name"
+                        placeholder="Enter project name"
+                        value={newProjectName}
+                        onChange={(e) => setNewProjectName(e.target.value)}
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="project-description" className="text-white">Description</Label>
+                      <Textarea
+                        id="project-description"
+                        placeholder="Describe your project"
+                        value={newProjectDescription}
+                        onChange={(e) => setNewProjectDescription(e.target.value)}
+                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                      />
+                    </div>
+                    <div className="flex justify-end space-x-2 pt-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowNewProjectDialog(false)}
+                        className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        onClick={handleCreateProject}
+                        disabled={!newProjectName.trim()}
+                        className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                      >
+                        Create Project
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
 
             <div className="space-y-2">
@@ -630,6 +699,18 @@ export default function ConsolePage() {
             </div>
 
             <div className="mt-8 space-y-2">
+              <Button
+                variant="ghost"
+                className={`w-full justify-start ${
+                  activeSection === "overview"
+                    ? "text-white bg-slate-700/50 border-l-2 border-pink-500"
+                    : "text-slate-300 hover:text-white hover:bg-slate-700/50"
+                }`}
+                onClick={() => setActiveSection("overview")}
+              >
+                <Activity className="w-4 h-4 mr-3" />
+                Overview
+              </Button>
               <Button
                 variant="ghost"
                 className={`w-full justify-start ${
@@ -941,17 +1022,6 @@ export default function ConsolePage() {
                       />
                     </PopoverContent>
                   </Popover>
-                  <Select defaultValue="7d">
-                    <SelectTrigger className="w-32 bg-slate-800/50 border-slate-600 text-white">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-slate-600">
-                      <SelectItem value="1d">Last 24h</SelectItem>
-                      <SelectItem value="7d">Last 7 days</SelectItem>
-                      <SelectItem value="30d">Last 30 days</SelectItem>
-                      <SelectItem value="90d">Last 90 days</SelectItem>
-                    </SelectContent>
-                  </Select>
                   <Button
                     size="sm"
                     variant="outline"
@@ -959,13 +1029,6 @@ export default function ConsolePage() {
                   >
                     <RefreshCw className="w-4 h-4 mr-2" />
                     Refresh
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Export
                   </Button>
                 </div>
               </div>
