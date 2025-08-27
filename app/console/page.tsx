@@ -132,6 +132,8 @@ export default function ConsolePage() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
   const router = useRouter();
 
   const handleLogout = () => {
@@ -150,6 +152,21 @@ export default function ConsolePage() {
       }
     };
     checkAuth();
+  }, []);
+
+  // Close search results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const searchContainer = document.querySelector('.search-container');
+      if (searchContainer && !searchContainer.contains(event.target as Node)) {
+        setShowSearchResults(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   if (isLoading) {
@@ -417,6 +434,35 @@ export default function ConsolePage() {
     { region: "US West", connections: 1960, latency: "15ms" },
   ];
 
+  // Search functionality
+  const searchableItems = [
+    { name: "Analytics", section: "analytics", keywords: ["analytics", "charts", "data", "metrics", "stats"] },
+    { name: "Game Servers", section: "servers", keywords: ["servers", "regions", "uptime", "latency", "cpu", "memory"] },
+    { name: "Player Management", section: "players", keywords: ["players", "users", "profiles", "management", "online"] },
+    { name: "LiveOps", section: "liveops", keywords: ["liveops", "events", "campaigns", "notifications"] },
+    { name: "Database", section: "database", keywords: ["database", "collections", "documents", "realtime"] },
+    { name: "Settings", section: "settings", keywords: ["settings", "configuration", "api", "security", "billing"] },
+    { name: "Overview", section: "overview", keywords: ["overview", "dashboard", "summary", "metrics"] },
+  ];
+
+  const filteredSearchResults = searchQuery.trim() 
+    ? searchableItems.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.keywords.some(keyword => keyword.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    : [];
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setShowSearchResults(value.length > 0);
+  };
+
+  const handleSearchSelect = (section: string) => {
+    setActiveSection(section);
+    setSearchQuery("");
+    setShowSearchResults(false);
+  };
+
   return (
     <div className="min-h-screen bg-slate-900">
       {/* Header */}
@@ -434,12 +480,38 @@ export default function ConsolePage() {
           </div>
 
           <div className="flex-1 flex items-center justify-center px-6">
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md search-container">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input
                 placeholder="Search projects, analytics, settings..."
+                value={searchQuery}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="pl-10 bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-400"
               />
+              
+              {/* Search Results Dropdown */}
+              {showSearchResults && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-600 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
+                  {filteredSearchResults.length > 0 ? (
+                    <div className="py-2">
+                      {filteredSearchResults.map((item) => (
+                        <button
+                          key={item.section}
+                          onClick={() => handleSearchSelect(item.section)}
+                          className="w-full px-4 py-2 text-left text-white hover:bg-slate-700/50 transition-colors flex items-center space-x-3"
+                        >
+                          <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+                          <span>{item.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="py-4 px-4 text-center text-slate-400">
+                      No results found for "{searchQuery}"
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
