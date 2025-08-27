@@ -135,8 +135,8 @@ export default function ConsolePage() {
   const [selectedProject, setSelectedProject] = useState("bankeru-games");
   const [activeSection, setActiveSection] = useState("overview");
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(2025, 1, 1),
-    to: new Date(2025, 7, 1),
+    from: new Date(2024, 10, 1),
+    to: new Date(2025, 8, 30),
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -234,14 +234,50 @@ export default function ConsolePage() {
   const generateChartData = () => {
     if (!dateRange?.from || !dateRange?.to) {
       return [
-        { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400 },
-        { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700 },
-        { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800 },
-        { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000 },
-        { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800 },
-        { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600 },
-        { time: "Aug 2025", players: 19200, revenue: 18400, sessions: 38400 },
-        { time: "Sep 2025", players: 17278, revenue: 15800, sessions: 34556 },
+        { time: "Nov W1 2024", players: 52, revenue: 45, sessions: 104 },
+        { time: "Nov W2 2024", players: 64, revenue: 58, sessions: 128 },
+        { time: "Nov W3 2024", players: 48, revenue: 42, sessions: 96 },
+        { time: "Nov W4 2024", players: 71, revenue: 65, sessions: 142 },
+        { time: "Dec W1 2024", players: 89, revenue: 78, sessions: 178 },
+        { time: "Dec W2 2024", players: 95, revenue: 84, sessions: 190 },
+        { time: "Dec W3 2024", players: 103, revenue: 92, sessions: 206 },
+        { time: "Dec W4 2024", players: 118, revenue: 105, sessions: 236 },
+        { time: "Jan W1 2025", players: 145, revenue: 128, sessions: 290 },
+        { time: "Jan W2 2025", players: 189, revenue: 165, sessions: 378 },
+        { time: "Jan W3 2025", players: 245, revenue: 218, sessions: 490 },
+        { time: "Jan W4 2025", players: 320, revenue: 285, sessions: 640 },
+        { time: "Feb W1 2025", players: 420, revenue: 375, sessions: 840 },
+        { time: "Feb W2 2025", players: 580, revenue: 512, sessions: 1160 },
+        { time: "Feb W3 2025", players: 780, revenue: 695, sessions: 1560 },
+        { time: "Feb W4 2025", players: 1020, revenue: 890, sessions: 2040 },
+        { time: "Mar W1 2025", players: 1350, revenue: 1200, sessions: 2700 },
+        { time: "Mar W2 2025", players: 1650, revenue: 1480, sessions: 3300 },
+        { time: "Mar W3 2025", players: 1950, revenue: 1740, sessions: 3900 },
+        { time: "Mar W4 2025", players: 2280, revenue: 2050, sessions: 4560 },
+        { time: "Apr W1 2025", players: 2650, revenue: 2385, sessions: 5300 },
+        { time: "Apr W2 2025", players: 3120, revenue: 2810, sessions: 6240 },
+        { time: "Apr W3 2025", players: 3680, revenue: 3320, sessions: 7360 },
+        { time: "Apr W4 2025", players: 4350, revenue: 3920, sessions: 8700 },
+        { time: "May W1 2025", players: 5200, revenue: 4680, sessions: 10400 },
+        { time: "May W2 2025", players: 6800, revenue: 6120, sessions: 13600 },
+        { time: "May W3 2025", players: 8900, revenue: 8010, sessions: 17800 },
+        { time: "May W4 2025", players: 11500, revenue: 10350, sessions: 23000 },
+        { time: "Jun W1 2025", players: 13200, revenue: 11880, sessions: 26400 },
+        { time: "Jun W2 2025", players: 14800, revenue: 13320, sessions: 29600 },
+        { time: "Jun W3 2025", players: 16200, revenue: 14580, sessions: 32400 },
+        { time: "Jun W4 2025", players: 17500, revenue: 15750, sessions: 35000 },
+        { time: "Jul W1 2025", players: 18600, revenue: 16740, sessions: 37200 },
+        { time: "Jul W2 2025", players: 19400, revenue: 17460, sessions: 38800 },
+        { time: "Jul W3 2025", players: 20100, revenue: 18090, sessions: 40200 },
+        { time: "Jul W4 2025", players: 20600, revenue: 18540, sessions: 41200 },
+        { time: "Aug W1 2025", players: 20800, revenue: 18720, sessions: 41600 },
+        { time: "Aug W2 2025", players: 20500, revenue: 18450, sessions: 41000 },
+        { time: "Aug W3 2025", players: 19800, revenue: 17820, sessions: 39600 },
+        { time: "Aug W4 2025", players: 18900, revenue: 17010, sessions: 37800 },
+        { time: "Sep W1 2025", players: 18200, revenue: 16380, sessions: 36400 },
+        { time: "Sep W2 2025", players: 17600, revenue: 15840, sessions: 35200 },
+        { time: "Sep W3 2025", players: 17100, revenue: 15390, sessions: 34200 },
+        { time: "Sep W4 2025", players: 17278, revenue: 15550, sessions: 34556 },
       ];
     }
 
@@ -251,14 +287,50 @@ export default function ConsolePage() {
     const endYear = dateRange.to.getFullYear();
 
     const allData = [
-      { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400, month: 1, year: 2025 },
-      { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700, month: 2, year: 2025 },
-      { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800, month: 3, year: 2025 },
-      { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000, month: 4, year: 2025 },
-      { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800, month: 5, year: 2025 },
-      { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600, month: 6, year: 2025 },
-      { time: "Aug 2025", players: 19200, revenue: 18400, sessions: 38400, month: 7, year: 2025 },
-      { time: "Sep 2025", players: 17278, revenue: 15800, sessions: 34556, month: 8, year: 2025 },
+      { time: "Nov W1 2024", players: 52, revenue: 45, sessions: 104, month: 10, year: 2024, week: 1 },
+      { time: "Nov W2 2024", players: 64, revenue: 58, sessions: 128, month: 10, year: 2024, week: 2 },
+      { time: "Nov W3 2024", players: 48, revenue: 42, sessions: 96, month: 10, year: 2024, week: 3 },
+      { time: "Nov W4 2024", players: 71, revenue: 65, sessions: 142, month: 10, year: 2024, week: 4 },
+      { time: "Dec W1 2024", players: 89, revenue: 78, sessions: 178, month: 11, year: 2024, week: 1 },
+      { time: "Dec W2 2024", players: 95, revenue: 84, sessions: 190, month: 11, year: 2024, week: 2 },
+      { time: "Dec W3 2024", players: 103, revenue: 92, sessions: 206, month: 11, year: 2024, week: 3 },
+      { time: "Dec W4 2024", players: 118, revenue: 105, sessions: 236, month: 11, year: 2024, week: 4 },
+      { time: "Jan W1 2025", players: 145, revenue: 128, sessions: 290, month: 0, year: 2025, week: 1 },
+      { time: "Jan W2 2025", players: 189, revenue: 165, sessions: 378, month: 0, year: 2025, week: 2 },
+      { time: "Jan W3 2025", players: 245, revenue: 218, sessions: 490, month: 0, year: 2025, week: 3 },
+      { time: "Jan W4 2025", players: 320, revenue: 285, sessions: 640, month: 0, year: 2025, week: 4 },
+      { time: "Feb W1 2025", players: 420, revenue: 375, sessions: 840, month: 1, year: 2025, week: 1 },
+      { time: "Feb W2 2025", players: 580, revenue: 512, sessions: 1160, month: 1, year: 2025, week: 2 },
+      { time: "Feb W3 2025", players: 780, revenue: 695, sessions: 1560, month: 1, year: 2025, week: 3 },
+      { time: "Feb W4 2025", players: 1020, revenue: 890, sessions: 2040, month: 1, year: 2025, week: 4 },
+      { time: "Mar W1 2025", players: 1350, revenue: 1200, sessions: 2700, month: 2, year: 2025, week: 1 },
+      { time: "Mar W2 2025", players: 1650, revenue: 1480, sessions: 3300, month: 2, year: 2025, week: 2 },
+      { time: "Mar W3 2025", players: 1950, revenue: 1740, sessions: 3900, month: 2, year: 2025, week: 3 },
+      { time: "Mar W4 2025", players: 2280, revenue: 2050, sessions: 4560, month: 2, year: 2025, week: 4 },
+      { time: "Apr W1 2025", players: 2650, revenue: 2385, sessions: 5300, month: 3, year: 2025, week: 1 },
+      { time: "Apr W2 2025", players: 3120, revenue: 2810, sessions: 6240, month: 3, year: 2025, week: 2 },
+      { time: "Apr W3 2025", players: 3680, revenue: 3320, sessions: 7360, month: 3, year: 2025, week: 3 },
+      { time: "Apr W4 2025", players: 4350, revenue: 3920, sessions: 8700, month: 3, year: 2025, week: 4 },
+      { time: "May W1 2025", players: 5200, revenue: 4680, sessions: 10400, month: 4, year: 2025, week: 1 },
+      { time: "May W2 2025", players: 6800, revenue: 6120, sessions: 13600, month: 4, year: 2025, week: 2 },
+      { time: "May W3 2025", players: 8900, revenue: 8010, sessions: 17800, month: 4, year: 2025, week: 3 },
+      { time: "May W4 2025", players: 11500, revenue: 10350, sessions: 23000, month: 4, year: 2025, week: 4 },
+      { time: "Jun W1 2025", players: 13200, revenue: 11880, sessions: 26400, month: 5, year: 2025, week: 1 },
+      { time: "Jun W2 2025", players: 14800, revenue: 13320, sessions: 29600, month: 5, year: 2025, week: 2 },
+      { time: "Jun W3 2025", players: 16200, revenue: 14580, sessions: 32400, month: 5, year: 2025, week: 3 },
+      { time: "Jun W4 2025", players: 17500, revenue: 15750, sessions: 35000, month: 5, year: 2025, week: 4 },
+      { time: "Jul W1 2025", players: 18600, revenue: 16740, sessions: 37200, month: 6, year: 2025, week: 1 },
+      { time: "Jul W2 2025", players: 19400, revenue: 17460, sessions: 38800, month: 6, year: 2025, week: 2 },
+      { time: "Jul W3 2025", players: 20100, revenue: 18090, sessions: 40200, month: 6, year: 2025, week: 3 },
+      { time: "Jul W4 2025", players: 20600, revenue: 18540, sessions: 41200, month: 6, year: 2025, week: 4 },
+      { time: "Aug W1 2025", players: 20800, revenue: 18720, sessions: 41600, month: 7, year: 2025, week: 1 },
+      { time: "Aug W2 2025", players: 20500, revenue: 18450, sessions: 41000, month: 7, year: 2025, week: 2 },
+      { time: "Aug W3 2025", players: 19800, revenue: 17820, sessions: 39600, month: 7, year: 2025, week: 3 },
+      { time: "Aug W4 2025", players: 18900, revenue: 17010, sessions: 37800, month: 7, year: 2025, week: 4 },
+      { time: "Sep W1 2025", players: 18200, revenue: 16380, sessions: 36400, month: 8, year: 2025, week: 1 },
+      { time: "Sep W2 2025", players: 17600, revenue: 15840, sessions: 35200, month: 8, year: 2025, week: 2 },
+      { time: "Sep W3 2025", players: 17100, revenue: 15390, sessions: 34200, month: 8, year: 2025, week: 3 },
+      { time: "Sep W4 2025", players: 17278, revenue: 15550, sessions: 34556, month: 8, year: 2025, week: 4 },
     ];
 
     return allData.filter(data => {
@@ -940,10 +1012,10 @@ export default function ConsolePage() {
               <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50 mt-6">
                 <CardHeader>
                   <CardTitle className="text-white">
-                    Player Growth (Last 8 Months)
+                    Player Growth (Nov 2024 - Sep 2025)
                   </CardTitle>
                   <CardDescription className="text-slate-400">
-                    Player growth from February to September 2025
+                    Weekly player growth showing breakthrough starting in May 2025
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -1079,12 +1151,11 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {/* Player Activity Chart */}
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
-                  <CardHeader>
-                    <CardTitle className="text-white">
-                      Player Growth & Revenue (8 Months)
+                  <CardTitle className="text-white">
+                      Player Growth & Revenue (Weekly Data)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Growth from February to September 2025 showing May breakthrough
+                      Weekly breakdown from November 2024 to September 2025 showing May breakthrough
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
