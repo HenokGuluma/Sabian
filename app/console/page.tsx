@@ -127,8 +127,8 @@ export default function ConsolePage() {
   const [selectedProject, setSelectedProject] = useState("bankeru-games");
   const [activeSection, setActiveSection] = useState("overview");
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(2024, 0, 20),
-    to: new Date(2024, 1, 9),
+    from: new Date(2025, 1, 1),
+    to: new Date(2025, 7, 1),
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -563,7 +563,7 @@ export default function ConsolePage() {
                 <Users className="w-4 h-4 mr-3" />
                 Player Management
               </Button>
-              
+
               <Button
                 variant="ghost"
                 className={`w-full justify-start ${
@@ -962,46 +962,7 @@ export default function ConsolePage() {
                   </CardContent>
                 </Card>
 
-                {/* Revenue Breakdown Pie Chart */}
-                <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
-                  <CardHeader>
-                    <CardTitle className="text-white">
-                      Revenue Breakdown
-                    </CardTitle>
-                    <CardDescription className="text-slate-400">
-                      Revenue sources distribution
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <PieChart>
-                        <Pie
-                          data={revenueBreakdownData}
-                          cx="50%"
-                          cy="50%"
-                          outerRadius={100}
-                          fill="#8884d8"
-                          dataKey="value"
-                          label={({ name, percent }) =>
-                            `${name} ${(percent * 100).toFixed(0)}%`
-                          }
-                        >
-                          {revenueBreakdownData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: "#1e293b",
-                            border: "1px solid #475569",
-                            borderRadius: "8px",
-                            color: "#ffffff",
-                          }}
-                        />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </CardContent>
-                </Card>
+                {/* Revenue Breakdown Pie Chart removed */}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -1406,8 +1367,6 @@ export default function ConsolePage() {
               </Card>
             </>
           )}
-
-          
 
           {activeSection === "liveops" && (
             <>
