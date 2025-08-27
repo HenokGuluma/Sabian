@@ -202,15 +202,43 @@ export default function ConsolePage() {
     },
   ];
 
-  const playerActivityData = [
-    { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400 },
-    { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700 },
-    { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800 },
-    { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000 },
-    { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800 },
-    { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600 },
-    { time: "Aug 2025", players: 21200, revenue: 19800, sessions: 42400 },
-  ];
+  // Generate chart data based on selected date range
+  const generateChartData = () => {
+    if (!dateRange?.from || !dateRange?.to) {
+      return [
+        { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400 },
+        { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700 },
+        { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800 },
+        { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000 },
+        { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800 },
+        { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600 },
+        { time: "Aug 2025", players: 21200, revenue: 19800, sessions: 42400 },
+      ];
+    }
+
+    const startMonth = dateRange.from.getMonth();
+    const endMonth = dateRange.to.getMonth();
+    const startYear = dateRange.from.getFullYear();
+    const endYear = dateRange.to.getFullYear();
+
+    const allData = [
+      { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400, month: 1, year: 2025 },
+      { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700, month: 2, year: 2025 },
+      { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800, month: 3, year: 2025 },
+      { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000, month: 4, year: 2025 },
+      { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800, month: 5, year: 2025 },
+      { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600, month: 6, year: 2025 },
+      { time: "Aug 2025", players: 21200, revenue: 19800, sessions: 42400, month: 7, year: 2025 },
+    ];
+
+    return allData.filter(data => {
+      const isInRange = (data.year > startYear || (data.year === startYear && data.month >= startMonth)) &&
+                       (data.year < endYear || (data.year === endYear && data.month <= endMonth));
+      return isInRange;
+    });
+  };
+
+  const playerActivityData = generateChartData();
 
   const retentionData = [
     { day: "Feb 2025", retention: 45, players: 1200 },

@@ -1,225 +1,292 @@
-"use client"
 
-import type React from "react"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
-import { Checkbox } from "@/components/ui/checkbox"
-import { ArrowLeft, Eye, EyeOff, Github, Mail, Sparkles } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Gamepad2, Eye, EyeOff, Crown, Star, Rocket, Target, Shield, Zap } from "lucide-react";
 
 export default function SignupPage() {
-  const router = useRouter()
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    agreeToTerms: false,
-  })
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!")
-      return
+      alert("Passwords don't match!");
+      return;
     }
-
-    setIsLoading(true)
-
-    // Simulate account creation
+    
+    setIsLoading(true);
+    
+    // Simulate registration
     setTimeout(() => {
-      setIsLoading(false)
-      router.push("/console")
-    }, 2000)
-  }
-
-  const handleSocialSignup = (provider: string) => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      router.push("/console")
-    }, 1000)
-  }
+      localStorage.setItem("isAuthenticated", "true");
+      router.push("/console");
+    }, 2000);
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      {/* Background decoration */}
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Gaming Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+        <div className="absolute inset-0 bg-[url('/happy-mobile-gamers-playing-on-phones-with-colorfu.png')] bg-cover bg-center opacity-15"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-blue-900/50 to-slate-900/90"></div>
+      </div>
+
+      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 left-1/3 w-72 h-72 bg-secondary/10 rounded-full blur-3xl animate-float" />
-        <div
-          className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-float"
-          style={{ animationDelay: "3s" }}
-        />
+        <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-gradient-to-r from-green-400/20 to-blue-500/20 rounded-full blur-2xl animate-bounce"></div>
       </div>
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Back to home */}
-        <Link
-          href="/"
-          className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors mb-8"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Home
-        </Link>
+      {/* Floating Gaming Icons */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-28 left-28 text-blue-500/30 animate-float">
+          <Crown size={52} />
+        </div>
+        <div className="absolute top-36 right-36 text-purple-500/30 animate-float delay-500">
+          <Star size={44} />
+        </div>
+        <div className="absolute bottom-28 left-44 text-cyan-400/30 animate-float delay-1000">
+          <Rocket size={48} />
+        </div>
+        <div className="absolute bottom-44 right-28 text-pink-500/30 animate-float delay-1500">
+          <Target size={40} />
+        </div>
+        <div className="absolute top-1/4 right-16 text-green-400/30 animate-float delay-2000">
+          <Shield size={46} />
+        </div>
+        <div className="absolute bottom-1/3 left-16 text-yellow-400/30 animate-float delay-2500">
+          <Zap size={42} />
+        </div>
+      </div>
 
-        <Card className="glass-card glow-secondary">
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-secondary to-primary rounded-lg flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
+      {/* Main Content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-6">
+        <div className="w-full max-w-md">
+          {/* Logo Section */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl mb-4 shadow-2xl shadow-blue-500/25">
+              <Gamepad2 className="w-10 h-10 text-white" />
             </div>
-            <CardTitle className="text-2xl font-heading text-slate-900">Join Sabian</CardTitle>
-            <CardDescription className="text-slate-700">Create your developer account and start building amazing games</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Social Signup */}
-            <div className="space-y-3">
-              <Button
-                variant="outline"
-                className="w-full bg-slate-700/50 border-slate-600 hover:bg-slate-600/50 text-white transition-all"
-                onClick={() => handleSocialSignup("github")}
-                disabled={isLoading}
-              >
-                <Github className="w-4 h-4 mr-2" />
-                Sign up with GitHub
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full bg-slate-700/50 border-slate-600 hover:bg-slate-600/50 text-white transition-all"
-                onClick={() => handleSocialSignup("google")}
-                disabled={isLoading}
-              >
-                <Mail className="w-4 h-4 mr-2" />
-                Sign up with Google
-              </Button>
-            </div>
+            <h1 className="text-4xl font-bold font-heading bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+              Join Sabian
+            </h1>
+            <p className="text-slate-300 text-lg">
+              Start your epic gaming journey today
+            </p>
+          </div>
 
-            <div className="relative">
-              <Separator />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="bg-background px-2 text-xs text-muted-foreground">OR</span>
-              </div>
-            </div>
-
-            {/* Signup Form */}
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-slate-900 font-medium">Full Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="John Developer"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange("name", e.target.value)}
-                  className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 transition-all"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-900 font-medium">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="developer@example.com"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                  className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 transition-all"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-slate-900 font-medium">Password</Label>
-                <div className="relative">
+          {/* Signup Card */}
+          <Card className="bg-slate-800/80 backdrop-blur-xl border-slate-700/50 shadow-2xl shadow-blue-500/10">
+            <CardHeader className="space-y-1 pb-6">
+              <CardTitle className="text-2xl font-bold text-center text-white">
+                Create Your Account
+              </CardTitle>
+              <CardDescription className="text-center text-slate-300">
+                Level up your gaming experience with us
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="username" className="text-white font-medium">
+                    Gaming Username
+                  </Label>
                   <Input
-                    id="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Create a strong password"
-                    value={formData.password}
-                    onChange={(e) => handleInputChange("password", e.target.value)}
-                    className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 pr-10 transition-all"
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="ChooseYourHandle"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12"
                     required
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </Button>
                 </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-slate-900 font-medium">Confirm Password</Label>
-                <div className="relative">
+
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-white font-medium">
+                    Email Address
+                  </Label>
                   <Input
-                    id="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-                    className="bg-white border-slate-300 focus:border-cyan-400 text-black placeholder:text-slate-500 pr-10 transition-all"
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="gamer@example.com"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12"
                     required
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  </Button>
                 </div>
-              </div>
 
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="terms"
-                  checked={formData.agreeToTerms}
-                  onCheckedChange={(checked) => handleInputChange("agreeToTerms", checked as boolean)}
-                />
-                <Label htmlFor="terms" className="text-sm">
-                  I agree to the{" "}
-                  <Link href="/terms" className="text-primary hover:underline">
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="/privacy" className="text-primary hover:underline">
-                    Privacy Policy
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-white font-medium">
+                    Password
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="password"
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Create a strong password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12 pr-12"
+                      required
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword" className="text-white font-medium">
+                    Confirm Password
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      placeholder="Confirm your password"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12 pr-12"
+                      required
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-2 pt-2">
+                  <input
+                    id="terms"
+                    type="checkbox"
+                    className="w-4 h-4 text-blue-500 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2 mt-1"
+                    required
+                  />
+                  <Label htmlFor="terms" className="text-sm text-slate-300 leading-5">
+                    I agree to the{" "}
+                    <Link href="#" className="text-blue-400 hover:text-blue-300">
+                      Terms of Service
+                    </Link>{" "}
+                    and{" "}
+                    <Link href="#" className="text-blue-400 hover:text-blue-300">
+                      Privacy Policy
+                    </Link>
+                  </Label>
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      <span>Creating Account...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <Crown size={20} />
+                      <span>Begin Your Journey</span>
+                    </div>
+                  )}
+                </Button>
+
+                <div className="text-center pt-4">
+                  <span className="text-slate-400">Already have an account? </span>
+                  <Link
+                    href="/login"
+                    className="text-purple-400 hover:text-purple-300 font-semibold transition-colors"
+                  >
+                    Sign In
                   </Link>
-                </Label>
-              </div>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
 
-              <Button type="submit" className="w-full glow-secondary" disabled={!formData.agreeToTerms || isLoading}>
-                {isLoading ? "Creating Account..." : "Create Account"}
-              </Button>
-            </form>
-
-            <div className="text-center text-sm">
-              <span className="text-muted-foreground">Already have an account? </span>
-              <Link href="/login" className="text-secondary hover:underline font-medium">
-                Sign in
-              </Link>
+          {/* Gaming Features */}
+          <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
+              <div className="text-blue-400 text-2xl mb-2">🎮</div>
+              <div className="text-white font-semibold text-sm">Epic Games</div>
+              <div className="text-slate-400 text-xs">Access premium content</div>
             </div>
-          </CardContent>
-        </Card>
+            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
+              <div className="text-purple-400 text-2xl mb-2">🏆</div>
+              <div className="text-white font-semibold text-sm">Leaderboards</div>
+              <div className="text-slate-400 text-xs">Compete globally</div>
+            </div>
+            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
+              <div className="text-cyan-400 text-2xl mb-2">⚡</div>
+              <div className="text-white font-semibold text-sm">Real-time</div>
+              <div className="text-slate-400 text-xs">Live multiplayer</div>
+            </div>
+            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
+              <div className="text-pink-400 text-2xl mb-2">🛡️</div>
+              <div className="text-white font-semibold text-sm">Secure</div>
+              <div className="text-slate-400 text-xs">Protected gaming</div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          33% { transform: translateY(-25px) rotate(7deg); }
+          66% { transform: translateY(15px) rotate(-5deg); }
+        }
+        .animate-float {
+          animation: float 7s ease-in-out infinite;
+        }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-1500 { animation-delay: 1.5s; }
+        .delay-2000 { animation-delay: 2s; }
+        .delay-2500 { animation-delay: 2.5s; }
+      `}</style>
     </div>
-  )
+  );
 }
