@@ -137,7 +137,7 @@ export default function ConsolePage() {
   const [activeSection, setActiveSection] = useState("overview");
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: new Date(2024, 10, 1), // November 2024
-    to: new Date(2025, 8, 30),   // September 2025
+    to: new Date(2025, 8, 30), // September 2025
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -178,15 +178,15 @@ export default function ConsolePage() {
   // Close search results when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const searchContainer = document.querySelector('.search-container');
+      const searchContainer = document.querySelector(".search-container");
       if (searchContainer && !searchContainer.contains(event.target as Node)) {
         setShowSearchResults(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -205,101 +205,114 @@ export default function ConsolePage() {
     );
   }
 
-  const projects = hasFullDataAccess() ? [
-    {
-      id: "bankeru-games",
-      name: "Bankeru Games",
-      status: "live",
-      players: "26,378",
-      description: "Main gaming platform",
-      lastUpdated: "2 hours ago"
-    }
-  ] : [];
+  const projects = hasFullDataAccess()
+    ? [
+        {
+          id: "bankeru-games",
+          name: "Bankeru Games",
+          status: "live",
+          players: "26,378",
+          description: "Main gaming platform",
+          lastUpdated: "2 hours ago",
+        },
+      ]
+    : [];
 
-  const metrics = hasFullDataAccess() ? [
-    {
-      title: "Total Players",
-      value: "26,378",
-      change: "+20.1%",
-      trend: "up",
-      icon: Users,
-    },
-    {
-      title: "Server Uptime",
-      value: "99.9%",
-      change: "+0.1%",
-      trend: "up",
-      icon: Server,
-    },
-    {
-      title: "Avg Session",
-      value: "24.5m",
-      change: "-2.1%",
-      trend: "down",
-      icon: Clock,
-    },
-    {
-      title: "WAU",
-      value: "9,877",
-      change: "+15.3%",
-      trend: "up",
-      icon: Activity,
-    },
-  ] : [
-    {
-      title: "Total Players",
-      value: "0",
-      change: "0%",
-      trend: "up",
-      icon: Users,
-    },
-    {
-      title: "Server Uptime",
-      value: "0%",
-      change: "0%",
-      trend: "up",
-      icon: Server,
-    },
-    {
-      title: "Avg Session",
-      value: "0m",
-      change: "0%",
-      trend: "up",
-      icon: Clock,
-    },
-    {
-      title: "WAU",
-      value: "0",
-      change: "0%",
-      trend: "up",
-      icon: Activity,
-    },
-  ];
+  const metrics = hasFullDataAccess()
+    ? [
+        {
+          title: "Total Players",
+          value: "26,378",
+          change: "+20.1%",
+          trend: "up",
+          icon: Users,
+        },
+        {
+          title: "Server Uptime",
+          value: "99.9%",
+          change: "+0.1%",
+          trend: "up",
+          icon: Server,
+        },
+        {
+          title: "Avg Session",
+          value: "24.5m",
+          change: "-2.1%",
+          trend: "down",
+          icon: Clock,
+        },
+        {
+          title: "WAU",
+          value: "9,877",
+          change: "+15.3%",
+          trend: "up",
+          icon: Activity,
+        },
+      ]
+    : [
+        {
+          title: "Total Players",
+          value: "0",
+          change: "0%",
+          trend: "up",
+          icon: Users,
+        },
+        {
+          title: "Server Uptime",
+          value: "0%",
+          change: "0%",
+          trend: "up",
+          icon: Server,
+        },
+        {
+          title: "Avg Session",
+          value: "0m",
+          change: "0%",
+          trend: "up",
+          icon: Clock,
+        },
+        {
+          title: "WAU",
+          value: "0",
+          change: "0%",
+          trend: "up",
+          icon: Activity,
+        },
+      ];
 
   // Function to generate weekly data
   const generateWeeklyData = (
     startPlayerCount: number,
     endPlayerCount: number,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
   ) => {
     const data = [];
-    const numDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    const numDays = Math.ceil(
+      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+    );
     const weeklyIncrease = (endPlayerCount - startPlayerCount) / (numDays / 7);
     let currentPlayers = startPlayerCount;
 
     for (let i = 0; i < numDays; i += 7) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + i);
-      const formattedDate = `${currentDate.toLocaleString('default', { month: 'short' })} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
+      const formattedDate = `${currentDate.toLocaleString("default", { month: "short" })} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
 
       // Simulate choppy revenue
       const revenueIncrease = Math.random() * 500 - 250; // Random increase/decrease between -250 and 250
-      const currentRevenue = Math.max(0, (data.length > 0 ? data[data.length - 1].revenue : 0) + revenueIncrease);
+      const currentRevenue = Math.max(
+        0,
+        (data.length > 0 ? data[data.length - 1].revenue : 0) + revenueIncrease,
+      );
 
       // Ensure player count doesn't decrease and reaches the target
-      currentPlayers = Math.max(currentPlayers, startPlayerCount + (weeklyIncrease * (i / 7)));
-      if (i + 7 >= numDays) { // Ensure the last data point reaches the exact end value
+      currentPlayers = Math.max(
+        currentPlayers,
+        startPlayerCount + weeklyIncrease * (i / 7),
+      );
+      if (i + 7 >= numDays) {
+        // Ensure the last data point reaches the exact end value
         currentPlayers = endPlayerCount;
       }
 
@@ -308,105 +321,396 @@ export default function ConsolePage() {
         players: Math.round(currentPlayers),
         revenue: Math.round(currentRevenue),
         month: currentDate.getMonth(),
-        year: currentDate.getFullYear()
+        year: currentDate.getFullYear(),
       });
     }
     return data;
   };
 
   // Generate player growth data from Nov 2024 to Sep 2025
-  const playerGrowthData = hasFullDataAccess() ? [
-    // November 2024 - Starting flat around 247
-    { time: "Nov 1, 2024", players: 247, revenue: 30, month: 10, year: 2024 },
-    { time: "Nov 8, 2024", players: 251, revenue: 24, month: 10, year: 2024 },
-    { time: "Nov 15, 2024", players: 245, revenue: 34, month: 10, year: 2024 },
-    { time: "Nov 22, 2024", players: 249, revenue: 28, month: 10, year: 2024 },
-    { time: "Nov 29, 2024", players: 253, revenue: 35, month: 10, year: 2024 },
+  const playerGrowthData = hasFullDataAccess()
+    ? [
+        // November 2024 - Starting flat around 247
+        {
+          time: "Nov 1, 2024",
+          players: 247,
+          revenue: 30,
+          month: 10,
+          year: 2024,
+        },
+        {
+          time: "Nov 8, 2024",
+          players: 251,
+          revenue: 24,
+          month: 10,
+          year: 2024,
+        },
+        {
+          time: "Nov 15, 2024",
+          players: 245,
+          revenue: 34,
+          month: 10,
+          year: 2024,
+        },
+        {
+          time: "Nov 22, 2024",
+          players: 249,
+          revenue: 28,
+          month: 10,
+          year: 2024,
+        },
+        {
+          time: "Nov 29, 2024",
+          players: 253,
+          revenue: 35,
+          month: 10,
+          year: 2024,
+        },
 
-    // December 2024 - Slight increase
-    { time: "Dec 6, 2024", players: 258, revenue: 41, month: 11, year: 2024 },
-    { time: "Dec 13, 2024", players: 261, revenue: 36, month: 11, year: 2024 },
-    { time: "Dec 20, 2024", players: 267, revenue: 48, month: 11, year: 2024 },
-    { time: "Dec 27, 2024", players: 285, revenue: 55, month: 11, year: 2024 },
+        // December 2024 - Slight increase
+        {
+          time: "Dec 6, 2024",
+          players: 258,
+          revenue: 41,
+          month: 11,
+          year: 2024,
+        },
+        {
+          time: "Dec 13, 2024",
+          players: 261,
+          revenue: 36,
+          month: 11,
+          year: 2024,
+        },
+        {
+          time: "Dec 20, 2024",
+          players: 267,
+          revenue: 48,
+          month: 11,
+          year: 2024,
+        },
+        {
+          time: "Dec 27, 2024",
+          players: 285,
+          revenue: 55,
+          month: 11,
+          year: 2024,
+        },
 
-    // January 2025 - Gradual growth begins
-    { time: "Jan 3, 2025", players: 298, revenue: 46, month: 0, year: 2025 },
-    { time: "Jan 10, 2025", players: 315, revenue: 60, month: 0, year: 2025 },
-    { time: "Jan 17, 2025", players: 342, revenue: 53, month: 0, year: 2025 },
-    { time: "Jan 24, 2025", players: 375, revenue: 71, month: 0, year: 2025 },
-    { time: "Jan 31, 2025", players: 420, revenue: 80, month: 0, year: 2025 },
+        // January 2025 - Gradual growth begins
+        {
+          time: "Jan 3, 2025",
+          players: 298,
+          revenue: 46,
+          month: 0,
+          year: 2025,
+        },
+        {
+          time: "Jan 10, 2025",
+          players: 315,
+          revenue: 60,
+          month: 0,
+          year: 2025,
+        },
+        {
+          time: "Jan 17, 2025",
+          players: 342,
+          revenue: 53,
+          month: 0,
+          year: 2025,
+        },
+        {
+          time: "Jan 24, 2025",
+          players: 375,
+          revenue: 71,
+          month: 0,
+          year: 2025,
+        },
+        {
+          time: "Jan 31, 2025",
+          players: 420,
+          revenue: 80,
+          month: 0,
+          year: 2025,
+        },
 
-    // February 2025 - More noticeable growth
-    { time: "Feb 7, 2025", players: 480, revenue: 95, month: 1, year: 2025 },
-    { time: "Feb 14, 2025", players: 650, revenue: 116, month: 1, year: 2025 },
-    { time: "Feb 21, 2025", players: 850, revenue: 130, month: 1, year: 2025 },
-    { time: "Feb 28, 2025", players: 1200, revenue: 188, month: 1, year: 2025 },
+        // February 2025 - More noticeable growth
+        {
+          time: "Feb 7, 2025",
+          players: 480,
+          revenue: 95,
+          month: 1,
+          year: 2025,
+        },
+        {
+          time: "Feb 14, 2025",
+          players: 650,
+          revenue: 116,
+          month: 1,
+          year: 2025,
+        },
+        {
+          time: "Feb 21, 2025",
+          players: 850,
+          revenue: 130,
+          month: 1,
+          year: 2025,
+        },
+        {
+          time: "Feb 28, 2025",
+          players: 1200,
+          revenue: 188,
+          month: 1,
+          year: 2025,
+        },
 
-    // March 2025 - Steady acceleration
-    { time: "Mar 7, 2025", players: 1380, revenue: 205, month: 2, year: 2025 },
-    { time: "Mar 14, 2025", players: 1580, revenue: 263, month: 2, year: 2025 },
-    { time: "Mar 21, 2025", players: 1750, revenue: 245, month: 2, year: 2025 },
-    { time: "Mar 28, 2025", players: 1850, revenue: 295, month: 2, year: 2025 },
+        // March 2025 - Steady acceleration
+        {
+          time: "Mar 7, 2025",
+          players: 1380,
+          revenue: 205,
+          month: 2,
+          year: 2025,
+        },
+        {
+          time: "Mar 14, 2025",
+          players: 1580,
+          revenue: 263,
+          month: 2,
+          year: 2025,
+        },
+        {
+          time: "Mar 21, 2025",
+          players: 1750,
+          revenue: 245,
+          month: 2,
+          year: 2025,
+        },
+        {
+          time: "Mar 28, 2025",
+          players: 1850,
+          revenue: 295,
+          month: 2,
+          year: 2025,
+        },
 
-    // April 2025 - Continued growth
-    { time: "Apr 4, 2025", players: 2100, revenue: 338, month: 3, year: 2025 },
-    { time: "Apr 11, 2025", players: 2350, revenue: 380, month: 3, year: 2025 },
-    { time: "Apr 18, 2025", players: 2650, revenue: 420, month: 3, year: 2025 },
-    { time: "Apr 25, 2025", players: 2900, revenue: 488, month: 3, year: 2025 },
+        // April 2025 - Continued growth
+        {
+          time: "Apr 4, 2025",
+          players: 2100,
+          revenue: 338,
+          month: 3,
+          year: 2025,
+        },
+        {
+          time: "Apr 11, 2025",
+          players: 2350,
+          revenue: 380,
+          month: 3,
+          year: 2025,
+        },
+        {
+          time: "Apr 18, 2025",
+          players: 2650,
+          revenue: 420,
+          month: 3,
+          year: 2025,
+        },
+        {
+          time: "Apr 25, 2025",
+          players: 2900,
+          revenue: 488,
+          month: 3,
+          year: 2025,
+        },
 
-    // May 2025 - Major breakthrough begins
-    { time: "May 2, 2025", players: 3500, revenue: 545, month: 4, year: 2025 },
-    { time: "May 9, 2025", players: 4800, revenue: 713, month: 4, year: 2025 },
-    { time: "May 16, 2025", players: 6200, revenue: 920, month: 4, year: 2025 },
-    { time: "May 23, 2025", players: 7800, revenue: 1130, month: 4, year: 2025 },
-    { time: "May 30, 2025", players: 8500, revenue: 1275, month: 4, year: 2025 },
+        // May 2025 - Major breakthrough begins
+        {
+          time: "May 2, 2025",
+          players: 3500,
+          revenue: 545,
+          month: 4,
+          year: 2025,
+        },
+        {
+          time: "May 9, 2025",
+          players: 4800,
+          revenue: 713,
+          month: 4,
+          year: 2025,
+        },
+        {
+          time: "May 16, 2025",
+          players: 6200,
+          revenue: 920,
+          month: 4,
+          year: 2025,
+        },
+        {
+          time: "May 23, 2025",
+          players: 7800,
+          revenue: 1130,
+          month: 4,
+          year: 2025,
+        },
+        {
+          time: "May 30, 2025",
+          players: 8500,
+          revenue: 1275,
+          month: 4,
+          year: 2025,
+        },
 
-    // June 2025 - Sustained growth
-    { time: "Jun 6, 2025", players: 9800, revenue: 1463, month: 5, year: 2025 },
-    { time: "Jun 13, 2025", players: 11200, revenue: 1630, month: 5, year: 2025 },
-    { time: "Jun 20, 2025", players: 12100, revenue: 1800, month: 5, year: 2025 },
-    { time: "Jun 27, 2025", players: 12400, revenue: 1963, month: 5, year: 2025 },
+        // June 2025 - Sustained growth
+        {
+          time: "Jun 6, 2025",
+          players: 9800,
+          revenue: 1463,
+          month: 5,
+          year: 2025,
+        },
+        {
+          time: "Jun 13, 2025",
+          players: 11200,
+          revenue: 1630,
+          month: 5,
+          year: 2025,
+        },
+        {
+          time: "Jun 20, 2025",
+          players: 12100,
+          revenue: 1800,
+          month: 5,
+          year: 2025,
+        },
+        {
+          time: "Jun 27, 2025",
+          players: 12400,
+          revenue: 1963,
+          month: 5,
+          year: 2025,
+        },
 
-    // July 2025 - Peak growth phase
-    { time: "Jul 4, 2025", players: 14200, revenue: 2238, month: 6, year: 2025 },
-    { time: "Jul 11, 2025", players: 15800, revenue: 2420, month: 6, year: 2025 },
-    { time: "Jul 18, 2025", players: 16500, revenue: 2550, month: 6, year: 2025 },
-    { time: "Jul 25, 2025", players: 16800, revenue: 2950, month: 6, year: 2025 },
+        // July 2025 - Peak growth phase
+        {
+          time: "Jul 4, 2025",
+          players: 14200,
+          revenue: 2238,
+          month: 6,
+          year: 2025,
+        },
+        {
+          time: "Jul 11, 2025",
+          players: 15800,
+          revenue: 2420,
+          month: 6,
+          year: 2025,
+        },
+        {
+          time: "Jul 18, 2025",
+          players: 16500,
+          revenue: 2550,
+          month: 6,
+          year: 2025,
+        },
+        {
+          time: "Jul 25, 2025",
+          players: 16800,
+          revenue: 2950,
+          month: 6,
+          year: 2025,
+        },
 
-    // August 2025 - Stabilizing at high levels
-    { time: "Aug 1, 2025", players: 18200, revenue: 3163, month: 7, year: 2025 },
-    { time: "Aug 8, 2025", players: 18900, revenue: 2800, month: 7, year: 2025 },
-    { time: "Aug 15, 2025", players: 19100, revenue: 3463, month: 7, year: 2025 },
-    { time: "Aug 22, 2025", players: 19200, revenue: 3663, month: 7, year: 2025 },
-    { time: "Aug 29, 2025", players: 20500, revenue: 3988, month: 7, year: 2025 },
+        // August 2025 - Stabilizing at high levels
+        {
+          time: "Aug 1, 2025",
+          players: 18200,
+          revenue: 3163,
+          month: 7,
+          year: 2025,
+        },
+        {
+          time: "Aug 8, 2025",
+          players: 18900,
+          revenue: 2800,
+          month: 7,
+          year: 2025,
+        },
+        {
+          time: "Aug 15, 2025",
+          players: 19100,
+          revenue: 3463,
+          month: 7,
+          year: 2025,
+        },
+        {
+          time: "Aug 22, 2025",
+          players: 19200,
+          revenue: 3663,
+          month: 7,
+          year: 2025,
+        },
+        {
+          time: "Aug 29, 2025",
+          players: 20500,
+          revenue: 3988,
+          month: 7,
+          year: 2025,
+        },
 
-    // September 2025 - Reaching target of 26,378 players
-    { time: "Sep 5, 2025", players: 22800, revenue: 4213, month: 8, year: 2025 },
-    { time: "Sep 12, 2025", players: 24500, revenue: 4550, month: 8, year: 2025 },
-    { time: "Sep 19, 2025", players: 25800, revenue: 4413, month: 8, year: 2025 },
-    { time: "Sep 26, 2025", players: 26378, revenue: 4945, month: 8, year: 2025 },
-  ] : [];
+        // September 2025 - Reaching target of 26,378 players
+        {
+          time: "Sep 5, 2025",
+          players: 22800,
+          revenue: 4213,
+          month: 8,
+          year: 2025,
+        },
+        {
+          time: "Sep 12, 2025",
+          players: 24500,
+          revenue: 4550,
+          month: 8,
+          year: 2025,
+        },
+        {
+          time: "Sep 19, 2025",
+          players: 25800,
+          revenue: 4413,
+          month: 8,
+          year: 2025,
+        },
+        {
+          time: "Sep 26, 2025",
+          players: 26378,
+          revenue: 4945,
+          month: 8,
+          year: 2025,
+        },
+      ]
+    : [];
 
   // Filter data based on the selected date range
-  const filteredPlayerActivityData = playerGrowthData.filter(data => {
+  const filteredPlayerActivityData = playerGrowthData.filter((data) => {
     const dataDate = new Date(data.year, data.month, 1); // Use the first of the month for simplicity in filtering
     return dataDate >= dateRange?.from && dataDate <= dateRange?.to;
   });
 
-  const retentionData = hasFullDataAccess() ? [
-    { day: "Nov 2024", retention: 45, players: 247 },
-    { day: "Dec 2024", retention: 48, players: 450 },
-    { day: "Jan 2025", retention: 50, players: 700 },
-    { day: "Feb 2025", retention: 55, players: 1200 },
-    { day: "Mar 2025", retention: 60, players: 1850 },
-    { day: "Apr 2025", retention: 68, players: 2900 },
-    { day: "May 2025", retention: 75, players: 8500 },
-    { day: "Jun 2025", retention: 80, players: 12400 },
-    { day: "Jul 2025", retention: 82, players: 16800 },
-    { day: "Aug 2025", retention: 85, players: 19200 },
-    { day: "Sep 2025", retention: 88, players: 26378 },
-  ] : [];
-
+  const retentionData = hasFullDataAccess()
+    ? [
+        { day: "Nov 2024", retention: 45, players: 247 },
+        { day: "Dec 2024", retention: 48, players: 450 },
+        { day: "Jan 2025", retention: 50, players: 700 },
+        { day: "Feb 2025", retention: 55, players: 1200 },
+        { day: "Mar 2025", retention: 60, players: 1850 },
+        { day: "Apr 2025", retention: 68, players: 2900 },
+        { day: "May 2025", retention: 75, players: 8500 },
+        { day: "Jun 2025", retention: 80, players: 12400 },
+        { day: "Jul 2025", retention: 82, players: 16800 },
+        { day: "Aug 2025", retention: 85, players: 19200 },
+        { day: "Sep 2025", retention: 88, players: 26378 },
+      ]
+    : [];
 
   const revenueBreakdownData = [
     { name: "In-App Purchases", value: 6420, color: "#ff007f" },
@@ -414,164 +718,254 @@ export default function ConsolePage() {
     { name: "Premium Upgrades", value: 150, color: "#8b5cf6" },
   ];
 
-  const levelProgressionData = hasFullDataAccess() ? [
-    { level: "1-5", players: 2500, completion: 95 },
-    { level: "6-10", players: 2100, completion: 88 },
-    { level: "11-15", players: 1800, completion: 75 },
-    { level: "16-20", players: 1200, completion: 62 },
-    { level: "21-25", players: 800, completion: 45 },
-    { level: "26-30", players: 400, completion: 28 },
-  ] : [];
+  const levelProgressionData = hasFullDataAccess()
+    ? [
+        { level: "1-5", players: 2500, completion: 95 },
+        { level: "6-10", players: 2100, completion: 88 },
+        { level: "11-15", players: 1800, completion: 75 },
+        { level: "16-20", players: 1200, completion: 62 },
+        { level: "21-25", players: 800, completion: 45 },
+        { level: "26-30", players: 400, completion: 28 },
+      ]
+    : [];
 
-  const gameServers = hasFullDataAccess() ? [
-    {
-      id: "us-east-1",
-      region: "US East",
-      status: "running",
-      players: 4200,
-      cpu: 45,
-      memory: 62,
-      latency: 12,
-    },
-    {
-      id: "eu-west-1",
-      region: "EU West",
-      status: "running",
-      players: 3800,
-      cpu: 38,
-      memory: 55,
-      latency: 8,
-    },
-    {
-      id: "asia-1",
-      region: "Asia Pacific",
-      status: "degraded",
-      players: 2100,
-      cpu: 78,
-      memory: 85,
-      latency: 45,
-    },
-    {
-      id: "us-west-1",
-      region: "US West",
-      status: "stopped",
-      players: 0,
-      cpu: 0,
-      memory: 0,
-      latency: 0,
-    },
-  ] : [];
+  const gameServers = hasFullDataAccess()
+    ? [
+        {
+          id: "us-east-1",
+          region: "US East",
+          status: "running",
+          players: 4200,
+          cpu: 45,
+          memory: 62,
+          latency: 12,
+        },
+        {
+          id: "eu-west-1",
+          region: "EU West",
+          status: "running",
+          players: 3800,
+          cpu: 38,
+          memory: 55,
+          latency: 8,
+        },
+        {
+          id: "asia-1",
+          region: "Asia Pacific",
+          status: "degraded",
+          players: 2100,
+          cpu: 78,
+          memory: 85,
+          latency: 45,
+        },
+        {
+          id: "us-west-1",
+          region: "US West",
+          status: "stopped",
+          players: 0,
+          cpu: 0,
+          memory: 0,
+          latency: 0,
+        },
+      ]
+    : [];
 
-  const recentPlayers = hasFullDataAccess() ? userDatabase.slice(0, 5).map(user => {
-    const timeDiff = Date.now() - new Date(user.lastActive).getTime();
-    const minutesAgo = Math.floor(timeDiff / (1000 * 60));
-    let timeString;
-    
-    if (minutesAgo < 1) {
-      timeString = "Just now";
-    } else if (minutesAgo < 60) {
-      timeString = `${minutesAgo} min ago`;
-    } else if (minutesAgo < 1440) {
-      timeString = `${Math.floor(minutesAgo / 60)} hour${Math.floor(minutesAgo / 60) !== 1 ? 's' : ''} ago`;
-    } else {
-      timeString = `${Math.floor(minutesAgo / 1440)} day${Math.floor(minutesAgo / 1440) !== 1 ? 's' : ''} ago`;
-    }
+  const recentPlayers = hasFullDataAccess()
+    ? userDatabase.slice(0, 5).map((user) => {
+        const timeDiff = Date.now() - new Date(user.lastActive).getTime();
+        const minutesAgo = Math.floor(timeDiff / (1000 * 60));
+        let timeString;
 
-    return {
-      id: user.id,
-      username: user.username,
-      level: user.level,
-      lastSeen: timeString,
-      status: user.status,
-      country: user.country,
-      email: user.email,
-      totalGems: user.totalGems,
-      city: user.city,
-    };
-  }) : [];
+        if (minutesAgo < 1) {
+          timeString = "Just now";
+        } else if (minutesAgo < 60) {
+          timeString = `${minutesAgo} min ago`;
+        } else if (minutesAgo < 1440) {
+          timeString = `${Math.floor(minutesAgo / 60)} hour${Math.floor(minutesAgo / 60) !== 1 ? "s" : ""} ago`;
+        } else {
+          timeString = `${Math.floor(minutesAgo / 1440)} day${Math.floor(minutesAgo / 1440) !== 1 ? "s" : ""} ago`;
+        }
 
-  const economyData = hasFullDataAccess() ? [
-    {
-      item: "Gold Coins",
-      total: 2500000,
-      distributed: 1800000,
-      purchased: 450000,
-    },
-    { item: "Gems", total: 125000, distributed: 89000, purchased: 78000 },
-    {
-      item: "Energy Potions",
-      total: 45000,
-      distributed: 32000,
-      purchased: 12000,
-    },
-    { item: "Legendary Sword", total: 1200, distributed: 890, purchased: 890 },
-  ] : [];
+        return {
+          id: user.id,
+          username: user.username,
+          level: user.level,
+          lastSeen: timeString,
+          status: user.status,
+          country: user.country,
+          email: user.email,
+          totalGems: user.totalGems,
+          city: user.city,
+        };
+      })
+    : [];
 
-  const databaseCollections = hasFullDataAccess() ? [
-    {
-      name: "users",
-      documents: 16000,
-      size: "45.8 MB",
-      reads: "2.1M",
-      writes: "456K",
-      lastActivity: "2 min ago",
-    },
-    {
-      name: "player_stats",
-      documents: 16000,
-      size: "32.4 MB",
-      reads: "1.8M",
-      writes: "324K",
-      lastActivity: "1 min ago",
-    },
-    {
-      name: "game_sessions",
-      documents: 25000,
-      size: "156.2 MB",
-      reads: "5.2M",
-      writes: "1.2M",
-      lastActivity: "30 sec ago",
-    },
-    {
-      name: "leaderboards",
-      documents: 1250,
-      size: "12.4 MB",
-      reads: "890K",
-      writes: "45K",
-      lastActivity: "3 min ago",
-    },
-    {
-      name: "items_inventory",
-      documents: 48000,
-      size: "89.5 MB",
-      reads: "3.4M",
-      writes: "789K",
-      lastActivity: "1 min ago",
-    },
-  ] : [];
+  const economyData = hasFullDataAccess()
+    ? [
+        {
+          item: "Gold Coins",
+          total: 2500000,
+          distributed: 1800000,
+          purchased: 450000,
+        },
+        { item: "Gems", total: 125000, distributed: 89000, purchased: 78000 },
+        {
+          item: "Energy Potions",
+          total: 45000,
+          distributed: 32000,
+          purchased: 12000,
+        },
+        {
+          item: "Legendary Sword",
+          total: 1200,
+          distributed: 890,
+          purchased: 890,
+        },
+      ]
+    : [];
 
-  const realtimeConnections = hasFullDataAccess() ? [
-    { region: "US East", connections: 4250, latency: "12ms" },
-    { region: "EU West", connections: 3890, latency: "8ms" },
-    { region: "Asia Pacific", connections: 2100, latency: "45ms" },
-    { region: "US West", connections: 1960, latency: "15ms" },
-  ] : [];
+  const databaseCollections = hasFullDataAccess()
+    ? [
+        {
+          name: "users",
+          documents: 16000,
+          size: "45.8 MB",
+          reads: "2.1M",
+          writes: "456K",
+          lastActivity: "2 min ago",
+        },
+        {
+          name: "player_stats",
+          documents: 16000,
+          size: "32.4 MB",
+          reads: "1.8M",
+          writes: "324K",
+          lastActivity: "1 min ago",
+        },
+        {
+          name: "game_sessions",
+          documents: 25000,
+          size: "156.2 MB",
+          reads: "5.2M",
+          writes: "1.2M",
+          lastActivity: "30 sec ago",
+        },
+        {
+          name: "leaderboards",
+          documents: 1250,
+          size: "12.4 MB",
+          reads: "890K",
+          writes: "45K",
+          lastActivity: "3 min ago",
+        },
+        {
+          name: "items_inventory",
+          documents: 48000,
+          size: "89.5 MB",
+          reads: "3.4M",
+          writes: "789K",
+          lastActivity: "1 min ago",
+        },
+      ]
+    : [];
+
+  const realtimeConnections = hasFullDataAccess()
+    ? [
+        { region: "US East", connections: 4250, latency: "12ms" },
+        { region: "EU West", connections: 3890, latency: "8ms" },
+        { region: "Asia Pacific", connections: 2100, latency: "45ms" },
+        { region: "US West", connections: 1960, latency: "15ms" },
+      ]
+    : [];
 
   // Search functionality
   const searchableItems = [
-    { name: "Overview", section: "overview", keywords: ["overview", "dashboard", "summary", "metrics", "home"] },
-    { name: "Analytics", section: "analytics", keywords: ["analytics", "charts", "data", "metrics", "stats", "performance"] },
-    { name: "Game Servers", section: "servers", keywords: ["servers", "regions", "uptime", "latency", "cpu", "memory", "infrastructure"] },
-    { name: "Player Management", section: "players", keywords: ["players", "users", "profiles", "management", "online", "community"] },
-    { name: "LiveOps", section: "liveops", keywords: ["liveops", "events", "campaigns", "notifications", "operations"] },
-    { name: "Database", section: "database", keywords: ["database", "collections", "documents", "realtime", "data", "storage"] },
-    { name: "Settings", section: "settings", keywords: ["settings", "configuration", "api", "security", "billing", "preferences"] },
+    {
+      name: "Overview",
+      section: "overview",
+      keywords: ["overview", "dashboard", "summary", "metrics", "home"],
+    },
+    {
+      name: "Analytics",
+      section: "analytics",
+      keywords: [
+        "analytics",
+        "charts",
+        "data",
+        "metrics",
+        "stats",
+        "performance",
+      ],
+    },
+    {
+      name: "Game Servers",
+      section: "servers",
+      keywords: [
+        "servers",
+        "regions",
+        "uptime",
+        "latency",
+        "cpu",
+        "memory",
+        "infrastructure",
+      ],
+    },
+    {
+      name: "Player Management",
+      section: "players",
+      keywords: [
+        "players",
+        "users",
+        "profiles",
+        "management",
+        "online",
+        "community",
+      ],
+    },
+    {
+      name: "LiveOps",
+      section: "liveops",
+      keywords: [
+        "liveops",
+        "events",
+        "campaigns",
+        "notifications",
+        "operations",
+      ],
+    },
+    {
+      name: "Database",
+      section: "database",
+      keywords: [
+        "database",
+        "collections",
+        "documents",
+        "realtime",
+        "data",
+        "storage",
+      ],
+    },
+    {
+      name: "Settings",
+      section: "settings",
+      keywords: [
+        "settings",
+        "configuration",
+        "api",
+        "security",
+        "billing",
+        "preferences",
+      ],
+    },
   ];
 
   const filteredSearchResults = searchQuery.trim()
-    ? searchableItems.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.keywords.some(keyword => keyword.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? searchableItems.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.keywords.some((keyword) =>
+            keyword.toLowerCase().includes(searchQuery.toLowerCase()),
+          ),
       )
     : [];
 
@@ -588,7 +982,10 @@ export default function ConsolePage() {
 
   const handleCreateProject = () => {
     // Here you would typically make an API call to create the project
-    console.log("Creating new project:", { name: newProjectName, description: newProjectDescription });
+    console.log("Creating new project:", {
+      name: newProjectName,
+      description: newProjectDescription,
+    });
     setShowNewProjectDialog(false);
     setNewProjectName("");
     setNewProjectDescription("");
@@ -712,7 +1109,10 @@ export default function ConsolePage() {
               <h2 className="text-lg font-semibold font-heading text-white">
                 Projects
               </h2>
-              <Dialog open={showNewProjectDialog} onOpenChange={setShowNewProjectDialog}>
+              <Dialog
+                open={showNewProjectDialog}
+                onOpenChange={setShowNewProjectDialog}
+              >
                 <DialogTrigger asChild>
                   <Button
                     size="sm"
@@ -726,12 +1126,15 @@ export default function ConsolePage() {
                   <DialogHeader>
                     <DialogTitle>Create New Project</DialogTitle>
                     <DialogDescription className="text-slate-400">
-                      Create a new gaming project to start building your next great game.
+                      Create a new gaming project to start building your next
+                      great game.
                     </DialogDescription>
                   </DialogHeader>
                   <div className="space-y-4 pt-4">
                     <div className="space-y-2">
-                      <Label htmlFor="project-name" className="text-white">Project Name</Label>
+                      <Label htmlFor="project-name" className="text-white">
+                        Project Name
+                      </Label>
                       <Input
                         id="project-name"
                         placeholder="Enter project name"
@@ -741,12 +1144,19 @@ export default function ConsolePage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="project-description" className="text-white">Description</Label>
+                      <Label
+                        htmlFor="project-description"
+                        className="text-white"
+                      >
+                        Description
+                      </Label>
                       <Textarea
                         id="project-description"
                         placeholder="Describe your project"
                         value={newProjectDescription}
-                        onChange={(e) => setNewProjectDescription(e.target.value)}
+                        onChange={(e) =>
+                          setNewProjectDescription(e.target.value)
+                        }
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
@@ -811,8 +1221,12 @@ export default function ConsolePage() {
               </div>
             ) : (
               <div className="text-center py-8">
-                <div className="text-slate-400 text-sm mb-4">No projects yet</div>
-                <div className="text-slate-500 text-xs">Create your first project to get started</div>
+                <div className="text-slate-400 text-sm mb-4">
+                  No projects yet
+                </div>
+                <div className="text-slate-500 text-xs">
+                  Create your first project to get started
+                </div>
               </div>
             )}
 
@@ -931,15 +1345,26 @@ export default function ConsolePage() {
               {/* Metrics Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {metrics.map((metric, index) => (
-                  <Card key={index} className="bg-slate-800/50 border-slate-700">
+                  <Card
+                    key={index}
+                    className="bg-slate-800/50 border-slate-700"
+                  >
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-slate-200">{metric.title}</CardTitle>
+                      <CardTitle className="text-sm font-medium text-slate-200">
+                        {metric.title}
+                      </CardTitle>
                       <metric.icon className="h-4 w-4 text-pink-500" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? metric.value : "0"}</div>
-                      <p className={`text-xs ${metric.trend === "up" ? "text-green-400" : metric.trend === "down" ? "text-red-400" : "text-slate-400"}`}>
-                        {hasFullDataAccess() ? metric.change : "No data available"}
+                      <div className="text-2xl font-bold text-white">
+                        {hasFullDataAccess() ? metric.value : "0"}
+                      </div>
+                      <p
+                        className={`text-xs ${metric.trend === "up" ? "text-green-400" : metric.trend === "down" ? "text-red-400" : "text-slate-400"}`}
+                      >
+                        {hasFullDataAccess()
+                          ? metric.change
+                          : "No data available"}
                       </p>
                     </CardContent>
                   </Card>
@@ -1036,18 +1461,26 @@ export default function ConsolePage() {
                       Player Growth & Revenue (Nov 2024 - Sep 2025)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      {hasFullDataAccess() 
-                        ? "Player growth and revenue from November 2024 to September 2025" 
+                      {hasFullDataAccess()
+                        ? "Player growth and revenue from November 2024 to September 2025"
                         : "No data available - start building your game to see analytics"}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={400}>
-                      <LineChart data={hasFullDataAccess() ? filteredPlayerActivityData : []}>
+                      <LineChart
+                        data={
+                          hasFullDataAccess() ? filteredPlayerActivityData : []
+                        }
+                      >
                         <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis dataKey="time" stroke="#9ca3af" />
                         <YAxis yAxisId="left" stroke="#9ca3af" />
-                        <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                        <YAxis
+                          yAxisId="right"
+                          orientation="right"
+                          stroke="#9ca3af"
+                        />
                         <Tooltip
                           contentStyle={{
                             backgroundColor: "#1e293b",
@@ -1136,23 +1569,36 @@ export default function ConsolePage() {
                     disabled={isRefreshing}
                     className="bg-slate-800/50 border-slate-600 text-white hover:bg-slate-700/50"
                   >
-                    <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-                    {isRefreshing ? 'Refreshing...' : 'Refresh'}
+                    <RefreshCw
+                      className={`w-4 h-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`}
+                    />
+                    {isRefreshing ? "Refreshing..." : "Refresh"}
                   </Button>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {metrics.map((metric, index) => (
-                  <Card key={index} className="bg-slate-800/50 border-slate-700">
+                  <Card
+                    key={index}
+                    className="bg-slate-800/50 border-slate-700"
+                  >
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium text-slate-200">{metric.title}</CardTitle>
+                      <CardTitle className="text-sm font-medium text-slate-200">
+                        {metric.title}
+                      </CardTitle>
                       <metric.icon className="h-4 w-4 text-pink-500" />
                     </CardHeader>
                     <CardContent>
-                      <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? metric.value : "0"}</div>
-                      <p className={`text-xs ${metric.trend === "up" ? "text-green-400" : metric.trend === "down" ? "text-red-400" : "text-slate-400"}`}>
-                        {hasFullDataAccess() ? metric.change : "No data available"}
+                      <div className="text-2xl font-bold text-white">
+                        {hasFullDataAccess() ? metric.value : "0"}
+                      </div>
+                      <p
+                        className={`text-xs ${metric.trend === "up" ? "text-green-400" : metric.trend === "down" ? "text-red-400" : "text-slate-400"}`}
+                      >
+                        {hasFullDataAccess()
+                          ? metric.change
+                          : "No data available"}
                       </p>
                     </CardContent>
                   </Card>
@@ -1167,14 +1613,18 @@ export default function ConsolePage() {
                       Player Growth & Revenue (Nov 2024 - Sep 2025)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      {hasFullDataAccess() 
-                        ? "Growth from November 2024 to September 2025" 
+                      {hasFullDataAccess()
+                        ? "Growth from November 2024 to September 2025"
                         : "No data available - start building your game to see analytics"}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={400}>
-                      <LineChart data={hasFullDataAccess() ? filteredPlayerActivityData : []}>
+                      <LineChart
+                        data={
+                          hasFullDataAccess() ? filteredPlayerActivityData : []
+                        }
+                      >
                         <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis dataKey="time" stroke="#9ca3af" />
                         <YAxis yAxisId="left" stroke="#9ca3af" />
@@ -1330,9 +1780,13 @@ export default function ConsolePage() {
                     <Server className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "4" : "0"}</div>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "4" : "0"}
+                    </div>
                     <p className="text-xs text-slate-400">
-                      {hasFullDataAccess() ? "3 running, 1 stopped" : "No servers deployed"}
+                      {hasFullDataAccess()
+                        ? "3 running, 1 stopped"
+                        : "No servers deployed"}
                     </p>
                   </CardContent>
                 </Card>
@@ -1344,8 +1798,14 @@ export default function ConsolePage() {
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "10,100" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Across all regions" : "No active players"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "10,100" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "Across all regions"
+                        : "No active players"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1356,9 +1816,13 @@ export default function ConsolePage() {
                     <Activity className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "22ms" : "0ms"}</div>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "22ms" : "0ms"}
+                    </div>
                     <p className="text-xs text-slate-400">
-                      {hasFullDataAccess() ? "Excellent performance" : "No data available"}
+                      {hasFullDataAccess()
+                        ? "Excellent performance"
+                        : "No data available"}
                     </p>
                   </CardContent>
                 </Card>
@@ -1370,9 +1834,13 @@ export default function ConsolePage() {
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "$1,240" : "$0"}</div>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "$1,240" : "$0"}
+                    </div>
                     <p className="text-xs text-slate-400">
-                      {hasFullDataAccess() ? "Auto-scaling enabled" : "No costs incurred"}
+                      {hasFullDataAccess()
+                        ? "Auto-scaling enabled"
+                        : "No costs incurred"}
                     </p>
                   </CardContent>
                 </Card>
@@ -1494,13 +1962,19 @@ export default function ConsolePage() {
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium text-white">
-                      Total Players
+                      Active Players
                     </CardTitle>
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "17,278" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "+12% this month" : "No data available"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "17,278" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "+12% this month"
+                        : "No data available"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1511,8 +1985,14 @@ export default function ConsolePage() {
                     <UserCheck className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "3,298" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Peak: 5,420" : "No active players"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "3,298" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "Peak: 5,420"
+                        : "No active players"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1523,8 +2003,14 @@ export default function ConsolePage() {
                     <Trophy className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "236" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "+8% vs yesterday" : "No new players"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "236" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "+8% vs yesterday"
+                        : "No new players"}
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -1532,9 +2018,7 @@ export default function ConsolePage() {
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
                   <CardTitle>Recent Players</CardTitle>
-                  <CardDescription>
-                    Latest player activity
-                  </CardDescription>
+                  <CardDescription>Latest player activity</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -1554,10 +2038,12 @@ export default function ConsolePage() {
                               {player.username}
                             </h3>
                             <p className="text-sm text-slate-400">
-                              Level {player.level} • {player.city}, {player.country}
+                              Level {player.level} • {player.city},{" "}
+                              {player.country}
                             </p>
                             <p className="text-xs text-slate-500">
-                              {player.totalGems.toLocaleString()} gems • {player.email}
+                              {player.totalGems.toLocaleString()} gems •{" "}
+                              {player.email}
                             </p>
                           </div>
                         </div>
@@ -1639,8 +2125,14 @@ export default function ConsolePage() {
                     <Flame className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "3" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "2 ending soon" : "No active events"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "3" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "2 ending soon"
+                        : "No active events"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1651,8 +2143,14 @@ export default function ConsolePage() {
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "78%" : "0%"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Of active players" : "No participation data"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "78%" : "0%"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "Of active players"
+                        : "No participation data"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1663,8 +2161,12 @@ export default function ConsolePage() {
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "$2,340" : "$0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "This week" : "No revenue data"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "$2,340" : "$0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess() ? "This week" : "No revenue data"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1675,8 +2177,14 @@ export default function ConsolePage() {
                     <Bell className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "45.2K" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Last 7 days" : "No notifications sent"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "45.2K" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess()
+                        ? "Last 7 days"
+                        : "No notifications sent"}
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -1754,12 +2262,8 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle>
-                      Create New Event
-                    </CardTitle>
-                    <CardDescription>
-                      Launch a new campaign
-                    </CardDescription>
+                    <CardTitle>Create New Event</CardTitle>
+                    <CardDescription>Launch a new campaign</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="space-y-2">
@@ -1849,8 +2353,12 @@ export default function ConsolePage() {
                     <Server className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "454,722" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "+12% this month" : "No documents"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "454,722" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess() ? "+12% this month" : "No documents"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1864,7 +2372,9 @@ export default function ConsolePage() {
                     <div className="text-2xl font-bold text-white">
                       {hasFullDataAccess() ? "932.1 MB" : "0 MB"}
                     </div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "75% of quota" : "Empty database"}</p>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess() ? "75% of quota" : "Empty database"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1875,8 +2385,12 @@ export default function ConsolePage() {
                     <Eye className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "13.4M" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Last 30 days" : "No operations"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "13.4M" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess() ? "Last 30 days" : "No operations"}
+                    </p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1887,8 +2401,12 @@ export default function ConsolePage() {
                     <Settings className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "2.8M" : "0"}</div>
-                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Last 30 days" : "No operations"}</p>
+                    <div className="text-2xl font-bold text-white">
+                      {hasFullDataAccess() ? "2.8M" : "0"}
+                    </div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess() ? "Last 30 days" : "No operations"}
+                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -1896,9 +2414,7 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle>
-                      Collections Overview
-                    </CardTitle>
+                    <CardTitle>Collections Overview</CardTitle>
                     <CardDescription>
                       Data collections in your database
                     </CardDescription>
@@ -1959,9 +2475,7 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle>
-                      Realtime Connections
-                    </CardTitle>
+                    <CardTitle>Realtime Connections</CardTitle>
                     <CardDescription>
                       Active websocket connections by region
                     </CardDescription>
@@ -2012,9 +2526,7 @@ export default function ConsolePage() {
 
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
-                  <CardTitle>
-                    Database Activity
-                  </CardTitle>
+                  <CardTitle>Database Activity</CardTitle>
                   <CardDescription>
                     Real-time database operations
                   </CardDescription>
@@ -2077,9 +2589,7 @@ export default function ConsolePage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <Card className="bg-slate-800/50 border-slate-700">
                     <CardHeader>
-                      <CardTitle>
-                        General Settings
-                      </CardTitle>
+                      <CardTitle>General Settings</CardTitle>
                       <CardDescription>
                         Configure your game settings and preferences
                       </CardDescription>
@@ -2128,9 +2638,7 @@ export default function ConsolePage() {
 
                   <Card className="bg-slate-800/50 border-slate-700">
                     <CardHeader>
-                      <CardTitle>
-                        Security Settings
-                      </CardTitle>
+                      <CardTitle>Security Settings</CardTitle>
                       <CardDescription>
                         Configure security and access controls
                       </CardDescription>
@@ -2174,9 +2682,7 @@ export default function ConsolePage() {
 
                   <Card className="bg-slate-800/50 border-slate-700">
                     <CardHeader>
-                      <CardTitle>
-                        Notification Settings
-                      </CardTitle>
+                      <CardTitle>Notification Settings</CardTitle>
                       <CardDescription>
                         Manage your notification preferences
                       </CardDescription>
@@ -2206,7 +2712,10 @@ export default function ConsolePage() {
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
-                          <Label htmlFor="security-alerts" className="text-white">
+                          <Label
+                            htmlFor="security-alerts"
+                            className="text-white"
+                          >
                             Security Alerts
                           </Label>
                           <p className="text-xs text-slate-400">
@@ -2220,9 +2729,7 @@ export default function ConsolePage() {
 
                   <Card className="bg-slate-800/50 border-slate-700">
                     <CardHeader>
-                      <CardTitle>
-                        Billing & Usage
-                      </CardTitle>
+                      <CardTitle>Billing & Usage</CardTitle>
                       <CardDescription>
                         Monitor your usage and billing
                       </CardDescription>
@@ -2256,8 +2763,13 @@ export default function ConsolePage() {
                   <div className="w-16 h-16 bg-slate-700/50 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <Settings className="w-8 h-8 text-slate-400" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">No Settings Available</h3>
-                  <p className="text-slate-400 mb-4">Create your first project to access settings and configuration options.</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    No Settings Available
+                  </h3>
+                  <p className="text-slate-400 mb-4">
+                    Create your first project to access settings and
+                    configuration options.
+                  </p>
                 </div>
               )}
             </>
