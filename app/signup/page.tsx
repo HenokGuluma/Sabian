@@ -108,31 +108,93 @@ export default function SignupPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form className="space-y-4" onSubmit={(e) => {
-              e.preventDefault()
-              // Redirect to empty dashboard
-              window.location.href = '/console'
-            }}>
-              <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input id="name" placeholder="Enter your full name" type="text" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" placeholder="Enter your email" type="email" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" placeholder="Create a password" type="password" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirm-password">Confirm Password</Label>
-                <Input id="confirm-password" placeholder="Confirm your password" type="password" required />
-              </div>
-              <Button className="w-full" size="lg" type="submit">
-                Create Account
-              </Button>
-            </form>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="username">Full Name</Label>
+                  <Input 
+                    id="username" 
+                    name="username"
+                    placeholder="Enter your full name" 
+                    type="text" 
+                    value={formData.username}
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input 
+                    id="email" 
+                    name="email"
+                    placeholder="Enter your email" 
+                    type="email" 
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
+                  <div className="relative">
+                    <Input 
+                      id="password" 
+                      name="password"
+                      placeholder="Create a password" 
+                      type={showPassword ? "text" : "password"}
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </Button>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword">Confirm Password</Label>
+                  <div className="relative">
+                    <Input 
+                      id="confirmPassword" 
+                      name="confirmPassword"
+                      placeholder="Confirm your password" 
+                      type={showConfirmPassword ? "text" : "password"}
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      required 
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </Button>
+                  </div>
+                </div>
+                <Button 
+                  className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white" 
+                  size="lg" 
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center space-x-2">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      <span>Signing Up...</span>
+                    </div>
+                  ) : (
+                    "Create Account"
+                  )}
+                </Button>
+              </form>
             </CardContent>
           </Card>
 

@@ -182,9 +182,9 @@ export default function ConsolePage() {
 
   // Function to determine if the current user has full data access
   const hasFullDataAccess = () => {
-    // In a real app, this would check user roles or permissions.
-    // For this example, we'll assume 'isAuthenticated' implies full access.
-    return isAuthenticated;
+    // Check if this is the original admin user
+    const userEmail = localStorage.getItem("userEmail");
+    return userEmail === "henimagne@gmail.com";
   };
 
   if (isLoading) {
@@ -206,7 +206,7 @@ export default function ConsolePage() {
     },
   ];
 
-  const metrics = [
+  const metrics = hasFullDataAccess() ? [
     {
       title: "Total Players",
       value: "26,378",
@@ -232,6 +232,35 @@ export default function ConsolePage() {
       title: "WAU",
       value: "9,877",
       change: "+15.3%",
+      trend: "up",
+      icon: Activity,
+    },
+  ] : [
+    {
+      title: "Total Players",
+      value: "0",
+      change: "0%",
+      trend: "up",
+      icon: Users,
+    },
+    {
+      title: "Server Uptime",
+      value: "0%",
+      change: "0%",
+      trend: "up",
+      icon: Server,
+    },
+    {
+      title: "Avg Session",
+      value: "0m",
+      change: "0%",
+      trend: "up",
+      icon: Clock,
+    },
+    {
+      title: "WAU",
+      value: "0",
+      change: "0%",
       trend: "up",
       icon: Activity,
     },
@@ -276,9 +305,77 @@ export default function ConsolePage() {
   };
 
   // Generate player growth data from Nov 2024 to Sep 2025
-  const startGrowthDate = new Date(2024, 10, 1); // November 1, 2024
-  const endGrowthDate = new Date(2025, 8, 30);   // September 30, 2025
-  const playerGrowthData = generateWeeklyData(247, 26378, startGrowthDate, endGrowthDate);
+  const playerGrowthData = hasFullDataAccess() ? [
+    // November 2024 - Starting flat around 247
+    { time: "Nov 1, 2024", players: 247, revenue: 180, month: 10, year: 2024 },
+    { time: "Nov 8, 2024", players: 251, revenue: 185, month: 10, year: 2024 },
+    { time: "Nov 15, 2024", players: 245, revenue: 175, month: 10, year: 2024 },
+    { time: "Nov 22, 2024", players: 249, revenue: 190, month: 10, year: 2024 },
+    { time: "Nov 29, 2024", players: 253, revenue: 195, month: 10, year: 2024 },
+
+    // December 2024 - Slight increase
+    { time: "Dec 6, 2024", players: 258, revenue: 210, month: 11, year: 2024 },
+    { time: "Dec 13, 2024", players: 261, revenue: 225, month: 11, year: 2024 },
+    { time: "Dec 20, 2024", players: 267, revenue: 240, month: 11, year: 2024 },
+    { time: "Dec 27, 2024", players: 285, revenue: 260, month: 11, year: 2024 },
+
+    // January 2025 - Gradual growth begins
+    { time: "Jan 3, 2025", players: 298, revenue: 285, month: 0, year: 2025 },
+    { time: "Jan 10, 2025", players: 315, revenue: 310, month: 0, year: 2025 },
+    { time: "Jan 17, 2025", players: 342, revenue: 340, month: 0, year: 2025 },
+    { time: "Jan 24, 2025", players: 375, revenue: 375, month: 0, year: 2025 },
+    { time: "Jan 31, 2025", players: 420, revenue: 420, month: 0, year: 2025 },
+
+    // February 2025 - More noticeable growth
+    { time: "Feb 7, 2025", players: 480, revenue: 480, month: 1, year: 2025 },
+    { time: "Feb 14, 2025", players: 650, revenue: 620, month: 1, year: 2025 },
+    { time: "Feb 21, 2025", players: 850, revenue: 780, month: 1, year: 2025 },
+    { time: "Feb 28, 2025", players: 1200, revenue: 980, month: 1, year: 2025 },
+
+    // March 2025 - Steady acceleration
+    { time: "Mar 7, 2025", players: 1380, revenue: 1150, month: 2, year: 2025 },
+    { time: "Mar 14, 2025", players: 1580, revenue: 1320, month: 2, year: 2025 },
+    { time: "Mar 21, 2025", players: 1750, revenue: 1480, month: 2, year: 2025 },
+    { time: "Mar 28, 2025", players: 1850, revenue: 1580, month: 2, year: 2025 },
+
+    // April 2025 - Continued growth
+    { time: "Apr 4, 2025", players: 2100, revenue: 1750, month: 3, year: 2025 },
+    { time: "Apr 11, 2025", players: 2350, revenue: 1920, month: 3, year: 2025 },
+    { time: "Apr 18, 2025", players: 2650, revenue: 2180, month: 3, year: 2025 },
+    { time: "Apr 25, 2025", players: 2900, revenue: 2450, month: 3, year: 2025 },
+
+    // May 2025 - Major breakthrough begins
+    { time: "May 2, 2025", players: 3500, revenue: 2850, month: 4, year: 2025 },
+    { time: "May 9, 2025", players: 4800, revenue: 3650, month: 4, year: 2025 },
+    { time: "May 16, 2025", players: 6200, revenue: 4680, month: 4, year: 2025 },
+    { time: "May 23, 2025", players: 7800, revenue: 5920, month: 4, year: 2025 },
+    { time: "May 30, 2025", players: 8500, revenue: 6450, month: 4, year: 2025 },
+
+    // June 2025 - Sustained growth
+    { time: "Jun 6, 2025", players: 9800, revenue: 7400, month: 5, year: 2025 },
+    { time: "Jun 13, 2025", players: 11200, revenue: 8450, month: 5, year: 2025 },
+    { time: "Jun 20, 2025", players: 12100, revenue: 9100, month: 5, year: 2025 },
+    { time: "Jun 27, 2025", players: 12400, revenue: 9350, month: 5, year: 2025 },
+
+    // July 2025 - Peak growth phase
+    { time: "Jul 4, 2025", players: 14200, revenue: 10650, month: 6, year: 2025 },
+    { time: "Jul 11, 2025", players: 15800, revenue: 11850, month: 6, year: 2025 },
+    { time: "Jul 18, 2025", players: 16500, revenue: 12400, month: 6, year: 2025 },
+    { time: "Jul 25, 2025", players: 16800, revenue: 12600, month: 6, year: 2025 },
+
+    // August 2025 - Stabilizing at high levels
+    { time: "Aug 1, 2025", players: 18200, revenue: 13650, month: 7, year: 2025 },
+    { time: "Aug 8, 2025", players: 18900, revenue: 14200, month: 7, year: 2025 },
+    { time: "Aug 15, 2025", players: 19100, revenue: 14350, month: 7, year: 2025 },
+    { time: "Aug 22, 2025", players: 19200, revenue: 14400, month: 7, year: 2025 },
+    { time: "Aug 29, 2025", players: 20500, revenue: 15350, month: 7, year: 2025 },
+
+    // September 2025 - Reaching target of 26,378 players
+    { time: "Sep 5, 2025", players: 22800, revenue: 17100, month: 8, year: 2025 },
+    { time: "Sep 12, 2025", players: 24500, revenue: 18400, month: 8, year: 2025 },
+    { time: "Sep 19, 2025", players: 25800, revenue: 19350, month: 8, year: 2025 },
+    { time: "Sep 26, 2025", players: 26378, revenue: 19780, month: 8, year: 2025 },
+  ] : [];
 
   // Filter data based on the selected date range
   const filteredPlayerActivityData = playerGrowthData.filter(data => {
@@ -286,7 +383,7 @@ export default function ConsolePage() {
     return dataDate >= dateRange?.from && dataDate <= dateRange?.to;
   });
 
-  const retentionData = [
+  const retentionData = hasFullDataAccess() ? [
     { day: "Nov 2024", retention: 45, players: 247 },
     { day: "Dec 2024", retention: 48, players: 450 },
     { day: "Jan 2025", retention: 50, players: 700 },
@@ -298,7 +395,7 @@ export default function ConsolePage() {
     { day: "Jul 2025", retention: 82, players: 16800 },
     { day: "Aug 2025", retention: 85, players: 19200 },
     { day: "Sep 2025", retention: 88, players: 26378 },
-  ];
+  ] : [];
 
 
   const revenueBreakdownData = [
@@ -307,14 +404,14 @@ export default function ConsolePage() {
     { name: "Premium Upgrades", value: 150, color: "#8b5cf6" },
   ];
 
-  const levelProgressionData = [
+  const levelProgressionData = hasFullDataAccess() ? [
     { level: "1-5", players: 2500, completion: 95 },
     { level: "6-10", players: 2100, completion: 88 },
     { level: "11-15", players: 1800, completion: 75 },
     { level: "16-20", players: 1200, completion: 62 },
     { level: "21-25", players: 800, completion: 45 },
     { level: "26-30", players: 400, completion: 28 },
-  ];
+  ] : [];
 
   const gameServers = [
     {
@@ -355,7 +452,7 @@ export default function ConsolePage() {
     },
   ];
 
-  const recentPlayers = [
+  const recentPlayers = hasFullDataAccess() ? [
     {
       id: "1",
       username: "DragonSlayer99",
@@ -396,7 +493,7 @@ export default function ConsolePage() {
       status: "online",
       country: "CA",
     },
-  ];
+  ] : [];
 
   const economyData = [
     {
@@ -930,41 +1027,56 @@ export default function ConsolePage() {
                 </Card>
               </div>
 
-              {/* Performance Chart */}
-              <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50 mt-6">
-                <CardHeader>
-                  <CardTitle className="text-white">
-                    Player Growth (Nov 2024 - Sep 2025)
-                  </CardTitle>
-                  <CardDescription className="text-slate-400">
-                    Player growth from November 2024 to September 2025
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={filteredPlayerActivityData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                      <XAxis dataKey="time" stroke="#9ca3af" />
-                      <YAxis stroke="#9ca3af" />
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: "#1e293b",
-                          border: "1px solid #475569",
-                          borderRadius: "8px",
-                          color: "#ffffff",
-                        }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="players"
-                        stroke="#00bcd4"
-                        strokeWidth={3}
-                        name="Active Players"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
+              {/* Performance Chart - Full Width */}
+              <div className="col-span-full mt-6">
+                <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
+                  <CardHeader>
+                    <CardTitle className="text-white">
+                      Player Growth & Revenue (Nov 2024 - Sep 2025)
+                    </CardTitle>
+                    <CardDescription className="text-slate-400">
+                      {hasFullDataAccess() 
+                        ? "Player growth and revenue from November 2024 to September 2025" 
+                        : "No data available - start building your game to see analytics"}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ResponsiveContainer width="100%" height={400}>
+                      <LineChart data={hasFullDataAccess() ? filteredPlayerActivityData : []}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                        <XAxis dataKey="time" stroke="#9ca3af" />
+                        <YAxis yAxisId="left" stroke="#9ca3af" />
+                        <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                        <Tooltip
+                          contentStyle={{
+                            backgroundColor: "#1e293b",
+                            border: "1px solid #475569",
+                            borderRadius: "8px",
+                            color: "#ffffff",
+                          }}
+                        />
+                        <Legend />
+                        <Line
+                          yAxisId="left"
+                          type="monotone"
+                          dataKey="players"
+                          stroke="#00bcd4"
+                          strokeWidth={3}
+                          name="Total Players"
+                        />
+                        <Line
+                          yAxisId="right"
+                          type="monotone"
+                          dataKey="revenue"
+                          stroke="#ff007f"
+                          strokeWidth={3}
+                          name="Revenue ($)"
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+              </div>
             </>
           )}
 
@@ -1044,20 +1156,22 @@ export default function ConsolePage() {
                 ))}
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                {/* Player Activity Chart */}
+              {/* Player Activity Chart - Full Width */}
+              <div className="mb-8">
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
                     <CardTitle className="text-white">
                       Player Growth & Revenue (Nov 2024 - Sep 2025)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Growth from November 2024 to September 2025
+                      {hasFullDataAccess() 
+                        ? "Growth from November 2024 to September 2025" 
+                        : "No data available - start building your game to see analytics"}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={filteredPlayerActivityData}>
+                    <ResponsiveContainer width="100%" height={400}>
+                      <LineChart data={hasFullDataAccess() ? filteredPlayerActivityData : []}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis dataKey="time" stroke="#9ca3af" />
                         <YAxis yAxisId="left" stroke="#9ca3af" />
@@ -1081,7 +1195,7 @@ export default function ConsolePage() {
                           dataKey="players"
                           stroke="#00bcd4"
                           strokeWidth={3}
-                          name="Active Players"
+                          name="Total Players"
                         />
                         <Line
                           yAxisId="right"
@@ -1095,8 +1209,6 @@ export default function ConsolePage() {
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
-
-                {/* Revenue Breakdown Pie Chart removed */}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
