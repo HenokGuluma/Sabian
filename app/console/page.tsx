@@ -317,74 +317,74 @@ export default function ConsolePage() {
   // Generate player growth data from Nov 2024 to Sep 2025
   const playerGrowthData = hasFullDataAccess() ? [
     // November 2024 - Starting flat around 247
-    { time: "Nov 1, 2024", players: 247, revenue: 120, month: 10, year: 2024 },
-    { time: "Nov 8, 2024", players: 251, revenue: 95, month: 10, year: 2024 },
-    { time: "Nov 15, 2024", players: 245, revenue: 135, month: 10, year: 2024 },
-    { time: "Nov 22, 2024", players: 249, revenue: 110, month: 10, year: 2024 },
-    { time: "Nov 29, 2024", players: 253, revenue: 140, month: 10, year: 2024 },
+    { time: "Nov 1, 2024", players: 247, revenue: 30, month: 10, year: 2024 },
+    { time: "Nov 8, 2024", players: 251, revenue: 24, month: 10, year: 2024 },
+    { time: "Nov 15, 2024", players: 245, revenue: 34, month: 10, year: 2024 },
+    { time: "Nov 22, 2024", players: 249, revenue: 28, month: 10, year: 2024 },
+    { time: "Nov 29, 2024", players: 253, revenue: 35, month: 10, year: 2024 },
 
     // December 2024 - Slight increase
-    { time: "Dec 6, 2024", players: 258, revenue: 165, month: 11, year: 2024 },
-    { time: "Dec 13, 2024", players: 261, revenue: 145, month: 11, year: 2024 },
-    { time: "Dec 20, 2024", players: 267, revenue: 190, month: 11, year: 2024 },
-    { time: "Dec 27, 2024", players: 285, revenue: 220, month: 11, year: 2024 },
+    { time: "Dec 6, 2024", players: 258, revenue: 41, month: 11, year: 2024 },
+    { time: "Dec 13, 2024", players: 261, revenue: 36, month: 11, year: 2024 },
+    { time: "Dec 20, 2024", players: 267, revenue: 48, month: 11, year: 2024 },
+    { time: "Dec 27, 2024", players: 285, revenue: 55, month: 11, year: 2024 },
 
     // January 2025 - Gradual growth begins
-    { time: "Jan 3, 2025", players: 298, revenue: 185, month: 0, year: 2025 },
-    { time: "Jan 10, 2025", players: 315, revenue: 240, month: 0, year: 2025 },
-    { time: "Jan 17, 2025", players: 342, revenue: 210, month: 0, year: 2025 },
-    { time: "Jan 24, 2025", players: 375, revenue: 285, month: 0, year: 2025 },
-    { time: "Jan 31, 2025", players: 420, revenue: 320, month: 0, year: 2025 },
+    { time: "Jan 3, 2025", players: 298, revenue: 46, month: 0, year: 2025 },
+    { time: "Jan 10, 2025", players: 315, revenue: 60, month: 0, year: 2025 },
+    { time: "Jan 17, 2025", players: 342, revenue: 53, month: 0, year: 2025 },
+    { time: "Jan 24, 2025", players: 375, revenue: 71, month: 0, year: 2025 },
+    { time: "Jan 31, 2025", players: 420, revenue: 80, month: 0, year: 2025 },
 
     // February 2025 - More noticeable growth
-    { time: "Feb 7, 2025", players: 480, revenue: 380, month: 1, year: 2025 },
-    { time: "Feb 14, 2025", players: 650, revenue: 465, month: 1, year: 2025 },
-    { time: "Feb 21, 2025", players: 850, revenue: 520, month: 1, year: 2025 },
-    { time: "Feb 28, 2025", players: 1200, revenue: 750, month: 1, year: 2025 },
+    { time: "Feb 7, 2025", players: 480, revenue: 95, month: 1, year: 2025 },
+    { time: "Feb 14, 2025", players: 650, revenue: 116, month: 1, year: 2025 },
+    { time: "Feb 21, 2025", players: 850, revenue: 130, month: 1, year: 2025 },
+    { time: "Feb 28, 2025", players: 1200, revenue: 188, month: 1, year: 2025 },
 
     // March 2025 - Steady acceleration
-    { time: "Mar 7, 2025", players: 1380, revenue: 820, month: 2, year: 2025 },
-    { time: "Mar 14, 2025", players: 1580, revenue: 1050, month: 2, year: 2025 },
-    { time: "Mar 21, 2025", players: 1750, revenue: 980, month: 2, year: 2025 },
-    { time: "Mar 28, 2025", players: 1850, revenue: 1180, month: 2, year: 2025 },
+    { time: "Mar 7, 2025", players: 1380, revenue: 205, month: 2, year: 2025 },
+    { time: "Mar 14, 2025", players: 1580, revenue: 263, month: 2, year: 2025 },
+    { time: "Mar 21, 2025", players: 1750, revenue: 245, month: 2, year: 2025 },
+    { time: "Mar 28, 2025", players: 1850, revenue: 295, month: 2, year: 2025 },
 
     // April 2025 - Continued growth
-    { time: "Apr 4, 2025", players: 2100, revenue: 1350, month: 3, year: 2025 },
-    { time: "Apr 11, 2025", players: 2350, revenue: 1520, month: 3, year: 2025 },
-    { time: "Apr 18, 2025", players: 2650, revenue: 1680, month: 3, year: 2025 },
-    { time: "Apr 25, 2025", players: 2900, revenue: 1950, month: 3, year: 2025 },
+    { time: "Apr 4, 2025", players: 2100, revenue: 338, month: 3, year: 2025 },
+    { time: "Apr 11, 2025", players: 2350, revenue: 380, month: 3, year: 2025 },
+    { time: "Apr 18, 2025", players: 2650, revenue: 420, month: 3, year: 2025 },
+    { time: "Apr 25, 2025", players: 2900, revenue: 488, month: 3, year: 2025 },
 
     // May 2025 - Major breakthrough begins
-    { time: "May 2, 2025", players: 3500, revenue: 2180, month: 4, year: 2025 },
-    { time: "May 9, 2025", players: 4800, revenue: 2850, month: 4, year: 2025 },
-    { time: "May 16, 2025", players: 6200, revenue: 3680, month: 4, year: 2025 },
-    { time: "May 23, 2025", players: 7800, revenue: 4520, month: 4, year: 2025 },
-    { time: "May 30, 2025", players: 8500, revenue: 5100, month: 4, year: 2025 },
+    { time: "May 2, 2025", players: 3500, revenue: 545, month: 4, year: 2025 },
+    { time: "May 9, 2025", players: 4800, revenue: 713, month: 4, year: 2025 },
+    { time: "May 16, 2025", players: 6200, revenue: 920, month: 4, year: 2025 },
+    { time: "May 23, 2025", players: 7800, revenue: 1130, month: 4, year: 2025 },
+    { time: "May 30, 2025", players: 8500, revenue: 1275, month: 4, year: 2025 },
 
     // June 2025 - Sustained growth
-    { time: "Jun 6, 2025", players: 9800, revenue: 5850, month: 5, year: 2025 },
-    { time: "Jun 13, 2025", players: 11200, revenue: 6520, month: 5, year: 2025 },
-    { time: "Jun 20, 2025", players: 12100, revenue: 7200, month: 5, year: 2025 },
-    { time: "Jun 27, 2025", players: 12400, revenue: 7850, month: 5, year: 2025 },
+    { time: "Jun 6, 2025", players: 9800, revenue: 1463, month: 5, year: 2025 },
+    { time: "Jun 13, 2025", players: 11200, revenue: 1630, month: 5, year: 2025 },
+    { time: "Jun 20, 2025", players: 12100, revenue: 1800, month: 5, year: 2025 },
+    { time: "Jun 27, 2025", players: 12400, revenue: 1963, month: 5, year: 2025 },
 
     // July 2025 - Peak growth phase
-    { time: "Jul 4, 2025", players: 14200, revenue: 8950, month: 6, year: 2025 },
-    { time: "Jul 11, 2025", players: 15800, revenue: 9680, month: 6, year: 2025 },
-    { time: "Jul 18, 2025", players: 16500, revenue: 10200, month: 6, year: 2025 },
-    { time: "Jul 25, 2025", players: 16800, revenue: 11800, month: 6, year: 2025 },
+    { time: "Jul 4, 2025", players: 14200, revenue: 2238, month: 6, year: 2025 },
+    { time: "Jul 11, 2025", players: 15800, revenue: 2420, month: 6, year: 2025 },
+    { time: "Jul 18, 2025", players: 16500, revenue: 2550, month: 6, year: 2025 },
+    { time: "Jul 25, 2025", players: 16800, revenue: 2950, month: 6, year: 2025 },
 
     // August 2025 - Stabilizing at high levels
-    { time: "Aug 1, 2025", players: 18200, revenue: 12650, month: 7, year: 2025 },
-    { time: "Aug 8, 2025", players: 18900, revenue: 11200, month: 7, year: 2025 },
-    { time: "Aug 15, 2025", players: 19100, revenue: 13850, month: 7, year: 2025 },
-    { time: "Aug 22, 2025", players: 19200, revenue: 14650, month: 7, year: 2025 },
-    { time: "Aug 29, 2025", players: 20500, revenue: 15950, month: 7, year: 2025 },
+    { time: "Aug 1, 2025", players: 18200, revenue: 3163, month: 7, year: 2025 },
+    { time: "Aug 8, 2025", players: 18900, revenue: 2800, month: 7, year: 2025 },
+    { time: "Aug 15, 2025", players: 19100, revenue: 3463, month: 7, year: 2025 },
+    { time: "Aug 22, 2025", players: 19200, revenue: 3663, month: 7, year: 2025 },
+    { time: "Aug 29, 2025", players: 20500, revenue: 3988, month: 7, year: 2025 },
 
     // September 2025 - Reaching target of 26,378 players
-    { time: "Sep 5, 2025", players: 22800, revenue: 16850, month: 8, year: 2025 },
-    { time: "Sep 12, 2025", players: 24500, revenue: 18200, month: 8, year: 2025 },
-    { time: "Sep 19, 2025", players: 25800, revenue: 17650, month: 8, year: 2025 },
-    { time: "Sep 26, 2025", players: 26378, revenue: 19780, month: 8, year: 2025 },
+    { time: "Sep 5, 2025", players: 22800, revenue: 4213, month: 8, year: 2025 },
+    { time: "Sep 12, 2025", players: 24500, revenue: 4550, month: 8, year: 2025 },
+    { time: "Sep 19, 2025", players: 25800, revenue: 4413, month: 8, year: 2025 },
+    { time: "Sep 26, 2025", players: 26378, revenue: 4945, month: 8, year: 2025 },
   ] : [];
 
   // Filter data based on the selected date range
@@ -2073,183 +2073,193 @@ export default function ConsolePage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle>
-                      General Settings
-                    </CardTitle>
-                    <CardDescription>
-                      Configure your game settings and preferences
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">
-                        Game Name
-                      </label>
-                      <Input
-                        placeholder="Bankeru Games"
-                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">
-                        API Key
-                      </label>
-                      <Input
-                        placeholder="Enter API key"
-                        type="password"
-                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">
-                        Server Region
-                      </label>
-                      <Input
-                        placeholder="US East"
-                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-white font-medium text-sm block">
-                        Max Players per Game
-                      </label>
-                      <Input
-                        placeholder="100"
-                        type="number"
-                        className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
+              {hasFullDataAccess() ? (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <Card className="bg-slate-800/50 border-slate-700">
+                    <CardHeader>
+                      <CardTitle>
+                        General Settings
+                      </CardTitle>
+                      <CardDescription>
+                        Configure your game settings and preferences
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="space-y-2">
+                        <label className="text-white font-medium text-sm block">
+                          Game Name
+                        </label>
+                        <Input
+                          placeholder="Bankeru Games"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-white font-medium text-sm block">
+                          API Key
+                        </label>
+                        <Input
+                          placeholder="Enter API key"
+                          type="password"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-white font-medium text-sm block">
+                          Server Region
+                        </label>
+                        <Input
+                          placeholder="US East"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-white font-medium text-sm block">
+                          Max Players per Game
+                        </label>
+                        <Input
+                          placeholder="100"
+                          type="number"
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
 
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle>
-                      Security Settings
-                    </CardTitle>
-                    <CardDescription>
-                      Configure security and access controls
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="two-factor" className="text-white">
-                          Two-Factor Authentication
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Add extra security to your account
-                        </p>
+                  <Card className="bg-slate-800/50 border-slate-700">
+                    <CardHeader>
+                      <CardTitle>
+                        Security Settings
+                      </CardTitle>
+                      <CardDescription>
+                        Configure security and access controls
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label htmlFor="two-factor" className="text-white">
+                            Two-Factor Authentication
+                          </Label>
+                          <p className="text-xs text-slate-400">
+                            Add extra security to your account
+                          </p>
+                        </div>
+                        <Switch id="two-factor" />
                       </div>
-                      <Switch id="two-factor" />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="api-access" className="text-white">
-                          API Access Logging
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Log all API requests
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label htmlFor="api-access" className="text-white">
+                            API Access Logging
+                          </Label>
+                          <p className="text-xs text-slate-400">
+                            Log all API requests
+                          </p>
+                        </div>
+                        <Switch id="api-access" defaultChecked />
                       </div>
-                      <Switch id="api-access" defaultChecked />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="ip-whitelist" className="text-white">
-                          IP Whitelisting
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Restrict access by IP address
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label htmlFor="ip-whitelist" className="text-white">
+                            IP Whitelisting
+                          </Label>
+                          <p className="text-xs text-slate-400">
+                            Restrict access by IP address
+                          </p>
+                        </div>
+                        <Switch id="ip-whitelist" />
                       </div>
-                      <Switch id="ip-whitelist" />
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
 
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle>
-                      Notification Settings
-                    </CardTitle>
-                    <CardDescription>
-                      Manage your notification preferences
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="email-alerts" className="text-white">
-                          Email Alerts
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Receive important updates via email
-                        </p>
+                  <Card className="bg-slate-800/50 border-slate-700">
+                    <CardHeader>
+                      <CardTitle>
+                        Notification Settings
+                      </CardTitle>
+                      <CardDescription>
+                        Manage your notification preferences
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label htmlFor="email-alerts" className="text-white">
+                            Email Alerts
+                          </Label>
+                          <p className="text-xs text-slate-400">
+                            Receive important updates via email
+                          </p>
+                        </div>
+                        <Switch id="email-alerts" defaultChecked />
                       </div>
-                      <Switch id="email-alerts" defaultChecked />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="server-alerts" className="text-white">
-                          Server Alerts
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Get notified of server issues
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label htmlFor="server-alerts" className="text-white">
+                            Server Alerts
+                          </Label>
+                          <p className="text-xs text-slate-400">
+                            Get notified of server issues
+                          </p>
+                        </div>
+                        <Switch id="server-alerts" defaultChecked />
                       </div>
-                      <Switch id="server-alerts" defaultChecked />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label htmlFor="security-alerts" className="text-white">
-                          Security Alerts
-                        </Label>
-                        <p className="text-xs text-slate-400">
-                          Anti-cheat and security notifications
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <Label htmlFor="security-alerts" className="text-white">
+                            Security Alerts
+                          </Label>
+                          <p className="text-xs text-slate-400">
+                            Anti-cheat and security notifications
+                          </p>
+                        </div>
+                        <Switch id="security-alerts" defaultChecked />
                       </div>
-                      <Switch id="security-alerts" defaultChecked />
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
 
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader>
-                    <CardTitle>
-                      Billing & Usage
-                    </CardTitle>
-                    <CardDescription>
-                      Monitor your usage and billing
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-white">Current Plan</span>
-                      <Badge className="bg-gradient-to-r from-pink-500 to-cyan-400 text-white">
-                        Pro
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-white">Monthly Usage</span>
-                      <span className="text-slate-400">$1,240 / $2,000</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-white">Next Billing</span>
-                      <span className="text-slate-400">March 15, 2024</span>
-                    </div>
-                    <Button
-                      variant="outline"
-                      className="w-full border-slate-600 text-white hover:bg-slate-700/50 bg-transparent"
-                    >
-                      View Billing Details
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
+                  <Card className="bg-slate-800/50 border-slate-700">
+                    <CardHeader>
+                      <CardTitle>
+                        Billing & Usage
+                      </CardTitle>
+                      <CardDescription>
+                        Monitor your usage and billing
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-white">Current Plan</span>
+                        <Badge className="bg-gradient-to-r from-pink-500 to-cyan-400 text-white">
+                          Pro
+                        </Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white">Monthly Usage</span>
+                        <span className="text-slate-400">$1,240 / $2,000</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-white">Next Billing</span>
+                        <span className="text-slate-400">March 15, 2024</span>
+                      </div>
+                      <Button
+                        variant="outline"
+                        className="w-full border-slate-600 text-white hover:bg-slate-700/50 bg-transparent"
+                      >
+                        View Billing Details
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              ) : (
+                <div className="text-center py-16">
+                  <div className="w-16 h-16 bg-slate-700/50 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    <Settings className="w-8 h-8 text-slate-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">No Settings Available</h3>
+                  <p className="text-slate-400 mb-4">Create your first project to access settings and configuration options.</p>
+                </div>
+              )}
             </>
           )}
         </main>
