@@ -23,16 +23,14 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(""); // Clear previous errors
 
-    // Simulate authentication
-    // In a real application, you would send these credentials to a backend API
-    if (email === "henimagne@gmail.com" && password === "password123") {
+    // Simulate authentication - accept any email/password combination
+    setTimeout(() => {
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("userEmail", email); // Store user email
+      localStorage.setItem("userName", email.split('@')[0]); // Store username from email
       router.push("/console");
-    } else {
-      setError("Invalid email or password");
-      setIsLoading(false); // Stop loading on error
-    }
+      setIsLoading(false);
+    }, 2000);
   };
 
   return (
@@ -194,21 +192,7 @@ export default function LoginPage() {
             </CardContent>
           </Card>
 
-          {/* Gaming Stats */}
-          <div className="mt-8 grid grid-cols-3 gap-4 text-center">
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50">
-              <div className="text-pink-400 font-bold text-xl">17K+</div>
-              <div className="text-slate-300 text-sm">Active Gamers</div>
-            </div>
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50">
-              <div className="text-cyan-400 font-bold text-xl">99.9%</div>
-              <div className="text-slate-300 text-sm">Uptime</div>
-            </div>
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50">
-              <div className="text-purple-400 font-bold text-xl">24/7</div>
-              <div className="text-slate-300 text-sm">Support</div>
-            </div>
-          </div>
+          
         </div>
       </div>
 

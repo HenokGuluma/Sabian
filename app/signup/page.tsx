@@ -40,6 +40,8 @@ export default function SignupPage() {
     // Simulate registration
     setTimeout(() => {
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("userEmail", formData.email);
+      localStorage.setItem("userName", formData.username);
       router.push("/console");
     }, 2000);
   };
@@ -198,29 +200,7 @@ export default function SignupPage() {
             </CardContent>
           </Card>
 
-          {/* Gaming Features */}
-          <div className="mt-8 grid grid-cols-2 gap-4">
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
-              <div className="text-blue-400 text-2xl mb-2">🎮</div>
-              <div className="text-white font-semibold text-sm">Epic Games</div>
-              <div className="text-slate-400 text-xs">Access premium content</div>
-            </div>
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
-              <div className="text-purple-400 text-2xl mb-2">🏆</div>
-              <div className="text-white font-semibold text-sm">Leaderboards</div>
-              <div className="text-slate-400 text-xs">Compete globally</div>
-            </div>
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
-              <div className="text-cyan-400 text-2xl mb-2">⚡</div>
-              <div className="text-white font-semibold text-sm">Real-time</div>
-              <div className="text-slate-400 text-xs">Live multiplayer</div>
-            </div>
-            <div className="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-slate-700/50 text-center">
-              <div className="text-pink-400 text-2xl mb-2">🛡️</div>
-              <div className="text-white font-semibold text-sm">Secure</div>
-              <div className="text-slate-400 text-xs">Protected gaming</div>
-            </div>
-          </div>
+          
         </div>
       </div>
 

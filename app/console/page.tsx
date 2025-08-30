@@ -182,9 +182,8 @@ export default function ConsolePage() {
 
   // Function to determine if the current user has full data access
   const hasFullDataAccess = () => {
-    // Check if this is the original admin user
-    const userEmail = localStorage.getItem("userEmail");
-    return userEmail === "henimagne@gmail.com";
+    // All new users get empty console with no data
+    return false;
   };
 
   if (isLoading) {
@@ -195,16 +194,7 @@ export default function ConsolePage() {
     );
   }
 
-  const projects = [
-    {
-      id: "bankeru-games",
-      name: "Bankeru Games",
-      status: "live",
-      players: "17.2K",
-      revenue: "$14.5K",
-      uptime: "99.9%",
-    },
-  ];
+  const projects: any[] = [];
 
   const metrics = hasFullDataAccess() ? [
     {
@@ -685,10 +675,10 @@ export default function ConsolePage() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none text-white">
-                      Henok Taddesse
+                      {localStorage.getItem("userName") || "User"}
                     </p>
                     <p className="text-xs leading-none text-slate-400">
-                      henimagne@gmail.com
+                      {localStorage.getItem("userEmail") || "user@example.com"}
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -776,44 +766,50 @@ export default function ConsolePage() {
               </Dialog>
             </div>
 
-            <div className="space-y-2">
-              {projects.map((project) => (
-                <div
-                  key={project.id}
-                  className={`p-3 rounded-lg cursor-pointer transition-all ${
-                    selectedProject === project.id
-                      ? "bg-slate-700/50 border border-pink-500/50"
-                      : "hover:bg-slate-700/30"
-                  }`}
-                  onClick={() => setSelectedProject(project.id)}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-medium text-sm text-white">
-                      {project.name}
-                    </h3>
-                    <Badge
-                      variant={
-                        project.status === "live"
-                          ? "default"
-                          : project.status === "beta"
-                            ? "secondary"
-                            : "outline"
-                      }
-                      className="text-xs"
-                    >
-                      {project.status}
-                    </Badge>
-                  </div>
-                  <div className="text-xs text-slate-400 space-y-1">
-                    <div className="flex justify-between">
-                      <span>Players:</span>
-                      <span className="text-white">{project.players}</span>
+            {projects.length > 0 ? (
+              <div className="space-y-2">
+                {projects.map((project) => (
+                  <div
+                    key={project.id}
+                    className={`p-3 rounded-lg cursor-pointer transition-all ${
+                      selectedProject === project.id
+                        ? "bg-slate-700/50 border border-pink-500/50"
+                        : "hover:bg-slate-700/30"
+                    }`}
+                    onClick={() => setSelectedProject(project.id)}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-medium text-sm text-white">
+                        {project.name}
+                      </h3>
+                      <Badge
+                        variant={
+                          project.status === "live"
+                            ? "default"
+                            : project.status === "beta"
+                              ? "secondary"
+                              : "outline"
+                        }
+                        className="text-xs"
+                      >
+                        {project.status}
+                      </Badge>
                     </div>
-
+                    <div className="text-xs text-slate-400 space-y-1">
+                      <div className="flex justify-between">
+                        <span>Players:</span>
+                        <span className="text-white">{project.players}</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-slate-400 text-sm mb-4">No projects yet</div>
+                <div className="text-slate-500 text-xs">Create your first project to get started</div>
+              </div>
+            )}
 
             <div className="mt-8 space-y-2">
               <Button
