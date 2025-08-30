@@ -146,10 +146,20 @@ export default function ConsolePage() {
   const [showNewProjectDialog, setShowNewProjectDialog] = useState(false);
   const [newProjectName, setNewProjectName] = useState("");
   const [newProjectDescription, setNewProjectDescription] = useState("");
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const router = useRouter();
 
   const handleLogout = () => {
     router.push("/");
+  };
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    // Simulate refresh delay
+    setTimeout(() => {
+      setIsRefreshing(false);
+      // You could also update data here if needed
+    }, 2000);
   };
 
   useEffect(() => {
@@ -195,7 +205,16 @@ export default function ConsolePage() {
     );
   }
 
-  const projects: any[] = [];
+  const projects = hasFullDataAccess() ? [
+    {
+      id: "bankeru-games",
+      name: "Bankeru Games",
+      status: "live",
+      players: "26,378",
+      description: "Main gaming platform",
+      lastUpdated: "2 hours ago"
+    }
+  ] : [];
 
   const metrics = hasFullDataAccess() ? [
     {
@@ -298,73 +317,73 @@ export default function ConsolePage() {
   // Generate player growth data from Nov 2024 to Sep 2025
   const playerGrowthData = hasFullDataAccess() ? [
     // November 2024 - Starting flat around 247
-    { time: "Nov 1, 2024", players: 247, revenue: 180, month: 10, year: 2024 },
-    { time: "Nov 8, 2024", players: 251, revenue: 185, month: 10, year: 2024 },
-    { time: "Nov 15, 2024", players: 245, revenue: 175, month: 10, year: 2024 },
-    { time: "Nov 22, 2024", players: 249, revenue: 190, month: 10, year: 2024 },
-    { time: "Nov 29, 2024", players: 253, revenue: 195, month: 10, year: 2024 },
+    { time: "Nov 1, 2024", players: 247, revenue: 120, month: 10, year: 2024 },
+    { time: "Nov 8, 2024", players: 251, revenue: 95, month: 10, year: 2024 },
+    { time: "Nov 15, 2024", players: 245, revenue: 135, month: 10, year: 2024 },
+    { time: "Nov 22, 2024", players: 249, revenue: 110, month: 10, year: 2024 },
+    { time: "Nov 29, 2024", players: 253, revenue: 140, month: 10, year: 2024 },
 
     // December 2024 - Slight increase
-    { time: "Dec 6, 2024", players: 258, revenue: 210, month: 11, year: 2024 },
-    { time: "Dec 13, 2024", players: 261, revenue: 225, month: 11, year: 2024 },
-    { time: "Dec 20, 2024", players: 267, revenue: 240, month: 11, year: 2024 },
-    { time: "Dec 27, 2024", players: 285, revenue: 260, month: 11, year: 2024 },
+    { time: "Dec 6, 2024", players: 258, revenue: 165, month: 11, year: 2024 },
+    { time: "Dec 13, 2024", players: 261, revenue: 145, month: 11, year: 2024 },
+    { time: "Dec 20, 2024", players: 267, revenue: 190, month: 11, year: 2024 },
+    { time: "Dec 27, 2024", players: 285, revenue: 220, month: 11, year: 2024 },
 
     // January 2025 - Gradual growth begins
-    { time: "Jan 3, 2025", players: 298, revenue: 285, month: 0, year: 2025 },
-    { time: "Jan 10, 2025", players: 315, revenue: 310, month: 0, year: 2025 },
-    { time: "Jan 17, 2025", players: 342, revenue: 340, month: 0, year: 2025 },
-    { time: "Jan 24, 2025", players: 375, revenue: 375, month: 0, year: 2025 },
-    { time: "Jan 31, 2025", players: 420, revenue: 420, month: 0, year: 2025 },
+    { time: "Jan 3, 2025", players: 298, revenue: 185, month: 0, year: 2025 },
+    { time: "Jan 10, 2025", players: 315, revenue: 240, month: 0, year: 2025 },
+    { time: "Jan 17, 2025", players: 342, revenue: 210, month: 0, year: 2025 },
+    { time: "Jan 24, 2025", players: 375, revenue: 285, month: 0, year: 2025 },
+    { time: "Jan 31, 2025", players: 420, revenue: 320, month: 0, year: 2025 },
 
     // February 2025 - More noticeable growth
-    { time: "Feb 7, 2025", players: 480, revenue: 480, month: 1, year: 2025 },
-    { time: "Feb 14, 2025", players: 650, revenue: 620, month: 1, year: 2025 },
-    { time: "Feb 21, 2025", players: 850, revenue: 780, month: 1, year: 2025 },
-    { time: "Feb 28, 2025", players: 1200, revenue: 980, month: 1, year: 2025 },
+    { time: "Feb 7, 2025", players: 480, revenue: 380, month: 1, year: 2025 },
+    { time: "Feb 14, 2025", players: 650, revenue: 465, month: 1, year: 2025 },
+    { time: "Feb 21, 2025", players: 850, revenue: 520, month: 1, year: 2025 },
+    { time: "Feb 28, 2025", players: 1200, revenue: 750, month: 1, year: 2025 },
 
     // March 2025 - Steady acceleration
-    { time: "Mar 7, 2025", players: 1380, revenue: 1150, month: 2, year: 2025 },
-    { time: "Mar 14, 2025", players: 1580, revenue: 1320, month: 2, year: 2025 },
-    { time: "Mar 21, 2025", players: 1750, revenue: 1480, month: 2, year: 2025 },
-    { time: "Mar 28, 2025", players: 1850, revenue: 1580, month: 2, year: 2025 },
+    { time: "Mar 7, 2025", players: 1380, revenue: 820, month: 2, year: 2025 },
+    { time: "Mar 14, 2025", players: 1580, revenue: 1050, month: 2, year: 2025 },
+    { time: "Mar 21, 2025", players: 1750, revenue: 980, month: 2, year: 2025 },
+    { time: "Mar 28, 2025", players: 1850, revenue: 1180, month: 2, year: 2025 },
 
     // April 2025 - Continued growth
-    { time: "Apr 4, 2025", players: 2100, revenue: 1750, month: 3, year: 2025 },
-    { time: "Apr 11, 2025", players: 2350, revenue: 1920, month: 3, year: 2025 },
-    { time: "Apr 18, 2025", players: 2650, revenue: 2180, month: 3, year: 2025 },
-    { time: "Apr 25, 2025", players: 2900, revenue: 2450, month: 3, year: 2025 },
+    { time: "Apr 4, 2025", players: 2100, revenue: 1350, month: 3, year: 2025 },
+    { time: "Apr 11, 2025", players: 2350, revenue: 1520, month: 3, year: 2025 },
+    { time: "Apr 18, 2025", players: 2650, revenue: 1680, month: 3, year: 2025 },
+    { time: "Apr 25, 2025", players: 2900, revenue: 1950, month: 3, year: 2025 },
 
     // May 2025 - Major breakthrough begins
-    { time: "May 2, 2025", players: 3500, revenue: 2850, month: 4, year: 2025 },
-    { time: "May 9, 2025", players: 4800, revenue: 3650, month: 4, year: 2025 },
-    { time: "May 16, 2025", players: 6200, revenue: 4680, month: 4, year: 2025 },
-    { time: "May 23, 2025", players: 7800, revenue: 5920, month: 4, year: 2025 },
-    { time: "May 30, 2025", players: 8500, revenue: 6450, month: 4, year: 2025 },
+    { time: "May 2, 2025", players: 3500, revenue: 2180, month: 4, year: 2025 },
+    { time: "May 9, 2025", players: 4800, revenue: 2850, month: 4, year: 2025 },
+    { time: "May 16, 2025", players: 6200, revenue: 3680, month: 4, year: 2025 },
+    { time: "May 23, 2025", players: 7800, revenue: 4520, month: 4, year: 2025 },
+    { time: "May 30, 2025", players: 8500, revenue: 5100, month: 4, year: 2025 },
 
     // June 2025 - Sustained growth
-    { time: "Jun 6, 2025", players: 9800, revenue: 7400, month: 5, year: 2025 },
-    { time: "Jun 13, 2025", players: 11200, revenue: 8450, month: 5, year: 2025 },
-    { time: "Jun 20, 2025", players: 12100, revenue: 9100, month: 5, year: 2025 },
-    { time: "Jun 27, 2025", players: 12400, revenue: 9350, month: 5, year: 2025 },
+    { time: "Jun 6, 2025", players: 9800, revenue: 5850, month: 5, year: 2025 },
+    { time: "Jun 13, 2025", players: 11200, revenue: 6520, month: 5, year: 2025 },
+    { time: "Jun 20, 2025", players: 12100, revenue: 7200, month: 5, year: 2025 },
+    { time: "Jun 27, 2025", players: 12400, revenue: 7850, month: 5, year: 2025 },
 
     // July 2025 - Peak growth phase
-    { time: "Jul 4, 2025", players: 14200, revenue: 10650, month: 6, year: 2025 },
-    { time: "Jul 11, 2025", players: 15800, revenue: 11850, month: 6, year: 2025 },
-    { time: "Jul 18, 2025", players: 16500, revenue: 12400, month: 6, year: 2025 },
-    { time: "Jul 25, 2025", players: 16800, revenue: 12600, month: 6, year: 2025 },
+    { time: "Jul 4, 2025", players: 14200, revenue: 8950, month: 6, year: 2025 },
+    { time: "Jul 11, 2025", players: 15800, revenue: 9680, month: 6, year: 2025 },
+    { time: "Jul 18, 2025", players: 16500, revenue: 10200, month: 6, year: 2025 },
+    { time: "Jul 25, 2025", players: 16800, revenue: 11800, month: 6, year: 2025 },
 
     // August 2025 - Stabilizing at high levels
-    { time: "Aug 1, 2025", players: 18200, revenue: 13650, month: 7, year: 2025 },
-    { time: "Aug 8, 2025", players: 18900, revenue: 14200, month: 7, year: 2025 },
-    { time: "Aug 15, 2025", players: 19100, revenue: 14350, month: 7, year: 2025 },
-    { time: "Aug 22, 2025", players: 19200, revenue: 14400, month: 7, year: 2025 },
-    { time: "Aug 29, 2025", players: 20500, revenue: 15350, month: 7, year: 2025 },
+    { time: "Aug 1, 2025", players: 18200, revenue: 12650, month: 7, year: 2025 },
+    { time: "Aug 8, 2025", players: 18900, revenue: 11200, month: 7, year: 2025 },
+    { time: "Aug 15, 2025", players: 19100, revenue: 13850, month: 7, year: 2025 },
+    { time: "Aug 22, 2025", players: 19200, revenue: 14650, month: 7, year: 2025 },
+    { time: "Aug 29, 2025", players: 20500, revenue: 15950, month: 7, year: 2025 },
 
     // September 2025 - Reaching target of 26,378 players
-    { time: "Sep 5, 2025", players: 22800, revenue: 17100, month: 8, year: 2025 },
-    { time: "Sep 12, 2025", players: 24500, revenue: 18400, month: 8, year: 2025 },
-    { time: "Sep 19, 2025", players: 25800, revenue: 19350, month: 8, year: 2025 },
+    { time: "Sep 5, 2025", players: 22800, revenue: 16850, month: 8, year: 2025 },
+    { time: "Sep 12, 2025", players: 24500, revenue: 18200, month: 8, year: 2025 },
+    { time: "Sep 19, 2025", players: 25800, revenue: 17650, month: 8, year: 2025 },
     { time: "Sep 26, 2025", players: 26378, revenue: 19780, month: 8, year: 2025 },
   ] : [];
 
@@ -443,48 +462,33 @@ export default function ConsolePage() {
     },
   ] : [];
 
-  const recentPlayers = hasFullDataAccess() ? [
-    {
-      id: "1",
-      username: "DragonSlayer99",
-      level: 45,
-      lastSeen: "2 min ago",
-      status: "online",
-      country: "US",
-    },
-    {
-      id: "2",
-      username: "MagicWizard",
-      level: 32,
-      lastSeen: "1 hour ago",
-      status: "offline",
-      country: "UK",
-    },
-    {
-      id: "3",
-      username: "ShadowNinja",
-      level: 67,
-      lastSeen: "5 min ago",
-      status: "online",
-      country: "JP",
-    },
-    {
-      id: "4",
-      username: "FireMage",
-      level: 28,
-      lastSeen: "3 hours ago",
-      status: "offline",
-      country: "DE",
-    },
-    {
-      id: "5",
-      username: "IceQueen",
-      level: 89,
-      lastSeen: "1 min ago",
-      status: "online",
-      country: "CA",
-    },
-  ] : [];
+  const recentPlayers = hasFullDataAccess() ? userDatabase.slice(0, 5).map(user => {
+    const timeDiff = Date.now() - new Date(user.lastActive).getTime();
+    const minutesAgo = Math.floor(timeDiff / (1000 * 60));
+    let timeString;
+    
+    if (minutesAgo < 1) {
+      timeString = "Just now";
+    } else if (minutesAgo < 60) {
+      timeString = `${minutesAgo} min ago`;
+    } else if (minutesAgo < 1440) {
+      timeString = `${Math.floor(minutesAgo / 60)} hour${Math.floor(minutesAgo / 60) !== 1 ? 's' : ''} ago`;
+    } else {
+      timeString = `${Math.floor(minutesAgo / 1440)} day${Math.floor(minutesAgo / 1440) !== 1 ? 's' : ''} ago`;
+    }
+
+    return {
+      id: user.id,
+      username: user.username,
+      level: user.level,
+      lastSeen: timeString,
+      status: user.status,
+      country: user.country,
+      email: user.email,
+      totalGems: user.totalGems,
+      city: user.city,
+    };
+  }) : [];
 
   const economyData = hasFullDataAccess() ? [
     {
@@ -1128,10 +1132,12 @@ export default function ConsolePage() {
                   <Button
                     size="sm"
                     variant="outline"
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
                     className="bg-slate-800/50 border-slate-600 text-white hover:bg-slate-700/50"
                   >
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Refresh
+                    <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    {isRefreshing ? 'Refreshing...' : 'Refresh'}
                   </Button>
                 </div>
               </div>
@@ -1477,13 +1483,6 @@ export default function ConsolePage() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    className="bg-slate-800/50 border-slate-600 text-white"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Export Players
-                  </Button>
                   <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
                     <Mail className="w-4 h-4 mr-2" />
                     Send Notification
@@ -1555,7 +1554,10 @@ export default function ConsolePage() {
                               {player.username}
                             </h3>
                             <p className="text-sm text-slate-400">
-                              Level {player.level} • {player.country}
+                              Level {player.level} • {player.city}, {player.country}
+                            </p>
+                            <p className="text-xs text-slate-500">
+                              {player.totalGems.toLocaleString()} gems • {player.email}
                             </p>
                           </div>
                         </div>
