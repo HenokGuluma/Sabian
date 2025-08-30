@@ -72,6 +72,7 @@ import {
   BarChart3,
   Database,
   FileText,
+  Percent,
 } from "lucide-react";
 import {
   userDatabase,
@@ -456,7 +457,7 @@ export default function ConsolePage() {
     { name: "Settings", section: "settings", keywords: ["settings", "configuration", "api", "security", "billing", "preferences"] },
   ];
 
-  const filteredSearchResults = searchQuery.trim() 
+  const filteredSearchResults = searchQuery.trim()
     ? searchableItems.filter(item =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.keywords.some(keyword => keyword.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -507,7 +508,7 @@ export default function ConsolePage() {
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className="pl-10 bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-400"
               />
-              
+
               {/* Search Results Dropdown */}
               {showSearchResults && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-600 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
@@ -1297,8 +1298,8 @@ export default function ConsolePage() {
 
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
-                  <CardTitle className="text-white">Server Status</CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardTitle>Server Status</CardTitle>
+                  <CardDescription>
                     Monitor all your game servers
                   </CardDescription>
                 </CardHeader>
@@ -1455,8 +1456,8 @@ export default function ConsolePage() {
 
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
-                  <CardTitle className="text-white">Recent Players</CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardTitle>Recent Players</CardTitle>
+                  <CardDescription>
                     Latest player activity
                   </CardDescription>
                 </CardHeader>
@@ -1605,8 +1606,8 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">Active Events</CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardTitle>Active Events</CardTitle>
+                    <CardDescription>
                       Currently running campaigns
                     </CardDescription>
                   </CardHeader>
@@ -1675,10 +1676,10 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       Create New Event
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Launch a new campaign
                     </CardDescription>
                   </CardHeader>
@@ -1817,10 +1818,10 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       Collections Overview
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Data collections in your database
                     </CardDescription>
                   </CardHeader>
@@ -1880,10 +1881,10 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       Realtime Connections
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Active websocket connections by region
                     </CardDescription>
                   </CardHeader>
@@ -1933,10 +1934,10 @@ export default function ConsolePage() {
 
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardHeader>
-                  <CardTitle className="text-white">
+                  <CardTitle>
                     Database Activity
                   </CardTitle>
-                  <CardDescription className="text-slate-400">
+                  <CardDescription>
                     Real-time database operations
                   </CardDescription>
                 </CardHeader>
@@ -1997,10 +1998,10 @@ export default function ConsolePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       General Settings
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Configure your game settings and preferences
                     </CardDescription>
                   </CardHeader>
@@ -2048,10 +2049,10 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       Security Settings
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Configure security and access controls
                     </CardDescription>
                   </CardHeader>
@@ -2094,10 +2095,10 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       Notification Settings
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Manage your notification preferences
                     </CardDescription>
                   </CardHeader>
@@ -2140,10 +2141,10 @@ export default function ConsolePage() {
 
                 <Card className="bg-slate-800/50 border-slate-700">
                   <CardHeader>
-                    <CardTitle className="text-white">
+                    <CardTitle>
                       Billing & Usage
                     </CardTitle>
-                    <CardDescription className="text-slate-400">
+                    <CardDescription>
                       Monitor your usage and billing
                     </CardDescription>
                   </CardHeader>

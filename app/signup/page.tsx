@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -35,9 +34,9 @@ export default function SignupPage() {
       alert("Passwords don't match!");
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     // Simulate registration
     setTimeout(() => {
       localStorage.setItem("isAuthenticated", "true");
@@ -109,140 +108,31 @@ export default function SignupPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="username" className="text-white font-medium">
-                    Gaming Username
-                  </Label>
-                  <Input
-                    id="username"
-                    name="username"
-                    type="text"
-                    placeholder="ChooseYourHandle"
-                    value={formData.username}
-                    onChange={handleInputChange}
-                    className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-white font-medium">
-                    Email Address
-                  </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="gamer@example.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-white font-medium">
-                    Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Create a strong password"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12 pr-12"
-                      required
-                    />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-white font-medium">
-                    Confirm Password
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      type={showConfirmPassword ? "text" : "password"}
-                      placeholder="Confirm your password"
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
-                      className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/20 h-12 pr-12"
-                      required
-                    />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    >
-                      {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-2 pt-2">
-                  <input
-                    id="terms"
-                    type="checkbox"
-                    className="w-4 h-4 text-blue-500 bg-slate-700 border-slate-600 rounded focus:ring-blue-500 focus:ring-2 mt-1"
-                    required
-                  />
-                  <Label htmlFor="terms" className="text-sm text-slate-300 leading-5">
-                    I agree to the{" "}
-                    <Link href="#" className="text-blue-400 hover:text-blue-300">
-                      Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="#" className="text-blue-400 hover:text-blue-300">
-                      Privacy Policy
-                    </Link>
-                  </Label>
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      <span>Creating Account...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center space-x-2">
-                      <Crown size={20} />
-                      <span>Begin Your Journey</span>
-                    </div>
-                  )}
-                </Button>
-
-                <div className="text-center pt-4">
-                  <span className="text-slate-400">Already have an account? </span>
-                  <Link
-                    href="/login"
-                    className="text-purple-400 hover:text-purple-300 font-semibold transition-colors"
-                  >
-                    Sign In
-                  </Link>
-                </div>
-              </form>
+              <form className="space-y-4" onSubmit={(e) => {
+              e.preventDefault()
+              // Redirect to empty dashboard
+              window.location.href = '/console'
+            }}>
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input id="name" placeholder="Enter your full name" type="text" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" placeholder="Enter your email" type="email" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" placeholder="Create a password" type="password" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Input id="confirm-password" placeholder="Confirm your password" type="password" required />
+              </div>
+              <Button className="w-full" size="lg" type="submit">
+                Create Account
+              </Button>
+            </form>
             </CardContent>
           </Card>
 

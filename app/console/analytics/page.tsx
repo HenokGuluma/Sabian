@@ -69,6 +69,61 @@ export default function AnalyticsPage() {
     { week: "Week 4", day0: 100, day1: 90, day7: 48, day14: 35, day30: 25 },
   ]
 
+  const data = [
+    {
+      week: "Week 1",
+      desktop: 186,
+      mobile: 80,
+    },
+    {
+      week: "Week 2", 
+      desktop: 305,
+      mobile: 200,
+    },
+    {
+      week: "Week 3",
+      desktop: 237,
+      mobile: 120,
+    },
+    {
+      week: "Week 4",
+      desktop: 173,
+      mobile: 190,
+    },
+    {
+      week: "Week 5",
+      desktop: 209,
+      mobile: 130,
+    },
+    {
+      week: "Week 6",
+      desktop: 214,
+      mobile: 140,
+    },
+    {
+      week: "Week 7",
+      desktop: 290,
+      mobile: 180,
+    },
+    {
+      week: "Week 8",
+      desktop: 320,
+      mobile: 220,
+    },
+  ]
+
+  const revenueData = [
+    { week: "Week 1", revenue: 2400, players: 1800 },
+    { week: "Week 2", revenue: 1398, players: 2200 },
+    { week: "Week 3", revenue: 2800, players: 2800 },
+    { week: "Week 4", revenue: 3908, players: 1900 },
+    { week: "Week 5", revenue: 4800, players: 2400 },
+    { week: "Week 6", revenue: 3800, players: 2100 },
+    { week: "Week 7", revenue: 4200, players: 2600 },
+    { week: "Week 8", revenue: 3900, players: 2350 },
+    { week: "Week 9", revenue: 4500, players: 26239 },
+  ]
+
   return (
     <div className="min-h-screen bg-slate-900 p-6">
       <div className="max-w-7xl mx-auto space-y-6">

@@ -1,3 +1,4 @@
+"use client"
 
 import Link from "next/link"
 import Image from "next/image"
@@ -17,8 +18,14 @@ import {
   Target,
   Rocket,
 } from "lucide-react"
+import { useState } from "react"
+import { PrivacyPolicy } from "@/components/privacy-policy"
+import { TermsConditions } from "@/components/terms-conditions"
 
 export default function LandingPage() {
+  const [privacyOpen, setPrivacyOpen] = useState(false)
+  const [termsOpen, setTermsOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-slate-900 particles-bg">
       {/* Navigation */}
@@ -710,12 +717,12 @@ export default function LandingPage() {
               <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Sabian</span>
             </Link>
             <div className="flex items-center space-x-6 text-sm text-slate-300">
-              <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
+              <button onClick={() => setPrivacyOpen(true)} className="hover:text-white transition-all hover:text-glow font-body">
                 Privacy
-              </a>
-              <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
+              </button>
+              <button onClick={() => setTermsOpen(true)} className="hover:text-white transition-all hover:text-glow font-body">
                 Terms
-              </a>
+              </button>
               <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
                 Support
               </a>
@@ -724,6 +731,8 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+      <PrivacyPolicy open={privacyOpen} onOpenChange={setPrivacyOpen} />
+      <TermsConditions open={termsOpen} onOpenChange={setTermsOpen} />
     </div>
   )
 }
