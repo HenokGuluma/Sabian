@@ -23,12 +23,28 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(""); // Clear previous errors
 
-    // Simulate authentication - accept any email/password combination
+    // Check for developer credentials
+    const isDeveloper = email.toLowerCase() === "henimagne@gmail.com" && password === "tdashuluqa";
+    
+    // Simulate authentication delay
     setTimeout(() => {
-      localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userEmail", email); // Store user email
-      localStorage.setItem("userName", email.split('@')[0]); // Store username from email
-      router.push("/console");
+      if (isDeveloper) {
+        // Developer account - gets full data access
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", "henimagne");
+        localStorage.setItem("userType", "developer");
+        router.push("/console");
+      } else if (email && password) {
+        // Regular user account - gets empty console
+        localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userName", email.split('@')[0]);
+        localStorage.setItem("userType", "user");
+        router.push("/console");
+      } else {
+        setError("Please enter both email and password");
+      }
       setIsLoading(false);
     }, 2000);
   };

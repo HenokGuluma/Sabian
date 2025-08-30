@@ -182,13 +182,9 @@ export default function ConsolePage() {
 
   // Function to determine if the current user has full data access
   const hasFullDataAccess = () => {
-    // Check if this is your account (the original developer account)
-    const userEmail = localStorage.getItem("userEmail");
-    // Replace with your actual email or add any other developer emails
-    const developerEmails = ["developer@sabian.com", "admin@sabian.com", "your-email@example.com"];
-    
-    // If the user email matches any developer email, show full data
-    return userEmail && developerEmails.some(devEmail => userEmail.toLowerCase() === devEmail.toLowerCase());
+    // Check if this is a developer account
+    const userType = localStorage.getItem("userType");
+    return userType === "developer";
   };
 
   if (isLoading) {

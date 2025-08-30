@@ -39,9 +39,12 @@ export default function SignupPage() {
 
     // Simulate registration
     setTimeout(() => {
+      const email = formData.email;
+      const name = formData.username;
       localStorage.setItem("isAuthenticated", "true");
-      localStorage.setItem("userEmail", formData.email);
-      localStorage.setItem("userName", formData.username);
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userType", "user");
       router.push("/console");
     }, 2000);
   };
@@ -200,7 +203,7 @@ export default function SignupPage() {
             </CardContent>
           </Card>
 
-          
+
         </div>
       </div>
 
