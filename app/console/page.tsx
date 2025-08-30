@@ -693,7 +693,7 @@ export default function ConsolePage() {
   // Filter data based on the selected date range
   const filteredPlayerActivityData = playerGrowthData.filter((data) => {
     const dataDate = new Date(data.year, data.month, 1); // Use the first of the month for simplicity in filtering
-    return dataDate >= dateRange?.from && dataDate <= dateRange?.to;
+    return dataDate >= dateRange?.from! && dataDate <= dateRange?.to!;
   });
 
   const retentionData = hasFullDataAccess()
