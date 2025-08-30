@@ -182,8 +182,13 @@ export default function ConsolePage() {
 
   // Function to determine if the current user has full data access
   const hasFullDataAccess = () => {
-    // All new users get empty console with no data
-    return false;
+    // Check if this is your account (the original developer account)
+    const userEmail = localStorage.getItem("userEmail");
+    // Replace with your actual email or add any other developer emails
+    const developerEmails = ["developer@sabian.com", "admin@sabian.com", "your-email@example.com"];
+    
+    // If the user email matches any developer email, show full data
+    return userEmail && developerEmails.some(devEmail => userEmail.toLowerCase() === devEmail.toLowerCase());
   };
 
   if (isLoading) {
@@ -403,7 +408,7 @@ export default function ConsolePage() {
     { level: "26-30", players: 400, completion: 28 },
   ] : [];
 
-  const gameServers = [
+  const gameServers = hasFullDataAccess() ? [
     {
       id: "us-east-1",
       region: "US East",
@@ -440,7 +445,7 @@ export default function ConsolePage() {
       memory: 0,
       latency: 0,
     },
-  ];
+  ] : [];
 
   const recentPlayers = hasFullDataAccess() ? [
     {
@@ -485,7 +490,7 @@ export default function ConsolePage() {
     },
   ] : [];
 
-  const economyData = [
+  const economyData = hasFullDataAccess() ? [
     {
       item: "Gold Coins",
       total: 2500000,
@@ -500,9 +505,9 @@ export default function ConsolePage() {
       purchased: 12000,
     },
     { item: "Legendary Sword", total: 1200, distributed: 890, purchased: 890 },
-  ];
+  ] : [];
 
-  const databaseCollections = [
+  const databaseCollections = hasFullDataAccess() ? [
     {
       name: "users",
       documents: 16000,
@@ -543,14 +548,14 @@ export default function ConsolePage() {
       writes: "789K",
       lastActivity: "1 min ago",
     },
-  ];
+  ] : [];
 
-  const realtimeConnections = [
+  const realtimeConnections = hasFullDataAccess() ? [
     { region: "US East", connections: 4250, latency: "12ms" },
     { region: "EU West", connections: 3890, latency: "8ms" },
     { region: "Asia Pacific", connections: 2100, latency: "45ms" },
     { region: "US West", connections: 1960, latency: "15ms" },
-  ];
+  ] : [];
 
   // Search functionality
   const searchableItems = [
@@ -1323,9 +1328,9 @@ export default function ConsolePage() {
                     <Server className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">4</div>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "4" : "0"}</div>
                     <p className="text-xs text-slate-400">
-                      3 running, 1 stopped
+                      {hasFullDataAccess() ? "3 running, 1 stopped" : "No servers deployed"}
                     </p>
                   </CardContent>
                 </Card>
@@ -1337,8 +1342,8 @@ export default function ConsolePage() {
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">10,100</div>
-                    <p className="text-xs text-slate-400">Across all regions</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "10,100" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Across all regions" : "No active players"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1349,9 +1354,9 @@ export default function ConsolePage() {
                     <Activity className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">22ms</div>
-                    <p className="text-xs text-green-400">
-                      Excellent performance
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "22ms" : "0ms"}</div>
+                    <p className="text-xs text-slate-400">
+                      {hasFullDataAccess() ? "Excellent performance" : "No data available"}
                     </p>
                   </CardContent>
                 </Card>
@@ -1363,9 +1368,9 @@ export default function ConsolePage() {
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">$1,240</div>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "$1,240" : "$0"}</div>
                     <p className="text-xs text-slate-400">
-                      Auto-scaling enabled
+                      {hasFullDataAccess() ? "Auto-scaling enabled" : "No costs incurred"}
                     </p>
                   </CardContent>
                 </Card>
@@ -1499,8 +1504,8 @@ export default function ConsolePage() {
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">17,278</div>
-                    <p className="text-xs text-green-400">+12% this month</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "17,278" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "+12% this month" : "No data available"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1511,8 +1516,8 @@ export default function ConsolePage() {
                     <UserCheck className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">3,298</div>
-                    <p className="text-xs text-slate-400">Peak: 5,420</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "3,298" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Peak: 5,420" : "No active players"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1523,8 +1528,8 @@ export default function ConsolePage() {
                     <Trophy className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">236</div>
-                    <p className="text-xs text-green-400">+8% vs yesterday</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "236" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "+8% vs yesterday" : "No new players"}</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1636,8 +1641,8 @@ export default function ConsolePage() {
                     <Flame className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">3</div>
-                    <p className="text-xs text-green-400">2 ending soon</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "3" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "2 ending soon" : "No active events"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1648,8 +1653,8 @@ export default function ConsolePage() {
                     <Users className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">78%</div>
-                    <p className="text-xs text-slate-400">Of active players</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "78%" : "0%"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Of active players" : "No participation data"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1660,8 +1665,8 @@ export default function ConsolePage() {
                     <DollarSign className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">$2,340</div>
-                    <p className="text-xs text-green-400">This week</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "$2,340" : "$0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "This week" : "No revenue data"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1672,8 +1677,8 @@ export default function ConsolePage() {
                     <Bell className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">45.2K</div>
-                    <p className="text-xs text-slate-400">Last 7 days</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "45.2K" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Last 7 days" : "No notifications sent"}</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1846,8 +1851,8 @@ export default function ConsolePage() {
                     <Server className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">454,722</div>
-                    <p className="text-xs text-green-400">+12% this month</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "454,722" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "+12% this month" : "No documents"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1859,9 +1864,9 @@ export default function ConsolePage() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold text-white">
-                      932.1 MB
+                      {hasFullDataAccess() ? "932.1 MB" : "0 MB"}
                     </div>
-                    <p className="text-xs text-slate-400">75% of quota</p>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "75% of quota" : "Empty database"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1872,8 +1877,8 @@ export default function ConsolePage() {
                     <Eye className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">13.4M</div>
-                    <p className="text-xs text-green-400">Last 30 days</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "13.4M" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Last 30 days" : "No operations"}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-slate-800/50 border-slate-700 hover:border-pink-500/50 transition-all">
@@ -1884,8 +1889,8 @@ export default function ConsolePage() {
                     <Settings className="h-4 w-4 text-slate-400" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-white">2.8M</div>
-                    <p className="text-xs text-slate-400">Last 30 days</p>
+                    <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? "2.8M" : "0"}</div>
+                    <p className="text-xs text-slate-400">{hasFullDataAccess() ? "Last 30 days" : "No operations"}</p>
                   </CardContent>
                 </Card>
               </div>
