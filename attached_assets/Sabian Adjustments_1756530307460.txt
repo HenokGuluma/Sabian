@@ -1,0 +1,8 @@
+﻿Execute the following adjustments to the web app: 
+
+
+* Add detailed Privacy Policy and Terms & Conditions pages (that match the UI of the landing page) and open a dialog that shows them when the respective buttons in the footer section are pressed.
+* Add a sign up method that directs the user into an empty dashboard with zero values. That means no Bankeru Games Project, no data on graphs, zero values for everything and similar things. Link that flow with the sign in page.
+* Divide the data for the Player Growth and Revenue chart (the first chart in the analytics page) into weeks instead of months. That way, when a date range is picked, instead of showing data points for the months, it shows more detailed data points for the weeks.
+* Add a September data in the Player Growth chart and have it a value of 26,239 players.
+* Switch the label of the Active Players in the Player Growth chart into Total Players.

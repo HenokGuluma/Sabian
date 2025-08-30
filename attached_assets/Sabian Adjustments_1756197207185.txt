@@ -1,7 +1,0 @@
-﻿These are the modifications I want you to do for me: 
-
-
-* Replace the Active Users Label at the dashboard to Monthly Active Users and show the 17,278 figure below it. Also switch the DAU to WAU and give it a value of 9877. 
-* Remove the Revenue Breakdown piechart in the analytics dashboard.
-* Add about 17,278 records of user data that contains fields username, email address, phone number that starts with +251-9 (for e.g +251945710635), bio, total gems, last active, trending score, purchase history, total games played, total games won and stuff. And make this database browsable from the console. I want to be able to open each user’s file and see it and modify it. Just like how I can do it in Firebase Console.
-* Enable the rest of the database tables (player_stats, game sessions etc) and give them realistic datapoints that are also accessible and editable like the user table.
