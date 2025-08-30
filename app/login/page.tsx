@@ -15,17 +15,24 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(""); // Added error state
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(""); // Clear previous errors
 
     // Simulate authentication
-    setTimeout(() => {
+    // In a real application, you would send these credentials to a backend API
+    if (email === "henimagne@gmail.com" && password === "password123") {
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("userEmail", email); // Store user email
       router.push("/console");
-    }, 2000);
+    } else {
+      setError("Invalid email or password");
+      setIsLoading(false); // Stop loading on error
+    }
   };
 
   return (
@@ -151,6 +158,10 @@ export default function LoginPage() {
                     Forgot password?
                   </Link>
                 </div>
+
+                {error && (
+                  <p className="text-red-500 text-sm text-center">{error}</p>
+                )}
 
                 <Button
                   type="submit"

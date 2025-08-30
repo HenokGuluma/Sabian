@@ -215,23 +215,23 @@ export const analyticsData = [
 
 // Weekly player growth data starting from November 2024
 export const weeklyPlayerGrowth = [
-  // November 2024
-  { date: "2024-11-01", players: 52, newUsers: 12, revenue: 45, sessions: 180, week: "Week 1 Nov", month: "November 2024" },
-  { date: "2024-11-08", players: 58, newUsers: 14, revenue: 52, sessions: 195, week: "Week 2 Nov", month: "November 2024" },
-  { date: "2024-11-15", players: 61, newUsers: 16, revenue: 58, sessions: 210, week: "Week 3 Nov", month: "November 2024" },
-  { date: "2024-11-22", players: 64, newUsers: 18, revenue: 62, sessions: 225, week: "Week 4 Nov", month: "November 2024" },
+  // November 2024 - Starting flat around 247
+  { date: "2024-11-01", players: 247, newUsers: 35, revenue: 180, sessions: 890, week: "Week 1 Nov", month: "November 2024" },
+  { date: "2024-11-08", players: 251, newUsers: 38, revenue: 165, sessions: 905, week: "Week 2 Nov", month: "November 2024" },
+  { date: "2024-11-15", players: 245, newUsers: 32, revenue: 195, sessions: 880, week: "Week 3 Nov", month: "November 2024" },
+  { date: "2024-11-22", players: 249, newUsers: 41, revenue: 170, sessions: 895, week: "Week 4 Nov", month: "November 2024" },
 
-  // December 2024
-  { date: "2024-12-01", players: 68, newUsers: 20, revenue: 68, sessions: 240, week: "Week 1 Dec", month: "December 2024" },
-  { date: "2024-12-08", players: 72, newUsers: 22, revenue: 75, sessions: 260, week: "Week 2 Dec", month: "December 2024" },
-  { date: "2024-12-15", players: 78, newUsers: 25, revenue: 82, sessions: 285, week: "Week 3 Dec", month: "December 2024" },
-  { date: "2024-12-22", players: 85, newUsers: 28, revenue: 90, sessions: 310, week: "Week 4 Dec", month: "December 2024" },
+  // December 2024 - Slight increase from flat start
+  { date: "2024-12-01", players: 253, newUsers: 43, revenue: 210, sessions: 910, week: "Week 1 Dec", month: "December 2024" },
+  { date: "2024-12-08", players: 258, newUsers: 39, revenue: 185, sessions: 925, week: "Week 2 Dec", month: "December 2024" },
+  { date: "2024-12-15", players: 261, newUsers: 45, revenue: 225, sessions: 940, week: "Week 3 Dec", month: "December 2024" },
+  { date: "2024-12-22", players: 267, newUsers: 48, revenue: 200, sessions: 960, week: "Week 4 Dec", month: "December 2024" },
 
-  // January 2025
-  { date: "2025-01-01", players: 120, newUsers: 35, revenue: 125, sessions: 420, week: "Week 1 Jan", month: "January 2025" },
-  { date: "2025-01-08", players: 180, newUsers: 45, revenue: 185, sessions: 650, week: "Week 2 Jan", month: "January 2025" },
-  { date: "2025-01-15", players: 280, newUsers: 68, revenue: 295, sessions: 980, week: "Week 3 Jan", month: "January 2025" },
-  { date: "2025-01-22", players: 420, newUsers: 95, revenue: 445, sessions: 1450, week: "Week 4 Jan", month: "January 2025" },
+  // January 2025 - Gradual growth begins
+  { date: "2025-01-01", players: 285, newUsers: 52, revenue: 240, sessions: 1020, week: "Week 1 Jan", month: "January 2025" },
+  { date: "2025-01-08", players: 298, newUsers: 58, revenue: 220, sessions: 1065, week: "Week 2 Jan", month: "January 2025" },
+  { date: "2025-01-15", players: 315, newUsers: 61, revenue: 275, sessions: 1125, week: "Week 3 Jan", month: "January 2025" },
+  { date: "2025-01-22", players: 342, newUsers: 68, revenue: 255, sessions: 1220, week: "Week 4 Jan", month: "January 2025" },
 
   // February 2025
   { date: "2025-02-01", players: 650, newUsers: 135, revenue: 580, sessions: 2200, week: "Week 1 Feb", month: "February 2025" },
@@ -245,17 +245,53 @@ export const weeklyPlayerGrowth = [
   { date: "2025-03-15", players: 1750, newUsers: 315, revenue: 1420, sessions: 6100, week: "Week 3 Mar", month: "March 2025" },
   { date: "2025-03-22", players: 1850, newUsers: 340, revenue: 1520, sessions: 6450, week: "Week 4 Mar", month: "March 2025" },
 
-  // April 2025
-  { date: "2025-04-01", players: 2100, newUsers: 385, revenue: 1780, sessions: 7350, week: "Week 1 Apr", month: "April 2025" },
-  { date: "2025-04-08", players: 2420, newUsers: 445, revenue: 2050, sessions: 8480, week: "Week 2 Apr", month: "April 2025" },
-  { date: "2025-04-15", players: 2680, newUsers: 495, revenue: 2280, sessions: 9380, week: "Week 3 Apr", month: "April 2025" },
-  { date: "2025-04-22", players: 2900, newUsers: 535, revenue: 2480, sessions: 10150, week: "Week 4 Apr", month: "April 2025" },
+  // February 2025 - More noticeable growth
+  { date: "2025-02-01", players: 395, newUsers: 78, revenue: 320, sessions: 1410, week: "Week 1 Feb", month: "February 2025" },
+  { date: "2025-02-08", players: 445, newUsers: 85, revenue: 380, sessions: 1580, week: "Week 2 Feb", month: "February 2025" },
+  { date: "2025-02-15", players: 520, newUsers: 98, revenue: 350, sessions: 1850, week: "Week 3 Feb", month: "February 2025" },
+  { date: "2025-02-22", players: 610, newUsers: 115, revenue: 420, sessions: 2180, week: "Week 4 Feb", month: "February 2025" },
 
-  // May 2025 - Major growth begins
-  { date: "2025-05-01", players: 4200, newUsers: 785, revenue: 3650, sessions: 14700, week: "Week 1 May", month: "May 2025" },
-  { date: "2025-05-08", players: 6800, newUsers: 1285, revenue: 5920, sessions: 23800, week: "Week 2 May", month: "May 2025" },
-  { date: "2025-05-15", players: 8200, newUsers: 1565, revenue: 7150, sessions: 28700, week: "Week 3 May", month: "May 2025" },
-  { date: "2025-05-22", players: 8500, newUsers: 1620, revenue: 7420, sessions: 29750, week: "Week 4 May", month: "May 2025" },
+  // March 2025 - Steady acceleration
+  { date: "2025-03-01", players: 745, newUsers: 135, revenue: 480, sessions: 2650, week: "Week 1 Mar", month: "March 2025" },
+  { date: "2025-03-08", players: 890, newUsers: 158, revenue: 520, sessions: 3170, week: "Week 2 Mar", month: "March 2025" },
+  { date: "2025-03-15", players: 1085, newUsers: 185, revenue: 590, sessions: 3860, week: "Week 3 Mar", month: "March 2025" },
+  { date: "2025-03-22", players: 1320, newUsers: 218, revenue: 680, sessions: 4700, week: "Week 4 Mar", month: "March 2025" },
+
+  // April 2025 - Continued growth
+  { date: "2025-04-01", players: 1580, newUsers: 255, revenue: 720, sessions: 5620, week: "Week 1 Apr", month: "April 2025" },
+  { date: "2025-04-08", players: 1920, newUsers: 298, revenue: 650, sessions: 6840, week: "Week 2 Apr", month: "April 2025" },
+  { date: "2025-04-15", players: 2350, newUsers: 348, revenue: 850, sessions: 8370, week: "Week 3 Apr", month: "April 2025" },
+  { date: "2025-04-22", players: 2850, newUsers: 410, revenue: 790, sessions: 10150, week: "Week 4 Apr", month: "April 2025" },
+
+  // May 2025 - Major breakthrough begins
+  { date: "2025-05-01", players: 3520, newUsers: 485, revenue: 1150, sessions: 12540, week: "Week 1 May", month: "May 2025" },
+  { date: "2025-05-08", players: 4850, newUsers: 685, revenue: 980, sessions: 17280, week: "Week 2 May", month: "May 2025" },
+  { date: "2025-05-15", players: 6420, newUsers: 920, revenue: 1380, sessions: 22890, week: "Week 3 May", month: "May 2025" },
+  { date: "2025-05-22", players: 8100, newUsers: 1185, revenue: 1650, sessions: 28860, week: "Week 4 May", month: "May 2025" },
+
+  // June 2025 - Sustained growth
+  { date: "2025-06-01", players: 9950, newUsers: 1420, revenue: 1850, sessions: 35460, week: "Week 1 Jun", month: "June 2025" },
+  { date: "2025-06-08", players: 11780, newUsers: 1650, revenue: 1520, sessions: 41950, week: "Week 2 Jun", month: "June 2025" },
+  { date: "2025-06-15", players: 13680, newUsers: 1890, revenue: 2180, sessions: 48720, week: "Week 3 Jun", month: "June 2025" },
+  { date: "2025-06-22", players: 15420, newUsers: 2130, revenue: 2450, sessions: 54950, week: "Week 4 Jun", month: "June 2025" },
+
+  // July 2025 - Peak growth phase
+  { date: "2025-07-01", players: 17280, newUsers: 2380, revenue: 2850, sessions: 61600, week: "Week 1 Jul", month: "July 2025" },
+  { date: "2025-07-08", players: 19150, newUsers: 2630, revenue: 2340, sessions: 68250, week: "Week 2 Jul", month: "July 2025" },
+  { date: "2025-07-15", players: 20980, newUsers: 2850, revenue: 3450, sessions: 74760, week: "Week 3 Jul", month: "July 2025" },
+  { date: "2025-07-22", players: 22650, newUsers: 3080, revenue: 3850, sessions: 80760, week: "Week 4 Jul", month: "July 2025" },
+
+  // August 2025 - Stabilizing at high levels
+  { date: "2025-08-01", players: 24120, newUsers: 3250, revenue: 4150, sessions: 86030, week: "Week 1 Aug", month: "August 2025" },
+  { date: "2025-08-08", players: 25480, newUsers: 3420, revenue: 3680, sessions: 90860, week: "Week 2 Aug", month: "August 2025" },
+  { date: "2025-08-15", players: 26750, newUsers: 3580, revenue: 4520, sessions: 95380, week: "Week 3 Aug", month: "August 2025" },
+  { date: "2025-08-22", players: 27850, newUsers: 3720, revenue: 4980, sessions: 99260, week: "Week 4 Aug", month: "August 2025" },
+
+  // September 2025 - Reaching target of 26,378 players (slight dip and recovery)
+  { date: "2025-09-01", players: 26890, newUsers: 3580, revenue: 4680, sessions: 95870, week: "Week 1 Sep", month: "September 2025" },
+  { date: "2025-09-08", players: 26150, newUsers: 3420, revenue: 4350, sessions: 93240, week: "Week 2 Sep", month: "September 2025" },
+  { date: "2025-09-15", players: 26378, newUsers: 3650, revenue: 4850, sessions: 94050, week: "Week 3 Sep", month: "September 2025" },
+  { date: "2025-09-22", players: 26239, newUsers: 3580, revenue: 4720, sessions: 93580, week: "Week 4 Sep", month: "September 2025" },
 
   // June 2025
   { date: "2025-06-01", players: 9800, newUsers: 1865, revenue: 8550, sessions: 34300, week: "Week 1 Jun", month: "June 2025" },

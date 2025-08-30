@@ -136,8 +136,8 @@ export default function ConsolePage() {
   const [selectedProject, setSelectedProject] = useState("bankeru-games");
   const [activeSection, setActiveSection] = useState("overview");
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: new Date(2025, 1, 1),
-    to: new Date(2025, 7, 1),
+    from: new Date(2024, 10, 1), // November 2024
+    to: new Date(2025, 8, 30),   // September 2025
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -157,14 +157,13 @@ export default function ConsolePage() {
       const auth = localStorage.getItem("isAuthenticated");
       if (auth === "true") {
         setIsAuthenticated(true);
-        // Simulate data loading
-        setTimeout(() => setIsLoading(false), 3000);
+        setTimeout(() => setIsLoading(false), 1000); // Reduced timeout for faster loading
       } else {
         router.push("/login");
       }
     };
     checkAuth();
-  }, []);
+  }, [router]);
 
   // Close search results when clicking outside
   useEffect(() => {
@@ -180,6 +179,13 @@ export default function ConsolePage() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Function to determine if the current user has full data access
+  const hasFullDataAccess = () => {
+    // In a real app, this would check user roles or permissions.
+    // For this example, we'll assume 'isAuthenticated' implies full access.
+    return isAuthenticated;
+  };
 
   if (isLoading) {
     return (
@@ -202,9 +208,9 @@ export default function ConsolePage() {
 
   const metrics = [
     {
-      title: "Active Players",
-      value: "17,278",
-      change: "+24.8%",
+      title: "Total Players",
+      value: "26,378",
+      change: "+20.1%",
       trend: "up",
       icon: Users,
     },
@@ -223,64 +229,77 @@ export default function ConsolePage() {
       icon: Clock,
     },
     {
-      title: "DAU",
-      value: "14,523",
-      change: "+10.5%",
+      title: "WAU",
+      value: "9,877",
+      change: "+15.3%",
       trend: "up",
       icon: Activity,
     },
   ];
 
-  // Generate chart data based on selected date range
-  const generateChartData = () => {
-    if (!dateRange?.from || !dateRange?.to) {
-      return [
-        { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400 },
-        { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700 },
-        { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800 },
-        { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000 },
-        { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800 },
-        { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600 },
-        { time: "Aug 2025", players: 19200, revenue: 18400, sessions: 38400 },
-        { time: "Sep 2025", players: 17278, revenue: 15800, sessions: 34556 },
-      ];
+  // Function to generate weekly data
+  const generateWeeklyData = (
+    startPlayerCount: number,
+    endPlayerCount: number,
+    startDate: Date,
+    endDate: Date
+  ) => {
+    const data = [];
+    const numDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    const weeklyIncrease = (endPlayerCount - startPlayerCount) / (numDays / 7);
+    let currentPlayers = startPlayerCount;
+
+    for (let i = 0; i < numDays; i += 7) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + i);
+      const formattedDate = `${currentDate.toLocaleString('default', { month: 'short' })} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
+
+      // Simulate choppy revenue
+      const revenueIncrease = Math.random() * 500 - 250; // Random increase/decrease between -250 and 250
+      const currentRevenue = Math.max(0, (data.length > 0 ? data[data.length - 1].revenue : 0) + revenueIncrease);
+
+      // Ensure player count doesn't decrease and reaches the target
+      currentPlayers = Math.max(currentPlayers, startPlayerCount + (weeklyIncrease * (i / 7)));
+      if (i + 7 >= numDays) { // Ensure the last data point reaches the exact end value
+        currentPlayers = endPlayerCount;
+      }
+
+      data.push({
+        time: formattedDate,
+        players: Math.round(currentPlayers),
+        revenue: Math.round(currentRevenue),
+        month: currentDate.getMonth(),
+        year: currentDate.getFullYear()
+      });
     }
-
-    const startMonth = dateRange.from.getMonth();
-    const endMonth = dateRange.to.getMonth();
-    const startYear = dateRange.from.getFullYear();
-    const endYear = dateRange.to.getFullYear();
-
-    const allData = [
-      { time: "Feb 2025", players: 1200, revenue: 890, sessions: 2400, month: 1, year: 2025 },
-      { time: "Mar 2025", players: 1850, revenue: 1340, sessions: 3700, month: 2, year: 2025 },
-      { time: "Apr 2025", players: 2900, revenue: 2100, sessions: 5800, month: 3, year: 2025 },
-      { time: "May 2025", players: 8500, revenue: 6200, sessions: 17000, month: 4, year: 2025 },
-      { time: "Jun 2025", players: 12400, revenue: 9800, sessions: 24800, month: 5, year: 2025 },
-      { time: "Jul 2025", players: 16800, revenue: 14500, sessions: 33600, month: 6, year: 2025 },
-      { time: "Aug 2025", players: 19200, revenue: 18400, sessions: 38400, month: 7, year: 2025 },
-      { time: "Sep 2025", players: 17278, revenue: 15800, sessions: 34556, month: 8, year: 2025 },
-    ];
-
-    return allData.filter(data => {
-      const isInRange = (data.year > startYear || (data.year === startYear && data.month >= startMonth)) &&
-                       (data.year < endYear || (data.year === endYear && data.month <= endMonth));
-      return isInRange;
-    });
+    return data;
   };
 
-  const playerActivityData = generateChartData();
+  // Generate player growth data from Nov 2024 to Sep 2025
+  const startGrowthDate = new Date(2024, 10, 1); // November 1, 2024
+  const endGrowthDate = new Date(2025, 8, 30);   // September 30, 2025
+  const playerGrowthData = generateWeeklyData(247, 26378, startGrowthDate, endGrowthDate);
+
+  // Filter data based on the selected date range
+  const filteredPlayerActivityData = playerGrowthData.filter(data => {
+    const dataDate = new Date(data.year, data.month, 1); // Use the first of the month for simplicity in filtering
+    return dataDate >= dateRange?.from && dataDate <= dateRange?.to;
+  });
 
   const retentionData = [
-    { day: "Feb 2025", retention: 45, players: 1200 },
-    { day: "Mar 2025", retention: 52, players: 1850 },
-    { day: "Apr 2025", retention: 58, players: 2900 },
-    { day: "May 2025", retention: 67, players: 8500 },
-    { day: "Jun 2025", retention: 73, players: 12400 },
-    { day: "Jul 2025", retention: 78, players: 16800 },
-    { day: "Aug 2025", retention: 80, players: 19200 },
-    { day: "Sep 2025", retention: 85, players: 17278 },
+    { day: "Nov 2024", retention: 45, players: 247 },
+    { day: "Dec 2024", retention: 48, players: 450 },
+    { day: "Jan 2025", retention: 50, players: 700 },
+    { day: "Feb 2025", retention: 55, players: 1200 },
+    { day: "Mar 2025", retention: 60, players: 1850 },
+    { day: "Apr 2025", retention: 68, players: 2900 },
+    { day: "May 2025", retention: 75, players: 8500 },
+    { day: "Jun 2025", retention: 80, players: 12400 },
+    { day: "Jul 2025", retention: 82, players: 16800 },
+    { day: "Aug 2025", retention: 85, players: 19200 },
+    { day: "Sep 2025", retention: 88, players: 26378 },
   ];
+
 
   const revenueBreakdownData = [
     { name: "In-App Purchases", value: 6420, color: "#ff007f" },
@@ -813,46 +832,20 @@ export default function ConsolePage() {
 
               {/* Metrics Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">Monthly Active Users</CardTitle>
-                    <Users className="h-4 w-4 text-pink-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">17,278</div>
-                    <p className="text-xs text-slate-400">+20.1% from last month</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">Server Uptime</CardTitle>
-                    <Server className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">99.9%</div>
-                    <p className="text-xs text-green-400">+0.1%</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">Avg Session</CardTitle>
-                    <Clock className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">24.5m</div>
-                    <p className="text-xs text-red-400">-2.1%</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">WAU</CardTitle>
-                    <Activity className="h-4 w-4 text-cyan-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">9,877</div>
-                    <p className="text-xs text-slate-400">+15.3% from last week</p>
-                  </CardContent>
-                </Card>
+                {metrics.map((metric, index) => (
+                  <Card key={index} className="bg-slate-800/50 border-slate-700">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium text-slate-200">{metric.title}</CardTitle>
+                      <metric.icon className="h-4 w-4 text-pink-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? metric.value : "0"}</div>
+                      <p className={`text-xs ${metric.trend === "up" ? "text-green-400" : metric.trend === "down" ? "text-red-400" : "text-slate-400"}`}>
+                        {hasFullDataAccess() ? metric.change : "No data available"}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -941,15 +934,15 @@ export default function ConsolePage() {
               <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50 mt-6">
                 <CardHeader>
                   <CardTitle className="text-white">
-                    Player Growth (Last 8 Months)
+                    Player Growth (Nov 2024 - Sep 2025)
                   </CardTitle>
                   <CardDescription className="text-slate-400">
-                    Player growth from February to September 2025
+                    Player growth from November 2024 to September 2025
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={playerActivityData}>
+                    <LineChart data={filteredPlayerActivityData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                       <XAxis dataKey="time" stroke="#9ca3af" />
                       <YAxis stroke="#9ca3af" />
@@ -1035,46 +1028,20 @@ export default function ConsolePage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">Monthly Active Users</CardTitle>
-                    <Users className="h-4 w-4 text-pink-500" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">17,278</div>
-                    <p className="text-xs text-slate-400">+20.1% from last month</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">Server Uptime</CardTitle>
-                    <Server className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">99.9%</div>
-                    <p className="text-xs text-green-400">+0.1%</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">Avg Session</CardTitle>
-                    <Clock className="h-4 w-4 text-slate-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">24.5m</div>
-                    <p className="text-xs text-red-400">-2.1%</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-slate-800/50 border-slate-700">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium text-slate-200">WAU</CardTitle>
-                    <Activity className="h-4 w-4 text-cyan-400" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold text-white">9,877</div>
-                    <p className="text-xs text-slate-400">+15.3% from last week</p>
-                  </CardContent>
-                </Card>
+                {metrics.map((metric, index) => (
+                  <Card key={index} className="bg-slate-800/50 border-slate-700">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                      <CardTitle className="text-sm font-medium text-slate-200">{metric.title}</CardTitle>
+                      <metric.icon className="h-4 w-4 text-pink-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold text-white">{hasFullDataAccess() ? metric.value : "0"}</div>
+                      <p className={`text-xs ${metric.trend === "up" ? "text-green-400" : metric.trend === "down" ? "text-red-400" : "text-slate-400"}`}>
+                        {hasFullDataAccess() ? metric.change : "No data available"}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -1082,15 +1049,15 @@ export default function ConsolePage() {
                 <Card className="glass-card bg-slate-800/50 border-slate-700 hover:border-pink-500/50">
                   <CardHeader>
                     <CardTitle className="text-white">
-                      Player Growth & Revenue (8 Months)
+                      Player Growth & Revenue (Nov 2024 - Sep 2025)
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Growth from February to September 2025 showing May breakthrough
+                      Growth from November 2024 to September 2025
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={playerActivityData}>
+                      <LineChart data={filteredPlayerActivityData}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                         <XAxis dataKey="time" stroke="#9ca3af" />
                         <YAxis yAxisId="left" stroke="#9ca3af" />
@@ -1140,7 +1107,7 @@ export default function ConsolePage() {
                       Player Retention Growth
                     </CardTitle>
                     <CardDescription className="text-slate-400">
-                      Improving retention rates February - September 2025
+                      Improving retention rates November 2024 - September 2025
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -1943,7 +1910,7 @@ export default function ConsolePage() {
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={300}>
-                    <LineChart data={playerActivityData}>
+                    <LineChart data={filteredPlayerActivityData}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                       <XAxis dataKey="time" stroke="#9ca3af" />
                       <YAxis yAxisId="left" stroke="#9ca3af" />
