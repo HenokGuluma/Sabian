@@ -37,7 +37,7 @@ export default function SignupPage() {
 
     setIsLoading(true);
 
-    // Simulate registration
+    // Simulate server registration request
     setTimeout(() => {
       const email = formData.email;
       const name = formData.username;
@@ -46,7 +46,7 @@ export default function SignupPage() {
       localStorage.setItem("userName", name);
       localStorage.setItem("userType", "user");
       router.push("/console");
-    }, 2000);
+    }, 2000 + Math.random() * 1000); // Realistic server response time
   };
 
   return (

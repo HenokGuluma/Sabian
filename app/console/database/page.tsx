@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from "react"
@@ -20,18 +19,33 @@ import Link from "next/link"
 const ITEMS_PER_PAGE = 50;
 
 export default function DatabasePage() {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [selectedTab, setSelectedTab] = useState("users");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [queryLoading, setQueryLoading] = useState(false);
+
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [selectedPlayerStat, setSelectedPlayerStat] = useState<PlayerStats | null>(null)
   const [selectedGameSession, setSelectedGameSession] = useState<GameSession | null>(null)
   const [editMode, setEditMode] = useState(false)
   const [editData, setEditData] = useState<any>({})
-  
+
   // Pagination states
   const [userPage, setUserPage] = useState(0)
   const [statsPage, setStatsPage] = useState(0)
   const [sessionsPage, setSessionsPage] = useState(0)
 
+  // Simulate database query with loading
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+    if (term.length > 2) {
+      setQueryLoading(true);
+      setTimeout(() => {
+        setQueryLoading(false);
+      }, 300 + Math.random() * 200);
+    }
+  };
+
+  // Filter functions
   const filteredUsers = users.filter(user =>
     user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -147,7 +161,7 @@ export default function DatabasePage() {
             <Input
               placeholder="Search users, stats, sessions..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => handleSearch(e.target.value)}
               className="w-64 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
             />
           </div>
@@ -155,15 +169,36 @@ export default function DatabasePage() {
 
         <Tabs defaultValue="users" className="space-y-6">
           <TabsList className="bg-slate-800/50 border-slate-700">
-            <TabsTrigger value="users" className="data-[state=active]:bg-slate-700 text-white">
+            <TabsTrigger 
+              value="users" 
+              className="data-[state=active]:bg-slate-700 text-white"
+              onClick={() => {
+                setQueryLoading(true);
+                setTimeout(() => setQueryLoading(false), 400);
+              }}
+            >
               <Users className="h-4 w-4 mr-2" />
               Users ({users.length.toLocaleString()})
             </TabsTrigger>
-            <TabsTrigger value="stats" className="data-[state=active]:bg-slate-700 text-white">
+            <TabsTrigger 
+              value="stats" 
+              className="data-[state=active]:bg-slate-700 text-white"
+              onClick={() => {
+                setQueryLoading(true);
+                setTimeout(() => setQueryLoading(false), 400);
+              }}
+            >
               <BarChart3 className="h-4 w-4 mr-2" />
               Player Stats ({playerStats.length.toLocaleString()})
             </TabsTrigger>
-            <TabsTrigger value="sessions" className="data-[state=active]:bg-slate-700 text-white">
+            <TabsTrigger 
+              value="sessions" 
+              className="data-[state=active]:bg-slate-700 text-white"
+              onClick={() => {
+                setQueryLoading(true);
+                setTimeout(() => setQueryLoading(false), 400);
+              }}
+            >
               <Gamepad2 className="h-4 w-4 mr-2" />
               Game Sessions ({gameSessions.length.toLocaleString()})
             </TabsTrigger>
@@ -192,202 +227,208 @@ export default function DatabasePage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {paginateUsers(userPage).map((user) => (
-                        <TableRow key={user.id} className="border-slate-700 hover:bg-slate-700/30">
-                          <TableCell className="text-white font-medium">{user.username}</TableCell>
-                          <TableCell className="text-slate-300">{user.email}</TableCell>
-                          <TableCell className="text-slate-300">{user.phoneNumber}</TableCell>
-                          <TableCell className="text-slate-300">{user.age}</TableCell>
-                          <TableCell className="text-slate-300">{user.totalGems.toLocaleString()}</TableCell>
-                          <TableCell className="text-slate-300">
-                            {new Date(user.lastActive).toLocaleDateString()}
-                          </TableCell>
-                          <TableCell>
-                            <Dialog>
-                              <DialogTrigger asChild>
-                                <Button 
-                                  variant="outline" 
-                                  size="sm"
-                                  onClick={() => setSelectedUser(user)}
-                                  className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
-                                >
-                                  <Edit className="h-3 w-3 mr-1" />
-                                  View
-                                </Button>
-                              </DialogTrigger>
-                              <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
-                                <DialogHeader>
-                                  <DialogTitle className="text-xl">User Details: {selectedUser?.username}</DialogTitle>
-                                  <DialogDescription className="text-slate-300">
-                                    View and edit user information
-                                  </DialogDescription>
-                                </DialogHeader>
-                                {selectedUser && (
-                                  <div className="space-y-6">
-                                    {editMode ? (
-                                      <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                          <Label className="text-white">Username</Label>
-                                          <Input
-                                            value={editData.username || selectedUser.username}
-                                            onChange={(e) => setEditData({...editData, username: e.target.value})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label className="text-white">Email</Label>
-                                          <Input
-                                            value={editData.email || selectedUser.email}
-                                            onChange={(e) => setEditData({...editData, email: e.target.value})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label className="text-white">Phone</Label>
-                                          <Input
-                                            value={editData.phoneNumber || selectedUser.phoneNumber}
-                                            onChange={(e) => setEditData({...editData, phoneNumber: e.target.value})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label className="text-white">Age</Label>
-                                          <Input
-                                            type="number"
-                                            value={editData.age || selectedUser.age}
-                                            onChange={(e) => setEditData({...editData, age: parseInt(e.target.value)})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label className="text-white">Total Gems</Label>
-                                          <Input
-                                            type="number"
-                                            value={editData.totalGems || selectedUser.totalGems}
-                                            onChange={(e) => setEditData({...editData, totalGems: parseInt(e.target.value)})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label className="text-white">City</Label>
-                                          <Input
-                                            value={editData.city || selectedUser.city}
-                                            onChange={(e) => setEditData({...editData, city: e.target.value})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div className="col-span-2">
-                                          <Label className="text-white">Bio</Label>
-                                          <Textarea
-                                            value={editData.bio || selectedUser.bio}
-                                            onChange={(e) => setEditData({...editData, bio: e.target.value})}
-                                            className="bg-slate-700 border-slate-600 text-white"
-                                          />
-                                        </div>
-                                        <div className="col-span-2 flex space-x-2">
-                                          <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700">
-                                            <Save className="h-4 w-4 mr-2" />
-                                            Save Changes
-                                          </Button>
-                                          <Button variant="outline" onClick={() => setEditMode(false)} className="border-slate-600 text-white hover:bg-slate-700">
-                                            Cancel
-                                          </Button>
-                                        </div>
-                                      </div>
-                                    ) : (
-                                      <div className="space-y-6">
-                                        <div className="grid grid-cols-2 gap-6">
-                                          <div>
-                                            <Label className="text-slate-400">Username</Label>
-                                            <p className="text-white font-medium text-lg">{selectedUser.username}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Email</Label>
-                                            <p className="text-white">{selectedUser.email}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Phone</Label>
-                                            <p className="text-white">{selectedUser.phoneNumber}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Age</Label>
-                                            <p className="text-white">{selectedUser.age} years old</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Location</Label>
-                                            <p className="text-white">{selectedUser.city}, {selectedUser.region}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Total Gems</Label>
-                                            <p className="text-white font-semibold text-lg text-yellow-400">{selectedUser.totalGems.toLocaleString()}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Games Played</Label>
-                                            <p className="text-white">{selectedUser.totalGamesPlayed.toLocaleString()}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Games Won</Label>
-                                            <p className="text-white">{selectedUser.totalGamesWon.toLocaleString()}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Win Rate</Label>
-                                            <p className="text-white">{((selectedUser.totalGamesWon / selectedUser.totalGamesPlayed) * 100).toFixed(1)}%</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Level</Label>
-                                            <p className="text-white font-semibold">{selectedUser.level}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Trending Score</Label>
-                                            <Badge className="bg-pink-600">{selectedUser.trendingScore}</Badge>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Status</Label>
-                                            <Badge className={selectedUser.status === 'online' ? 'bg-green-600' : 'bg-gray-600'}>
-                                              {selectedUser.status}
-                                            </Badge>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Last Active</Label>
-                                            <p className="text-white">{new Date(selectedUser.lastActive).toLocaleString()}</p>
-                                          </div>
-                                          <div>
-                                            <Label className="text-slate-400">Join Date</Label>
-                                            <p className="text-white">{new Date(selectedUser.joinDate).toLocaleDateString()}</p>
-                                          </div>
-                                        </div>
-                                        <div>
-                                          <Label className="text-slate-400">Bio</Label>
-                                          <p className="text-white bg-slate-700/30 p-3 rounded-lg mt-1">{selectedUser.bio}</p>
-                                        </div>
-                                        <Separator className="bg-slate-700" />
-                                        <div>
-                                          <Label className="text-slate-400">Purchase History</Label>
-                                          <div className="space-y-2 mt-3">
-                                            {selectedUser.purchaseHistory.map((purchase, index) => (
-                                              <div key={index} className="flex justify-between items-center bg-slate-700/50 p-3 rounded-lg border border-slate-600">
-                                                <div>
-                                                  <span className="text-white font-medium">{purchase.item}</span>
-                                                  <p className="text-slate-400 text-sm">{purchase.date}</p>
-                                                </div>
-                                                <span className="text-green-400 font-semibold">${purchase.amount}</span>
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                        <Button onClick={() => handleEdit(selectedUser, 'user')} className="bg-blue-600 hover:bg-blue-700">
-                                          <Edit className="h-4 w-4 mr-2" />
-                                          Edit User
-                                        </Button>
-                                      </div>
-                                    )}
-                                  </div>
-                                )}
-                              </DialogContent>
-                            </Dialog>
-                          </TableCell>
+                      {queryLoading ? (
+                        <TableRow>
+                          <TableCell colSpan={7} className="text-center text-slate-400 py-10">Loading data...</TableCell>
                         </TableRow>
-                      ))}
+                      ) : (
+                        paginateUsers(userPage).map((user) => (
+                          <TableRow key={user.id} className="border-slate-700 hover:bg-slate-700/30">
+                            <TableCell className="text-white font-medium">{user.username}</TableCell>
+                            <TableCell className="text-slate-300">{user.email}</TableCell>
+                            <TableCell className="text-slate-300">{user.phoneNumber}</TableCell>
+                            <TableCell className="text-slate-300">{user.age}</TableCell>
+                            <TableCell className="text-slate-300">{user.totalGems.toLocaleString()}</TableCell>
+                            <TableCell className="text-slate-300">
+                              {new Date(user.lastActive).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button 
+                                    variant="outline" 
+                                    size="sm"
+                                    onClick={() => setSelectedUser(user)}
+                                    className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                                  >
+                                    <Edit className="h-3 w-3 mr-1" />
+                                    View
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
+                                  <DialogHeader>
+                                    <DialogTitle className="text-xl">User Details: {selectedUser?.username}</DialogTitle>
+                                    <DialogDescription className="text-slate-300">
+                                      View and edit user information
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  {selectedUser && (
+                                    <div className="space-y-6">
+                                      {editMode ? (
+                                        <div className="grid grid-cols-2 gap-4">
+                                          <div>
+                                            <Label className="text-white">Username</Label>
+                                            <Input
+                                              value={editData.username || selectedUser.username}
+                                              onChange={(e) => setEditData({...editData, username: e.target.value})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label className="text-white">Email</Label>
+                                            <Input
+                                              value={editData.email || selectedUser.email}
+                                              onChange={(e) => setEditData({...editData, email: e.target.value})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label className="text-white">Phone</Label>
+                                            <Input
+                                              value={editData.phoneNumber || selectedUser.phoneNumber}
+                                              onChange={(e) => setEditData({...editData, phoneNumber: e.target.value})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label className="text-white">Age</Label>
+                                            <Input
+                                              type="number"
+                                              value={editData.age || selectedUser.age}
+                                              onChange={(e) => setEditData({...editData, age: parseInt(e.target.value)})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label className="text-white">Total Gems</Label>
+                                            <Input
+                                              type="number"
+                                              value={editData.totalGems || selectedUser.totalGems}
+                                              onChange={(e) => setEditData({...editData, totalGems: parseInt(e.target.value)})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label className="text-white">City</Label>
+                                            <Input
+                                              value={editData.city || selectedUser.city}
+                                              onChange={(e) => setEditData({...editData, city: e.target.value})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div className="col-span-2">
+                                            <Label className="text-white">Bio</Label>
+                                            <Textarea
+                                              value={editData.bio || selectedUser.bio}
+                                              onChange={(e) => setEditData({...editData, bio: e.target.value})}
+                                              className="bg-slate-700 border-slate-600 text-white"
+                                            />
+                                          </div>
+                                          <div className="col-span-2 flex space-x-2">
+                                            <Button onClick={handleSave} className="bg-green-600 hover:bg-green-700">
+                                              <Save className="h-4 w-4 mr-2" />
+                                              Save Changes
+                                            </Button>
+                                            <Button variant="outline" onClick={() => setEditMode(false)} className="border-slate-600 text-white hover:bg-slate-700">
+                                              Cancel
+                                            </Button>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <div className="space-y-6">
+                                          <div className="grid grid-cols-2 gap-6">
+                                            <div>
+                                              <Label className="text-slate-400">Username</Label>
+                                              <p className="text-white font-medium text-lg">{selectedUser.username}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Email</Label>
+                                              <p className="text-white">{selectedUser.email}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Phone</Label>
+                                              <p className="text-white">{selectedUser.phoneNumber}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Age</Label>
+                                              <p className="text-white">{selectedUser.age} years old</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Location</Label>
+                                              <p className="text-white">{selectedUser.city}, {selectedUser.region}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Total Gems</Label>
+                                              <p className="text-white font-semibold text-lg text-yellow-400">{selectedUser.totalGems.toLocaleString()}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Games Played</Label>
+                                              <p className="text-white">{selectedUser.totalGamesPlayed.toLocaleString()}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Games Won</Label>
+                                              <p className="text-white">{selectedUser.totalGamesWon.toLocaleString()}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Win Rate</Label>
+                                              <p className="text-white">{((selectedUser.totalGamesWon / selectedUser.totalGamesPlayed) * 100).toFixed(1)}%</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Level</Label>
+                                              <p className="text-white font-semibold">{selectedUser.level}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Trending Score</Label>
+                                              <Badge className="bg-pink-600">{selectedUser.trendingScore}</Badge>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Status</Label>
+                                              <Badge className={selectedUser.status === 'online' ? 'bg-green-600' : 'bg-gray-600'}>
+                                                {selectedUser.status}
+                                              </Badge>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Last Active</Label>
+                                              <p className="text-white">{new Date(selectedUser.lastActive).toLocaleString()}</p>
+                                            </div>
+                                            <div>
+                                              <Label className="text-slate-400">Join Date</Label>
+                                              <p className="text-white">{new Date(selectedUser.joinDate).toLocaleDateString()}</p>
+                                            </div>
+                                          </div>
+                                          <div>
+                                            <Label className="text-slate-400">Bio</Label>
+                                            <p className="text-white bg-slate-700/30 p-3 rounded-lg mt-1">{selectedUser.bio}</p>
+                                          </div>
+                                          <Separator className="bg-slate-700" />
+                                          <div>
+                                            <Label className="text-slate-400">Purchase History</Label>
+                                            <div className="space-y-2 mt-3">
+                                              {selectedUser.purchaseHistory.map((purchase, index) => (
+                                                <div key={index} className="flex justify-between items-center bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                                                  <div>
+                                                    <span className="text-white font-medium">{purchase.item}</span>
+                                                    <p className="text-slate-400 text-sm">{purchase.date}</p>
+                                                  </div>
+                                                  <span className="text-green-400 font-semibold">${purchase.amount}</span>
+                                                </div>
+                                              ))}
+                                            </div>
+                                          </div>
+                                          <Button onClick={() => handleEdit(selectedUser, 'user')} className="bg-blue-600 hover:bg-blue-700">
+                                            <Edit className="h-4 w-4 mr-2" />
+                                            Edit User
+                                          </Button>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </DialogContent>
+                              </Dialog>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
                     </TableBody>
                   </Table>
                 </div>
@@ -423,28 +464,34 @@ export default function DatabasePage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {paginateStats(statsPage).map((stat) => (
-                        <TableRow key={stat.id} className="border-slate-700 hover:bg-slate-700/30">
-                          <TableCell className="text-white font-medium">{stat.username}</TableCell>
-                          <TableCell className="text-slate-300">{stat.level}</TableCell>
-                          <TableCell>
-                            <Badge className="bg-cyan-600">{stat.rank}</Badge>
-                          </TableCell>
-                          <TableCell className="text-slate-300">{stat.bestScore.toLocaleString()}</TableCell>
-                          <TableCell className="text-slate-300">{stat.winRate}%</TableCell>
-                          <TableCell>
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              onClick={() => setSelectedPlayerStat(stat)}
-                              className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
-                            >
-                              <Edit className="h-3 w-3 mr-1" />
-                              View
-                            </Button>
-                          </TableCell>
+                      {queryLoading ? (
+                        <TableRow>
+                          <TableCell colSpan={6} className="text-center text-slate-400 py-10">Loading data...</TableCell>
                         </TableRow>
-                      ))}
+                      ) : (
+                        paginateStats(statsPage).map((stat) => (
+                          <TableRow key={stat.id} className="border-slate-700 hover:bg-slate-700/30">
+                            <TableCell className="text-white font-medium">{stat.username}</TableCell>
+                            <TableCell className="text-slate-300">{stat.level}</TableCell>
+                            <TableCell>
+                              <Badge className="bg-cyan-600">{stat.rank}</Badge>
+                            </TableCell>
+                            <TableCell className="text-slate-300">{stat.bestScore.toLocaleString()}</TableCell>
+                            <TableCell className="text-slate-300">{stat.winRate}%</TableCell>
+                            <TableCell>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => setSelectedPlayerStat(stat)}
+                                className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                              >
+                                <Edit className="h-3 w-3 mr-1" />
+                                View
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
                     </TableBody>
                   </Table>
                 </div>
@@ -481,34 +528,40 @@ export default function DatabasePage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {paginateSessions(sessionsPage).map((session) => (
-                        <TableRow key={session.id} className="border-slate-700 hover:bg-slate-700/30">
-                          <TableCell className="text-white font-medium">#{session.id}</TableCell>
-                          <TableCell className="text-slate-300">{session.username}</TableCell>
-                          <TableCell className="text-slate-300">{session.gameType}</TableCell>
-                          <TableCell className="text-slate-300">{session.duration}m</TableCell>
-                          <TableCell>
-                            <Badge className={
-                              session.result === 'win' ? 'bg-green-600' : 
-                              session.result === 'loss' ? 'bg-red-600' : 'bg-yellow-600'
-                            }>
-                              {session.result}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-slate-300">{session.score.toLocaleString()}</TableCell>
-                          <TableCell>
-                            <Button 
-                              variant="outline" 
-                              size="sm"
-                              onClick={() => setSelectedGameSession(session)}
-                              className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
-                            >
-                              <Edit className="h-3 w-3 mr-1" />
-                              View
-                            </Button>
-                          </TableCell>
+                      {queryLoading ? (
+                        <TableRow>
+                          <TableCell colSpan={7} className="text-center text-slate-400 py-10">Loading data...</TableCell>
                         </TableRow>
-                      ))}
+                      ) : (
+                        paginateSessions(sessionsPage).map((session) => (
+                          <TableRow key={session.id} className="border-slate-700 hover:bg-slate-700/30">
+                            <TableCell className="text-white font-medium">#{session.id}</TableCell>
+                            <TableCell className="text-slate-300">{session.username}</TableCell>
+                            <TableCell className="text-slate-300">{session.gameType}</TableCell>
+                            <TableCell className="text-slate-300">{session.duration}m</TableCell>
+                            <TableCell>
+                              <Badge className={
+                                session.result === 'win' ? 'bg-green-600' : 
+                                session.result === 'loss' ? 'bg-red-600' : 'bg-yellow-600'
+                              }>
+                                {session.result}
+                              </Badge>
+                            </TableCell>
+                            <TableCell className="text-slate-300">{session.score.toLocaleString()}</TableCell>
+                            <TableCell>
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => setSelectedGameSession(session)}
+                                className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                              >
+                                <Edit className="h-3 w-3 mr-1" />
+                                View
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
                     </TableBody>
                   </Table>
                 </div>

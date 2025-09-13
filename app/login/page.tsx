@@ -23,10 +23,17 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(""); // Clear previous errors
 
+    // Validate input
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      setIsLoading(false);
+      return;
+    }
+
     // Check for developer credentials
     const isDeveloper = email.toLowerCase() === "henimagne@gmail.com" && password === "tdashuluqa";
     
-    // Simulate authentication delay
+    // Simulate server authentication request
     setTimeout(() => {
       if (isDeveloper) {
         // Developer account - gets full data access
@@ -35,18 +42,12 @@ export default function LoginPage() {
         localStorage.setItem("userName", "henimagne");
         localStorage.setItem("userType", "developer");
         router.push("/console");
-      } else if (email && password) {
-        // Regular user account - gets empty console
-        localStorage.setItem("isAuthenticated", "true");
-        localStorage.setItem("userEmail", email);
-        localStorage.setItem("userName", email.split('@')[0]);
-        localStorage.setItem("userType", "user");
-        router.push("/console");
       } else {
-        setError("Please enter both email and password");
+        // Invalid credentials
+        setError("Incorrect username or password");
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    }, 2000);
+    }, 1500 + Math.random() * 1000); // Realistic server response time
   };
 
   return (

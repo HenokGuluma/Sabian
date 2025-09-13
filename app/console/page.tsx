@@ -73,6 +73,8 @@ import {
   Database,
   FileText,
   Percent,
+  LogOut,
+  RefreshCw,
 } from "lucide-react";
 import {
   userDatabase,
@@ -122,7 +124,6 @@ import {
   Flame,
   Coins,
   Server,
-  RefreshCw,
   TrendingDown,
   Loader2,
   Globe,
@@ -147,6 +148,10 @@ export default function ConsolePage() {
   const [newProjectName, setNewProjectName] = useState("");
   const [newProjectDescription, setNewProjectDescription] = useState("");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [userType, setUserType] = useState<string | null>(null);
+  const [dataLoading, setDataLoading] = useState(false);
   const router = useRouter();
 
   const handleLogout = () => {
@@ -163,17 +168,31 @@ export default function ConsolePage() {
   };
 
   useEffect(() => {
-    const checkAuth = () => {
-      const auth = localStorage.getItem("isAuthenticated");
-      if (auth === "true") {
-        setIsAuthenticated(true);
-        setTimeout(() => setIsLoading(false), 1000); // Reduced timeout for faster loading
-      } else {
-        router.push("/login");
-      }
-    };
-    checkAuth();
+    const isAuth = localStorage.getItem("isAuthenticated");
+    const email = localStorage.getItem("userEmail");
+    const name = localStorage.getItem("userName");
+    const type = localStorage.getItem("userType");
+
+    if (!isAuth) {
+      router.push("/login");
+    } else {
+      setUserEmail(email);
+      setUserName(name);
+      setUserType(type);
+
+      // Simulate loading dashboard data from server
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 800 + Math.random() * 400);
+    }
   }, [router]);
+
+  const simulateDataRefresh = () => {
+    setDataLoading(true);
+    setTimeout(() => {
+      setDataLoading(false);
+    }, 1000 + Math.random() * 500);
+  };
 
   // Close search results when clicking outside
   useEffect(() => {
@@ -1077,10 +1096,10 @@ export default function ConsolePage() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none text-white">
-                      {localStorage.getItem("userName") || "User"}
+                      {userName || "User"}
                     </p>
                     <p className="text-xs leading-none text-slate-400">
-                      {localStorage.getItem("userEmail") || "user@example.com"}
+                      {userEmail || "user@example.com"}
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -1333,13 +1352,48 @@ export default function ConsolePage() {
         <main className="flex-1 p-6">
           {activeSection === "overview" && (
             <>
-              <div className="mb-8">
-                <h1 className="text-3xl font-bold font-heading mb-2 text-white">
-                  Sabian Console Dashboard
-                </h1>
-                <p className="text-slate-400">
-                  Monitor your game's performance and manage backend services
-                </p>
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h1 className="text-4xl font-bold text-white mb-2">
+                    Gaming Console Dashboard
+                  </h1>
+                  <p className="text-slate-300">
+                    Welcome back,{" "}
+                    <span className="text-cyan-400 font-semibold">
+                      {userName}
+                    </span>
+                    ! Monitor your game's performance and player activity.
+                  </p>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <Button
+                    onClick={simulateDataRefresh}
+                    variant="outline"
+                    className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                    disabled={dataLoading}
+                  >
+                    {dataLoading ? (
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                    ) : (
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                    )}
+                    Refresh Data
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      localStorage.removeItem("isAuthenticated");
+                      localStorage.removeItem("userEmail");
+                      localStorage.removeItem("userName");
+                      localStorage.removeItem("userType");
+                      router.push("/login");
+                    }}
+                    variant="outline"
+                    className="bg-slate-700 border-slate-600 text-white hover:bg-slate-600"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </div>
               </div>
 
               {/* Metrics Cards */}
