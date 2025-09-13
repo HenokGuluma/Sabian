@@ -10,3 +10,22 @@ run = ["sh", "-c", "npm run dev"]
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[agent]
+expertMode = true
+
+[workflows]
+runButton = "Install and Run"
+
+[[workflows.workflow]]
+name = "Install and Run"
+author = 47354105
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
