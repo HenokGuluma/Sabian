@@ -160,6 +160,32 @@ export default function ConsolePage() {
     startDate: "",
     endDate: "",
   });
+  const [showDeployServerDialog, setShowDeployServerDialog] = useState(false);
+  const [showSendNotificationDialog, setShowSendNotificationDialog] = useState(false);
+  const [showNewCollectionDialog, setShowNewCollectionDialog] = useState(false);
+  const [showExportDataDialog, setShowExportDataDialog] = useState(false);
+  const [serverData, setServerData] = useState({
+    name: "",
+    region: "us-east-1",
+    type: "game-server",
+    capacity: "100",
+  });
+  const [notificationData, setNotificationData] = useState({
+    title: "",
+    message: "",
+    target: "all",
+    priority: "normal",
+  });
+  const [collectionData, setCollectionData] = useState({
+    name: "",
+    description: "",
+    schema: "flexible",
+  });
+  const [exportData, setExportData] = useState({
+    collections: [] as string[],
+    format: "json",
+    dateRange: "all",
+  });
   const router = useRouter();
 
   const handleLogout = () => {
@@ -239,6 +265,67 @@ export default function ConsolePage() {
       });
       // Here you would typically add the new event to your data or call an API
     }, 1500);
+  };
+
+  const handleDeployServer = () => {
+    setDataLoading(true);
+    console.log("Deploying new server:", serverData);
+    setTimeout(() => {
+      setDataLoading(false);
+      setShowDeployServerDialog(false);
+      setServerData({
+        name: "",
+        region: "us-east-1",
+        type: "game-server",
+        capacity: "100",
+      });
+    }, 2000 + Math.random() * 1000);
+  };
+
+  const handleSendNotification = () => {
+    setDataLoading(true);
+    console.log("Sending notification:", notificationData);
+    setTimeout(() => {
+      setDataLoading(false);
+      setShowSendNotificationDialog(false);
+      setNotificationData({
+        title: "",
+        message: "",
+        target: "all",
+        priority: "normal",
+      });
+    }, 1200 + Math.random() * 800);
+  };
+
+  const handleCreateCollection = () => {
+    setDataLoading(true);
+    console.log("Creating new collection:", collectionData);
+    setTimeout(() => {
+      setDataLoading(false);
+      setShowNewCollectionDialog(false);
+      setCollectionData({
+        name: "",
+        description: "",
+        schema: "flexible",
+      });
+    }, 1800 + Math.random() * 700);
+  };
+
+  const handleExportData = () => {
+    setDataLoading(true);
+    console.log("Exporting data:", exportData);
+    setTimeout(() => {
+      setDataLoading(false);
+      setShowExportDataDialog(false);
+      // Simulate file download
+      const element = document.createElement("a");
+      const file = new Blob(['{"exported": "data"}'], {type: 'application/json'});
+      element.href = URL.createObjectURL(file);
+      element.download = `database-export-${Date.now()}.${exportData.format}`;
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }, 3000 + Math.random() * 2000);
   };
 
   if (isLoading) {
@@ -1844,15 +1931,119 @@ export default function ConsolePage() {
                     Manage your dedicated game servers worldwide
                   </p>
                 </div>
-                <Button
-                  onClick={() =>
-                    console.log("Deploy New Server button clicked")
-                  } /* Placeholder for Deploy New Server functionality */
-                  className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                <Dialog
+                  open={showDeployServerDialog}
+                  onOpenChange={setShowDeployServerDialog}
                 >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Deploy New Server
-                </Button>
+                  <DialogTrigger asChild>
+                    <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Deploy New Server
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                    <DialogHeader>
+                      <DialogTitle>Deploy New Game Server</DialogTitle>
+                      <DialogDescription className="text-slate-400">
+                        Deploy a new dedicated game server in your preferred region
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 pt-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="server-name" className="text-white">
+                          Server Name
+                        </Label>
+                        <Input
+                          id="server-name"
+                          placeholder="Enter server name"
+                          value={serverData.name}
+                          onChange={(e) =>
+                            setServerData({ ...serverData, name: e.target.value })
+                          }
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="server-region" className="text-white">
+                          Region
+                        </Label>
+                        <Select
+                          value={serverData.region}
+                          onValueChange={(value) =>
+                            setServerData({ ...serverData, region: value })
+                          }
+                        >
+                          <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-800 border-slate-700">
+                            <SelectItem value="us-east-1">US East (Virginia)</SelectItem>
+                            <SelectItem value="us-west-1">US West (California)</SelectItem>
+                            <SelectItem value="eu-west-1">EU West (Ireland)</SelectItem>
+                            <SelectItem value="asia-1">Asia Pacific (Singapore)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="server-type" className="text-white">
+                          Server Type
+                        </Label>
+                        <Select
+                          value={serverData.type}
+                          onValueChange={(value) =>
+                            setServerData({ ...serverData, type: value })
+                          }
+                        >
+                          <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-800 border-slate-700">
+                            <SelectItem value="game-server">Game Server</SelectItem>
+                            <SelectItem value="match-server">Match Server</SelectItem>
+                            <SelectItem value="lobby-server">Lobby Server</SelectItem>
+                            <SelectItem value="tournament-server">Tournament Server</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="server-capacity" className="text-white">
+                          Max Players
+                        </Label>
+                        <Input
+                          id="server-capacity"
+                          type="number"
+                          placeholder="100"
+                          value={serverData.capacity}
+                          onChange={(e) =>
+                            setServerData({ ...serverData, capacity: e.target.value })
+                          }
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button
+                          variant="outline"
+                          onClick={() => setShowDeployServerDialog(false)}
+                          className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={handleDeployServer}
+                          disabled={!serverData.name || dataLoading}
+                          className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                        >
+                          {dataLoading ? (
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          ) : (
+                            <Server className="w-4 h-4 mr-2" />
+                          )}
+                          {dataLoading ? "Deploying..." : "Deploy Server"}
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -2035,13 +2226,119 @@ export default function ConsolePage() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button
-                    onClick={() => console.log("Send Notification button clicked")}
-                    className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                  <Dialog
+                    open={showSendNotificationDialog}
+                    onOpenChange={setShowSendNotificationDialog}
                   >
-                    <Mail className="w-4 h-4 mr-2" />
-                    Send Notification
-                  </Button>
+                    <DialogTrigger asChild>
+                      <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                        <Mail className="w-4 h-4 mr-2" />
+                        Send Notification
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                      <DialogHeader>
+                        <DialogTitle>Send Player Notification</DialogTitle>
+                        <DialogDescription className="text-slate-400">
+                          Send a notification to your players about updates, events, or important information
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4 pt-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="notification-title" className="text-white">
+                            Notification Title
+                          </Label>
+                          <Input
+                            id="notification-title"
+                            placeholder="Enter notification title"
+                            value={notificationData.title}
+                            onChange={(e) =>
+                              setNotificationData({ ...notificationData, title: e.target.value })
+                            }
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="notification-message" className="text-white">
+                            Message
+                          </Label>
+                          <Textarea
+                            id="notification-message"
+                            placeholder="Enter your message"
+                            value={notificationData.message}
+                            onChange={(e) =>
+                              setNotificationData({ ...notificationData, message: e.target.value })
+                            }
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="notification-target" className="text-white">
+                            Target Audience
+                          </Label>
+                          <Select
+                            value={notificationData.target}
+                            onValueChange={(value) =>
+                              setNotificationData({ ...notificationData, target: value })
+                            }
+                          >
+                            <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-700">
+                              <SelectItem value="all">All Players</SelectItem>
+                              <SelectItem value="online">Online Players</SelectItem>
+                              <SelectItem value="premium">Premium Players</SelectItem>
+                              <SelectItem value="new">New Players</SelectItem>
+                              <SelectItem value="inactive">Inactive Players</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="notification-priority" className="text-white">
+                            Priority
+                          </Label>
+                          <Select
+                            value={notificationData.priority}
+                            onValueChange={(value) =>
+                              setNotificationData({ ...notificationData, priority: value })
+                            }
+                          >
+                            <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-700">
+                              <SelectItem value="low">Low</SelectItem>
+                              <SelectItem value="normal">Normal</SelectItem>
+                              <SelectItem value="high">High</SelectItem>
+                              <SelectItem value="urgent">Urgent</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="flex justify-end space-x-2 pt-4">
+                          <Button
+                            variant="outline"
+                            onClick={() => setShowSendNotificationDialog(false)}
+                            className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            onClick={handleSendNotification}
+                            disabled={!notificationData.title || !notificationData.message || dataLoading}
+                            className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                          >
+                            {dataLoading ? (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                              <Bell className="w-4 h-4 mr-2" />
+                            )}
+                            {dataLoading ? "Sending..." : "Send Notification"}
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
 
@@ -2585,21 +2882,213 @@ export default function ConsolePage() {
                       Browse Database Console
                     </Button>
                   </Link>
-                  <Button
-                    onClick={() => console.log("Export Data button clicked")}
-                    variant="outline"
-                    className="bg-slate-800/50 border-slate-600 text-white"
+                  <Dialog
+                    open={showExportDataDialog}
+                    onOpenChange={setShowExportDataDialog}
                   >
-                    <Download className="w-4 h-4 mr-2" />
-                    Export Data
-                  </Button>
-                  <Button
-                    onClick={() => console.log("New Collection button clicked")}
-                    className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="bg-slate-800/50 border-slate-600 text-white hover:bg-slate-700/50"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Export Data
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                      <DialogHeader>
+                        <DialogTitle>Export Database</DialogTitle>
+                        <DialogDescription className="text-slate-400">
+                          Export your game data for backup or analysis
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4 pt-4">
+                        <div className="space-y-2">
+                          <Label className="text-white">Collections to Export</Label>
+                          <div className="space-y-2">
+                            {databaseCollections.map((collection) => (
+                              <div key={collection.name} className="flex items-center space-x-2">
+                                <input
+                                  type="checkbox"
+                                  id={collection.name}
+                                  checked={exportData.collections.includes(collection.name)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setExportData({
+                                        ...exportData,
+                                        collections: [...exportData.collections, collection.name]
+                                      });
+                                    } else {
+                                      setExportData({
+                                        ...exportData,
+                                        collections: exportData.collections.filter(c => c !== collection.name)
+                                      });
+                                    }
+                                  }}
+                                  className="rounded border-slate-600 bg-slate-700/50"
+                                />
+                                <label htmlFor={collection.name} className="text-white text-sm">
+                                  {collection.name} ({collection.documents.toLocaleString()} docs, {collection.size})
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="export-format" className="text-white">
+                            Export Format
+                          </Label>
+                          <Select
+                            value={exportData.format}
+                            onValueChange={(value) =>
+                              setExportData({ ...exportData, format: value })
+                            }
+                          >
+                            <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-700">
+                              <SelectItem value="json">JSON</SelectItem>
+                              <SelectItem value="csv">CSV</SelectItem>
+                              <SelectItem value="xml">XML</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="export-range" className="text-white">
+                            Date Range
+                          </Label>
+                          <Select
+                            value={exportData.dateRange}
+                            onValueChange={(value) =>
+                              setExportData({ ...exportData, dateRange: value })
+                            }
+                          >
+                            <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-700">
+                              <SelectItem value="all">All Time</SelectItem>
+                              <SelectItem value="last-week">Last Week</SelectItem>
+                              <SelectItem value="last-month">Last Month</SelectItem>
+                              <SelectItem value="last-year">Last Year</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="flex justify-end space-x-2 pt-4">
+                          <Button
+                            variant="outline"
+                            onClick={() => setShowExportDataDialog(false)}
+                            className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            onClick={handleExportData}
+                            disabled={exportData.collections.length === 0 || dataLoading}
+                            className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                          >
+                            {dataLoading ? (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                              <Download className="w-4 h-4 mr-2" />
+                            )}
+                            {dataLoading ? "Exporting..." : "Export Data"}
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <Dialog
+                    open={showNewCollectionDialog}
+                    onOpenChange={setShowNewCollectionDialog}
                   >
-                    <Plus className="w-4 h-4 mr-2" />
-                    New Collection
-                  </Button>
+                    <DialogTrigger asChild>
+                      <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                        <Plus className="w-4 h-4 mr-2" />
+                        New Collection
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                      <DialogHeader>
+                        <DialogTitle>Create New Collection</DialogTitle>
+                        <DialogDescription className="text-slate-400">
+                          Create a new database collection to store game data
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4 pt-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="collection-name" className="text-white">
+                            Collection Name
+                          </Label>
+                          <Input
+                            id="collection-name"
+                            placeholder="Enter collection name"
+                            value={collectionData.name}
+                            onChange={(e) =>
+                              setCollectionData({ ...collectionData, name: e.target.value })
+                            }
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="collection-description" className="text-white">
+                            Description
+                          </Label>
+                          <Textarea
+                            id="collection-description"
+                            placeholder="Describe what this collection will store"
+                            value={collectionData.description}
+                            onChange={(e) =>
+                              setCollectionData({ ...collectionData, description: e.target.value })
+                            }
+                            className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="collection-schema" className="text-white">
+                            Schema Type
+                          </Label>
+                          <Select
+                            value={collectionData.schema}
+                            onValueChange={(value) =>
+                              setCollectionData({ ...collectionData, schema: value })
+                            }
+                          >
+                            <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-slate-800 border-slate-700">
+                              <SelectItem value="flexible">Flexible Schema</SelectItem>
+                              <SelectItem value="strict">Strict Schema</SelectItem>
+                              <SelectItem value="validation">Validation Rules</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="flex justify-end space-x-2 pt-4">
+                          <Button
+                            variant="outline"
+                            onClick={() => setShowNewCollectionDialog(false)}
+                            className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            onClick={handleCreateCollection}
+                            disabled={!collectionData.name || dataLoading}
+                            className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                          >
+                            {dataLoading ? (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                              <Database className="w-4 h-4 mr-2" />
+                            )}
+                            {dataLoading ? "Creating..." : "Create Collection"}
+                          </Button>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
 
