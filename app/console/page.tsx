@@ -152,6 +152,14 @@ export default function ConsolePage() {
   const [userName, setUserName] = useState<string | null>(null);
   const [userType, setUserType] = useState<string | null>(null);
   const [dataLoading, setDataLoading] = useState(false);
+  const [showCreateEventDialog, setShowCreateEventDialog] = useState(false);
+  const [eventData, setEventData] = useState({
+    name: "",
+    description: "",
+    type: "double_xp",
+    startDate: "",
+    endDate: "",
+  });
   const router = useRouter();
 
   const handleLogout = () => {
@@ -214,6 +222,23 @@ export default function ConsolePage() {
     // Check if this is a developer account
     const userType = localStorage.getItem("userType");
     return userType === "developer";
+  };
+
+  const handleCreateEvent = () => {
+    setDataLoading(true);
+    console.log("Creating new event:", eventData);
+    setTimeout(() => {
+      setDataLoading(false);
+      setShowCreateEventDialog(false);
+      setEventData({
+        name: "",
+        description: "",
+        type: "double_xp",
+        startDate: "",
+        endDate: "",
+      });
+      // Here you would typically add the new event to your data or call an API
+    }, 1500);
   };
 
   if (isLoading) {
@@ -1819,7 +1844,12 @@ export default function ConsolePage() {
                     Manage your dedicated game servers worldwide
                   </p>
                 </div>
-                <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                <Button
+                  onClick={() =>
+                    console.log("Deploy New Server button clicked")
+                  } /* Placeholder for Deploy New Server functionality */
+                  className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                >
                   <Plus className="w-4 h-4 mr-2" />
                   Deploy New Server
                 </Button>
@@ -2005,7 +2035,10 @@ export default function ConsolePage() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                  <Button
+                    onClick={() => console.log("Send Notification button clicked")}
+                    className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                  >
                     <Mail className="w-4 h-4 mr-2" />
                     Send Notification
                   </Button>
@@ -2164,10 +2197,153 @@ export default function ConsolePage() {
                     Manage live events and campaigns
                   </p>
                 </div>
-                <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Event
-                </Button>
+                <Dialog
+                  open={showCreateEventDialog}
+                  onOpenChange={setShowCreateEventDialog}
+                >
+                  <DialogTrigger asChild>
+                    <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create Event
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-slate-800 border-slate-700 text-white">
+                    <DialogHeader>
+                      <DialogTitle>Create New Live Event</DialogTitle>
+                      <DialogDescription className="text-slate-400">
+                        Launch a new live event for your players
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4 pt-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="event-name" className="text-white">
+                          Event Name
+                        </Label>
+                        <Input
+                          id="event-name"
+                          placeholder="Enter event name"
+                          value={eventData.name}
+                          onChange={(e) =>
+                            setEventData({ ...eventData, name: e.target.value })
+                          }
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="event-description"
+                          className="text-white"
+                        >
+                          Description
+                        </Label>
+                        <Textarea
+                          id="event-description"
+                          placeholder="Describe your event"
+                          value={eventData.description}
+                          onChange={(e) =>
+                            setEventData({
+                              ...eventData,
+                              description: e.target.value,
+                            })
+                          }
+                          className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="event-type" className="text-white">
+                          Event Type
+                        </Label>
+                        <Select
+                          value={eventData.type}
+                          onValueChange={(value) =>
+                            setEventData({ ...eventData, type: value })
+                          }
+                        >
+                          <SelectTrigger className="bg-slate-700/50 border-slate-600 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-slate-800 border-slate-700">
+                            <SelectItem value="double_xp">
+                              Double XP Weekend
+                            </SelectItem>
+                            <SelectItem value="sale">Item Sale</SelectItem>
+                            <SelectItem value="tournament">Tournament</SelectItem>
+                            <SelectItem value="boss_battle">
+                              Boss Battle
+                            </SelectItem>
+                            <SelectItem value="limited_time">
+                              Limited Time Offer
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label
+                            htmlFor="event-start"
+                            className="text-white"
+                          >
+                            Start Date & Time
+                          </Label>
+                          <Input
+                            id="event-start"
+                            type="datetime-local"
+                            value={eventData.startDate}
+                            onChange={(e) =>
+                              setEventData({
+                                ...eventData,
+                                startDate: e.target.value,
+                              })
+                            }
+                            className="bg-slate-700/50 border-slate-600 text-white"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="event-end" className="text-white">
+                            End Date & Time
+                          </Label>
+                          <Input
+                            id="event-end"
+                            type="datetime-local"
+                            value={eventData.endDate}
+                            onChange={(e) =>
+                              setEventData({
+                                ...eventData,
+                                endDate: e.target.value,
+                              })
+                            }
+                            className="bg-slate-700/50 border-slate-600 text-white"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button
+                          variant="outline"
+                          onClick={() => setShowCreateEventDialog(false)}
+                          className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          onClick={handleCreateEvent}
+                          disabled={
+                            !eventData.name ||
+                            !eventData.description ||
+                            dataLoading
+                          }
+                          className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                        >
+                          {dataLoading ? (
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          ) : (
+                            <Gift className="w-4 h-4 mr-2" />
+                          )}
+                          {dataLoading ? "Creating..." : "Create Event"}
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -2326,6 +2502,10 @@ export default function ConsolePage() {
                       </label>
                       <Input
                         placeholder="Enter event name"
+                        value={eventData.name}
+                        onChange={(e) =>
+                          setEventData({ ...eventData, name: e.target.value })
+                        }
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
@@ -2335,6 +2515,13 @@ export default function ConsolePage() {
                       </label>
                       <Input
                         placeholder="Enter event description"
+                        value={eventData.description}
+                        onChange={(e) =>
+                          setEventData({
+                            ...eventData,
+                            description: e.target.value,
+                          })
+                        }
                         className="bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400"
                       />
                     </div>
@@ -2344,6 +2531,10 @@ export default function ConsolePage() {
                       </label>
                       <Input
                         type="datetime-local"
+                        value={eventData.startDate}
+                        onChange={(e) =>
+                          setEventData({ ...eventData, startDate: e.target.value })
+                        }
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
                     </div>
@@ -2353,10 +2544,20 @@ export default function ConsolePage() {
                       </label>
                       <Input
                         type="datetime-local"
+                        value={eventData.endDate}
+                        onChange={(e) =>
+                          setEventData({ ...eventData, endDate: e.target.value })
+                        }
                         className="bg-slate-700/50 border-slate-600 text-white"
                       />
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                    <Button
+                      onClick={handleCreateEvent}
+                      disabled={
+                        !eventData.name || !eventData.description || dataLoading
+                      }
+                      className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                    >
                       <Gift className="w-4 h-4 mr-2" />
                       Create Event
                     </Button>
@@ -2385,13 +2586,17 @@ export default function ConsolePage() {
                     </Button>
                   </Link>
                   <Button
+                    onClick={() => console.log("Export Data button clicked")}
                     variant="outline"
                     className="bg-slate-800/50 border-slate-600 text-white"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Export Data
                   </Button>
-                  <Button className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white">
+                  <Button
+                    onClick={() => console.log("New Collection button clicked")}
+                    className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white"
+                  >
                     <Plus className="w-4 h-4 mr-2" />
                     New Collection
                   </Button>
