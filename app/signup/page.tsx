@@ -95,10 +95,10 @@ export default function SignupPage() {
               <Gamepad2 className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-4xl font-bold font-heading bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-              Join Sabian
+              Join Zemen
             </h1>
             <p className="text-slate-300 text-lg">
-              Start your epic gaming journey today
+              Start your epic game dev journey today
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export default function SignupPage() {
                 Create Your Account
               </CardTitle>
               <CardDescription className="text-center text-slate-300">
-                Level up your gaming experience with us
+                Level up your gaming development experience with us
               </CardDescription>
             </CardHeader>
             <CardContent>

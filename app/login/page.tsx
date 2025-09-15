@@ -96,7 +96,7 @@ export default function LoginPage() {
               <Gamepad2 className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-4xl font-bold font-heading bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-2">
-              Sabian Console
+              Zemen Console
             </h1>
             <p className="text-slate-300 text-lg">
               Power up your gaming experience

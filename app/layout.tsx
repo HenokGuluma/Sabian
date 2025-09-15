@@ -17,7 +17,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Sabian - Gaming Backend Platform",
+  title: "Zemen - Gaming Backend Platform",
   description: "The ultimate backend-as-a-service platform tailored for mobile game developers",
   generator: "v0.app",
 }

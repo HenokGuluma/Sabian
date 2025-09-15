@@ -19,7 +19,7 @@ export function TermsConditions({ open, onOpenChange }: TermsConditionsProps) {
           <section>
             <h3 className="text-lg font-semibold mb-2">1. Acceptance of Terms</h3>
             <p className="text-muted-foreground">
-              By accessing and using Bankeru Games services, you accept and agree to be bound by 
+              By accessing and using Zemen Console services, you accept and agree to be bound by 
               the terms and provision of this agreement.
             </p>
           </section>
@@ -27,7 +27,7 @@ export function TermsConditions({ open, onOpenChange }: TermsConditionsProps) {
           <section>
             <h3 className="text-lg font-semibold mb-2">2. Use License</h3>
             <p className="text-muted-foreground">
-              Permission is granted to temporarily use Bankeru Games services for personal, 
+              Permission is granted to temporarily use Zemen Console services for personal, 
               non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
             </p>
           </section>
@@ -35,7 +35,7 @@ export function TermsConditions({ open, onOpenChange }: TermsConditionsProps) {
           <section>
             <h3 className="text-lg font-semibold mb-2">3. Disclaimer</h3>
             <p className="text-muted-foreground">
-              The materials on Bankeru Games are provided on an 'as is' basis. Bankeru Games makes 
+              The materials on Zemen Console are provided on an 'as is' basis. Zemen Console makes 
               no warranties, expressed or implied, and hereby disclaims and negates all other warranties.
             </p>
           </section>
@@ -43,8 +43,8 @@ export function TermsConditions({ open, onOpenChange }: TermsConditionsProps) {
           <section>
             <h3 className="text-lg font-semibold mb-2">4. Limitations</h3>
             <p className="text-muted-foreground">
-              In no event shall Bankeru Games or its suppliers be liable for any damages arising 
-              out of the use or inability to use the materials on Bankeru Games' services.
+              In no event shall Zemen Console or its suppliers be liable for any damages arising 
+              out of the use or inability to use the materials on Zemen Console' services.
             </p>
           </section>
           
@@ -59,7 +59,7 @@ export function TermsConditions({ open, onOpenChange }: TermsConditionsProps) {
           <section>
             <h3 className="text-lg font-semibold mb-2">6. Modifications</h3>
             <p className="text-muted-foreground">
-              Bankeru Games may revise these terms of service at any time without notice. 
+              Zemen Console may revise these terms of service at any time without notice. 
               By using this service, you are agreeing to be bound by the current version of these terms.
             </p>
           </section>

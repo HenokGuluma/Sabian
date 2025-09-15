@@ -494,14 +494,14 @@ export default function ConsolePage() {
         {
           time: "Mar 14, 2025",
           players: 1580,
-          revenue: 263,
+          revenue: 163,
           month: 2,
           year: 2025,
         },
         {
           time: "Mar 21, 2025",
           players: 1750,
-          revenue: 245,
+          revenue: 205,
           month: 2,
           year: 2025,
         },
@@ -524,14 +524,14 @@ export default function ConsolePage() {
         {
           time: "Apr 11, 2025",
           players: 2350,
-          revenue: 380,
+          revenue: 280,
           month: 3,
           year: 2025,
         },
         {
           time: "Apr 18, 2025",
           players: 2650,
-          revenue: 420,
+          revenue: 320,
           month: 3,
           year: 2025,
         },
@@ -561,7 +561,7 @@ export default function ConsolePage() {
         {
           time: "May 16, 2025",
           players: 6200,
-          revenue: 920,
+          revenue: 520,
           month: 4,
           year: 2025,
         },
@@ -575,7 +575,7 @@ export default function ConsolePage() {
         {
           time: "May 30, 2025",
           players: 8500,
-          revenue: 1275,
+          revenue: 1075,
           month: 4,
           year: 2025,
         },
@@ -598,7 +598,7 @@ export default function ConsolePage() {
         {
           time: "Jun 20, 2025",
           players: 12100,
-          revenue: 1800,
+          revenue: 1327,
           month: 5,
           year: 2025,
         },
@@ -1021,7 +1021,7 @@ export default function ConsolePage() {
                 <Gamepad2 className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold font-heading bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">
-                Sabian Console
+                Zemen Console
               </span>
             </Link>
           </div>

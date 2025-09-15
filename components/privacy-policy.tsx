@@ -60,7 +60,7 @@ export function PrivacyPolicy({ open, onOpenChange }: PrivacyPolicyProps) {
           <section>
             <h3 className="text-lg font-semibold mb-2">6. Contact Us</h3>
             <p className="text-muted-foreground">
-              If you have any questions about this Privacy Policy, please contact us at privacy@bankeru.com.
+              If you have any questions about this Privacy Policy, please contact us at info@zemenconsole.com.
             </p>
           </section>
         </div>

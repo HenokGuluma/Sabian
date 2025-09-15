@@ -35,7 +35,7 @@ export default function LandingPage() {
             <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center group-hover:animate-pulse-glow transition-all">
               <Gamepad2 className="w-5 h-5 text-white" />
             </div>
-            <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Sabian</span>
+            <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Zemen Console</span>
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-slate-200 hover:text-white transition-all hover:text-glow font-medium scroll-smooth">
@@ -98,7 +98,7 @@ export default function LandingPage() {
                   className="text-lg px-8 py-6 bg-slate-800/50 backdrop-blur-sm btn-gaming text-white border-slate-600 hover:border-slate-500 hover:bg-slate-700/50 font-semibold"
                   asChild
                 >
-                  <Link href="/console">View Demo</Link>
+                  <Link href="/signup">View Demo</Link>
                 </Button>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function LandingPage() {
                 <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-3">
                   <p className="text-white font-semibold text-base">Connect players globally</p>
                   <p className="text-slate-300 text-xs">
-                    Build games that bring people together with Sabian's social gaming features
+                    Build games that bring people together with Zemen's social gaming features
                   </p>
                 </div>
               </div>
@@ -133,10 +133,10 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white drop-shadow-lg">
               Why Choose{" "}
-              <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Sabian</span>?
+              <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Zemen</span>?
             </h2>
             <p className="text-xl text-slate-200 max-w-3xl mx-auto font-body">
-              Generic backend solutions weren't built for games. We created Sabian specifically to solve the unique
+              Generic backend solutions weren't built for games. We created Zemen specifically to solve the unique
               challenges that keep game developers up at night.
             </p>
           </div>
@@ -372,7 +372,7 @@ export default function LandingPage() {
               </h3>
               <p className="text-lg text-slate-200 mb-6 leading-relaxed font-body">
                 Our team consists of veteran game developers who understand the unique challenges of building successful
-                mobile games. We've experienced the pain points of using generic backend solutions and built Sabian to
+                mobile games. We've experienced the pain points of using generic backend solutions and built Zemen to
                 solve them.
               </p>
               <div className="space-y-4">
@@ -545,7 +545,7 @@ export default function LandingPage() {
               <span className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-transparent">Docs</span>
             </h2>
             <p className="text-xl text-slate-200 max-w-3xl mx-auto font-body">
-              Everything you need to integrate Sabian into your mobile game
+              Everything you need to integrate Zemen into your mobile game
             </p>
           </div>
 
@@ -557,7 +557,7 @@ export default function LandingPage() {
                 </div>
                 <CardTitle className="font-heading text-white">Quick Start</CardTitle>
                 <CardDescription className="text-slate-300 font-body">
-                  Get up and running with Sabian in under 5 minutes
+                  Get up and running with Zemen in under 5 minutes
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -676,7 +676,7 @@ export default function LandingPage() {
                 Ready to Level Up?
               </CardTitle>
               <CardDescription className="text-xl max-w-2xl mx-auto text-slate-200 font-body">
-                Join thousands of game developers who trust Sabian to power their mobile games. Start building your next
+                Join thousands of game developers who trust Zemen to power their mobile games. Start building your next
                 hit game today with our free tier.
               </CardDescription>
             </CardHeader>
@@ -698,7 +698,7 @@ export default function LandingPage() {
                   className="text-lg px-8 py-6 bg-slate-800/50 backdrop-blur-sm btn-gaming text-white border-slate-600 hover:border-slate-500 hover:bg-slate-700/50 font-semibold"
                   asChild
                 >
-                  <Link href="/console">Schedule Demo</Link>
+                  <Link href="/signup">Schedule Demo</Link>
                 </Button>
               </div>
             </CardContent>
@@ -714,7 +714,7 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-lg flex items-center justify-center group-hover:animate-pulse-glow transition-all">
                 <Gamepad2 className="w-5 h-5 text-white" />
               </div>
-              <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Sabian</span>
+              <span className="text-2xl font-bold font-heading text-white drop-shadow-lg">Zemen</span>
             </Link>
             <div className="flex items-center space-x-6 text-sm text-slate-300">
               <button onClick={() => setPrivacyOpen(true)} className="hover:text-white transition-all hover:text-glow font-body">
@@ -726,7 +726,7 @@ export default function LandingPage() {
               <a href="#" className="hover:text-white transition-all hover:text-glow font-body">
                 Support
               </a>
-              <span className="font-body">© 2024 Sabian. All rights reserved.</span>
+              <span className="font-body">© 2024 Zemen. All rights reserved.</span>
             </div>
           </div>
         </div>
