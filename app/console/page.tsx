@@ -2882,7 +2882,7 @@ export default function ConsolePage() {
                       Browse Database Console
                     </Button>
                   </Link>
-                  <Dialog
+                  {/* <Dialog
                     open={showExportDataDialog}
                     onOpenChange={setShowExportDataDialog}
                   >
@@ -2998,7 +2998,7 @@ export default function ConsolePage() {
                         </div>
                       </div>
                     </DialogContent>
-                  </Dialog>
+                  </Dialog> */}
                   <Dialog
                     open={showNewCollectionDialog}
                     onOpenChange={setShowNewCollectionDialog}
